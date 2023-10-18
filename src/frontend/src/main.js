@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import {createRouter} from 'vue-router';
+import {createWebHistory} from 'vue-router';
 
 import 'primevue/resources/themes/arya-orange/theme.css';
 import 'primevue/resources/primevue.min.css';
@@ -14,10 +15,17 @@ import Avatar from 'primevue/avatar';
 import './assets/app.css';
 
 import HomePage from './/components/HomePage.vue'
+import Describer from './/components/Describer.vue'
+import Contact from './/components/Contact.vue'
+import Gallery from './/components/Gallery.vue'
 const routes = [
-  { path: '/', component: HomePage }
+  { path: '/', component: HomePage },
+  { path: '/face-describer', component: Describer },
+  { path: '/contact', component: Contact },
+  { path: '/gallery', component: Gallery }
 ]
 const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
