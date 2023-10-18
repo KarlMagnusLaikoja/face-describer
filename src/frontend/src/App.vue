@@ -1,15 +1,20 @@
 <template>
-  <description-component/>
-  <p>xd</p>
+  <app-header/>
+  <home-page/>
+  <app-footer/>
 </template>
 
 <script>
-import DescriptionComponent from './components/DescriptionComponent.vue'
+import HomePage from './components/HomePage.vue'
+import AppHeader from './components/AppHeader.vue'
+import AppFooter from './components/AppFooter.vue'
 
 export default {
   name: 'App',
   components: {
-    DescriptionComponent
+    HomePage,
+    AppHeader,
+    AppFooter
   }
 }
 </script>
