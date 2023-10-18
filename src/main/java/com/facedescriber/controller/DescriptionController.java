@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PostController {
+public class DescriptionController {
     private static Logger logger = LogManager.getLogger();
     @Autowired
     DescriptionLogic logic;

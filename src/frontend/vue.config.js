@@ -10,7 +10,7 @@ module.exports = {
         port: 3000,
         proxy: {
             '/describe': {
-                target: 'https://localhost:8080/',
+                target: 'https://localhost:8080',
                 ws: true,
                 changeOrigin: true,
 
