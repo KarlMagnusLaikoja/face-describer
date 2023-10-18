@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Description Request",
+  "description": "A request to apply the face-describer algorithm against a supplied image",
+  "type": "object",
+
+  "properties": {
+
+    "image": {
+      "description": "The image in base64 encoding",
+      "type": "string"
+    },
+    "language": {
+      "description": "The language that the algorithm creates it's output in",
+      "type": "string",
+      "enum": ["EN", "EST"]
+    }
+  },
+
+  "required": ["image", "language"]
+}
