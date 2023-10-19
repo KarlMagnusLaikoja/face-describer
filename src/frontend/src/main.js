@@ -15,12 +15,12 @@ import Avatar from 'primevue/avatar';
 import './assets/app.css';
 
 import HomePage from './/components/HomePage.vue'
-import Describer from './/components/Describer.vue'
+import FaceDescriber from './/components/FaceDescriber.vue'
 import Contact from './/components/Contact.vue'
 import Gallery from './/components/Gallery.vue'
 const routes = [
   { path: '/', component: HomePage },
-  { path: '/face-describer', component: Describer },
+  { path: '/face-describer', component: FaceDescriber },
   { path: '/contact', component: Contact },
   { path: '/gallery', component: Gallery }
 ]

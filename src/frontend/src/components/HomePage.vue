@@ -1,8 +1,7 @@
 <template>
-    <div class="main">
+<div class="main">
     <h1>homepage</h1>
-    <br>
-    </div>
+</div>
 </template>
 
 <script>

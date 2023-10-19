@@ -1,9 +1,11 @@
 <template>
-    <h1>describer</h1>
+<div>
+    <h1>image picker</h1>
+</div>
 </template>
 
 <script>
 export default {
-  name: 'Describer'
+  name: 'ImagePicker'
 }
 </script>
