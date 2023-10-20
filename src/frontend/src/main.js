@@ -30,10 +30,23 @@ const router = createRouter({
   routes
 })
 
+const store = new Vuex.Store({
+    state: {
+        languageCode: 'EN',
+    },
+    mutations: {
+        setLanguageCode: (state, languageCode) => state.languageCode = languageCode
+    },
+    actions: {
+        updateLanguageCode(context, languageCode) { context.commit('setLanguageCode', languageCode) }
+    }
+});
+
 const app = createApp(App);
 app.use(PrimeVue);
 app.use(router);
 app.use(Vuex);
+app.use(store);
 app.component('TabMenu', TabMenu);
 app.component('Menu', Menu);
 app.component('Avatar', Avatar);

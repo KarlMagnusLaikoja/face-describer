@@ -7,6 +7,7 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+import {renderLanguage} from './components/AppHeader.vue';
 
 export default {
   name: 'App',
@@ -15,11 +16,7 @@ export default {
     AppFooter
   },
   mounted () {
-       //Hide EE by default
-       const elements_EE = document.getElementsByClassName('EE');
-       for (let i = 0; i < elements_EE.length; i++){
-          elements_EE[i].style.display = 'none';
-       }
+       renderLanguage(this.$store.state.languageCode);
   }
 };
 </script>

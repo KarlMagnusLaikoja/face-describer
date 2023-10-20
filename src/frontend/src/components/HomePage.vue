@@ -8,7 +8,11 @@
 </template>
 
 <script>
+import {renderLanguage} from './AppHeader.vue';
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  mounted () {
+    renderLanguage(this.$store.state.languageCode);
+  }
 }
 </script>
