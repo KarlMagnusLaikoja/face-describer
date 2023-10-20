@@ -11,7 +11,8 @@
     </span>
     <span>
     <i class="pi pi-book"/>
-    <a href = "https://www.google.com" target="_blank">Thesis</a>
+    <a href = "https://www.google.com" target="_blank" class="EN">Thesis</a>
+    <a href = "https://www.google.com" target="_blank" class="EE">Lõputöö</a>
     </span>
     </div>
     </div>

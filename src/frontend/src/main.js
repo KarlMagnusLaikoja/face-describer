@@ -3,6 +3,7 @@ import App from './App.vue';
 import PrimeVue from 'primevue/config';
 import {createRouter} from 'vue-router';
 import {createWebHistory} from 'vue-router';
+import Vuex from 'vuex';
 
 import 'primevue/resources/themes/arya-orange/theme.css';
 import 'primevue/resources/primevue.min.css';
@@ -32,6 +33,7 @@ const router = createRouter({
 const app = createApp(App);
 app.use(PrimeVue);
 app.use(router);
+app.use(Vuex);
 app.component('TabMenu', TabMenu);
 app.component('Menu', Menu);
 app.component('Avatar', Avatar);
