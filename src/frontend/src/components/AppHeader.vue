@@ -4,8 +4,8 @@
 <TabMenu :model="pages_EN" id="pages" class="EN"/>
 <TabMenu :model="pages_EE" id="pages" class="EE"/>
 <div id= "languages">
-<Avatar image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Estonia.svg/255px-Flag_of_Estonia.svg.png" id="estonian" shape="circle" v-on:click="updateLanguageCode('EE');renderLanguage('EE')"/>
-<Avatar image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1200px-Flag_of_the_United_Kingdom_%281-2%29.svg.png" id="english" shape="circle" v-on:click="updateLanguageCode('EN');renderLanguage('EN')"/>
+<Avatar image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Estonia.svg/255px-Flag_of_Estonia.svg.png" id="estonian" shape="circle" v-on:click="updateLanguageCode('EE');pickLanguage('EE');renderLanguage('EE')" size="large"/>
+<Avatar image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1200px-Flag_of_the_United_Kingdom_%281-2%29.svg.png" shape="circle" v-on:click="updateLanguageCode('EN');pickLanguage('EN');renderLanguage('EN')" size="large"/>
 </div>
 </div>
 </div>
@@ -34,6 +34,22 @@ export function renderLanguage(languageCode){
             elements_EE[i].style.display = '';
         }
 }
+function pickLanguage(languageCode){
+    if (languageCode == 'EN'){
+        document.getElementById('estonian').style.border = 'transparent';
+
+        document.getElementById('english').style.border = '';
+        document.getElementById('english').style.borderStyle = 'solid';
+        document.getElementById('english').style.borderColor = 'green';
+        return;
+    }
+    //languageCode == 'EE'
+    document.getElementById('english').style.border = 'transparent';
+
+    document.getElementById('estonian').style.border = '';
+    document.getElementById('estonian').style.borderStyle = 'solid';
+    document.getElementById('estonian').style.borderColor = 'green';
+}
 export default {
   name: 'AppHeader',
   data() {
@@ -54,6 +70,7 @@ export default {
  },
  methods: {
     renderLanguage,
+    pickLanguage,
     updateLanguageCode: function (languageCode) {
         this.$store.dispatch('updateLanguageCode', languageCode)
     }
