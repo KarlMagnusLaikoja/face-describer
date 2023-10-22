@@ -7,7 +7,7 @@ module.exports = {
                 cert: fs.readFileSync('../main/resources/ssl/cert.pem'),
                 passphrase: 'password'
               },
-        port: 3000,
+        port: 443,
         proxy: {
             '/describe': {
                 target: 'https://localhost:8080',
