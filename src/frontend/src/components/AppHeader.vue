@@ -4,14 +4,16 @@
 <TabMenu :model="pages_EN" id="pages" class="EN"/>
 <TabMenu :model="pages_EE" id="pages" class="EE"/>
 <div id= "languages">
-<Avatar image="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Estonia.svg/255px-Flag_of_Estonia.svg.png" id="estonian" shape="circle" v-on:click="updateLanguageCode('EE');pickLanguage('EE');renderLanguage('EE')" size="large"/>
-<Avatar image="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1200px-Flag_of_the_United_Kingdom_%281-2%29.svg.png" id="english" shape="circle" v-on:click="updateLanguageCode('EN');pickLanguage('EN');renderLanguage('EN')" size="large"/>
+<Avatar id="estonian" shape="circle" v-on:click="updateLanguageCode('EE');pickLanguage('EE');renderLanguage('EE')" size="large"/>
+<Avatar id="english" shape="circle" v-on:click="updateLanguageCode('EN');pickLanguage('EN');renderLanguage('EN')" size="large"/>
 </div>
 </div>
 </div>
 </template>
 
 <script>
+import estonianFlag from "../assets/estonianFlag.png";
+import britishFlag from "../assets/britishFlag.png";
 export function renderLanguage(languageCode){
         const elements_EE = document.getElementsByClassName('EE');
         const elements_EN = document.getElementsByClassName('EN');
@@ -65,7 +67,7 @@ export default {
                       {label: 'Face-Describer', icon: 'pi pi-fw pi-cog', to: '/face-describer'},
                       {label: 'Contact', icon: 'pi pi-fw pi-phone', to: '/contact'},
                       {label: 'Gallery', icon: 'pi pi-fw pi-images', to: '/gallery'}
-                  ]
+                  ],
               }
  },
  methods: {
@@ -74,6 +76,11 @@ export default {
     updateLanguageCode: function (languageCode) {
         this.$store.dispatch('updateLanguageCode', languageCode)
     }
-    }
+    },
+ mounted () {
+    //Set images programmatically
+    document.getElementById('estonian').innerHTML = '<img src="'+estonianFlag+'" data-pc-section="image">';
+    document.getElementById('english').innerHTML = '<img src="'+britishFlag+'" data-pc-section="image">';
+ }
  }
 </script>
