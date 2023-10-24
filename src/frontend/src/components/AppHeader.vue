@@ -81,6 +81,9 @@ export default {
     //Set images programmatically
     document.getElementById('estonian').innerHTML = '<img src="'+estonianFlag+'" data-pc-section="image">';
     document.getElementById('english').innerHTML = '<img src="'+britishFlag+'" data-pc-section="image">';
+
+    //Pick chosen language
+    pickLanguage(this.$store.state.languageCode);
  }
  }
 </script>
