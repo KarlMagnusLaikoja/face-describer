@@ -7,7 +7,6 @@
             <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage">test</p></Message>
         </template>
     </FileUpload>
-
 </div>
 
 
@@ -53,7 +52,8 @@ async function describe(event){
     }
 
 
-    //Propagate result
+    //Propagate result to description field
+    //TODO
     console.log(response);
 }
 
