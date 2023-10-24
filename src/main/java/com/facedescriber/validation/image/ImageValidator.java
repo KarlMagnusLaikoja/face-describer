@@ -13,6 +13,7 @@ public class ImageValidator {
     }
 
     public void validate(DescriptionRequest request) throws InvalidBase64Exception {
+
         String image = request.getImage();
         //Remove metadata if present
         if(image.startsWith("data")) image = image.split(",")[1];
