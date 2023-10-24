@@ -27,6 +27,7 @@ const toBase64 = file => new Promise((resolve, reject) => {
 async function describe(event){
     //File to base64
     var image = await toBase64(event.files[0]);
+    console.log(image);
 
     //Get language from store
     const language = this.$store.state.languageCode;

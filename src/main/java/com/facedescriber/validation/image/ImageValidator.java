@@ -13,9 +13,12 @@ public class ImageValidator {
     }
 
     public void validate(DescriptionRequest request) throws InvalidBase64Exception {
+        String image = request.getImage();
+        //Remove metadata if present
+        if(image.startsWith("data")) image = image.split(",")[1];
 
         //should filter out possible command injection when passing input to python
-        if(!request.getImage().matches("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$")) throw new InvalidBase64Exception("Provided image is not base64");
+        if(!image.matches("^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$")) throw new InvalidBase64Exception("Provided image is not base64");
 
 
     }
