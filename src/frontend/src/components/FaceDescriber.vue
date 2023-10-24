@@ -1,11 +1,5 @@
 <template>
-<div class="main EN">
-    <h1>describer</h1>
-    <image-picker/>
-    <description/>
-</div>
-<div class="main EE">
-    <h1>kirjeldaja</h1>
+<div>
     <image-picker/>
     <description/>
 </div>

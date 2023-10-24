@@ -13,7 +13,7 @@
     "language": {
       "description": "The language that the algorithm creates it's output in",
       "type": "string",
-      "enum": ["EN", "EST"]
+      "enum": ["EN", "EE"]
     }
   },
 

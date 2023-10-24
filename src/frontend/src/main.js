@@ -13,6 +13,8 @@ import 'primeicons/primeicons.css';
 import TabMenu from 'primevue/tabmenu';
 import Menu from 'primevue/menu';
 import Avatar from 'primevue/avatar';
+import FileUpload from 'primevue/fileupload';
+import Message from 'primevue/message';
 
 import './assets/app.css';
 
@@ -51,4 +53,6 @@ app.use(store);
 app.component('TabMenu', TabMenu);
 app.component('Menu', Menu);
 app.component('Avatar', Avatar);
+app.component('FileUpload', FileUpload);
+app.component('Message', Message);
 app.mount('#app');
