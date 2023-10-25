@@ -1,20 +1,44 @@
 <template>
 <div>
-    <image-picker/>
-    <description v-bind:image="image" v-bind:description="description"/>
-        <h1>{{image}}</h1>
-        <h1>{{description}}</h1>
+    <div class = "main EN">
+        <h1>Pick an image</h1>
+        <FileUpload id="fileUpload" url="/describe" :multiple="false" accept="image/*" :maxFileSize="1000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage">
+            <template #empty>
+                <p>Drag and drop files to here to upload.</p>
+                <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
+            </template>
+        </FileUpload>
+        <description v-if="image" v-bind:image="image"/>
+    </div>
+
+
+
+    <div class = "main EE">
+        <h1>Vali pilt</h1>
+    </div>
+
 </div>
 </template>
 
 <script>
-import ImagePicker from './ImagePicker.vue'
 import Description from './Description.vue'
 import {renderLanguage} from './AppHeader.vue';
+
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+});
+async function setImage(event){
+    //File to base64
+    this.image = await toBase64(event.files[0]);
+
+}
+
 export default {
   name: 'FaceDescriber',
   components: {
-    ImagePicker,
     Description
   },
   mounted () {
@@ -22,9 +46,11 @@ export default {
   },
   data() {
           return {
-              image: '1',
-              description: '2'
-          }
-      }
+                          image: null
+                      }
+      },
+  methods: {
+    setImage
+  }
 }
 </script>
