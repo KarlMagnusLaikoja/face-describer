@@ -13,10 +13,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.Base64;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
 public class DescriptionLogic {
@@ -41,7 +42,9 @@ public class DescriptionLogic {
         logger.info("Starting DescriptionLogic with data: "+data);
         try{
             DescriptionRequest request = validate(data);
-            String descriptionResult = runFaceDescriberPy(request);
+            String fileName = saveImage(request.getImage()); //Can't use base64 image directly because it can be too long. Need to save to a file instead.
+            String descriptionResult = executeDescription(fileName, request.getLanguage());
+            deleteImage(fileName);
             return createResponse(BackendError.OK.getErrorCode(), null, descriptionResult);
         } catch (MissingFieldException e) {
             logger.warn("Error "+BackendError.MISSING_FIELD.getErrorCode()+": "+e.getMessage());
@@ -81,6 +84,28 @@ public class DescriptionLogic {
         }
     }
 
+    private void deleteImage(String image) throws IOException {
+        if(!new File(image).delete()){
+            logger.error("Failed to delete temporary image: "+image);
+            throw new IOException("Failed to delete temporary image: "+image);
+        }
+}
+
+    private String saveImage(String image) throws IOException {
+        String fileName = ThreadLocalRandom.current().nextInt()+".png";
+
+        //Don't need the data:... part
+        image = image.split(",")[1];
+
+        //Write the image to file
+        ImageIO.write(
+                ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(image))),
+                "png",
+                new File(fileName)
+        );
+        return fileName;
+    }
+
     private String createResponse(int errorCode, String errorMessage, String descriptionResult) {
         try {
             return mapper.writeValueAsString(
@@ -104,17 +129,15 @@ public class DescriptionLogic {
         return request;
     }
 
-    private String runFaceDescriberPy(DescriptionRequest request) throws InterruptedException, IOException {
-        String image = request.getImage();
-        String language = request.getLanguage();
-        ProcessBuilder processBuilder = new ProcessBuilder("python3", "RequestHandler.py", image, language);
+    private String executeDescription(String fileName, String language) throws InterruptedException, IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder("python3", "RequestHandler.py", fileName, language);
         processBuilder.directory(new File("src/main/python"));
         processBuilder.redirectErrorStream(true);
         logger.info(
                 String.format("Executing OS command: %s %s %s %s",
                         "python3",
                         "RequestHandler.py",
-                        image,
+                        fileName,
                         language)
         );
         Process process = processBuilder.start();
