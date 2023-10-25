@@ -19,10 +19,6 @@ export default {
   },
   mounted () {
     renderLanguage(this.$store.state.languageCode);
-    //Describe images in gallery
-    /*for (let i = 0; i < this.$refs.images.length; i++){
-        this.$refs.images[i].describe();
-    }*/
   },
   data() {
             return {

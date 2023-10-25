@@ -39,7 +39,6 @@ async function describe(fileName, language, descriptionField){
 
     //Propagate result, typing effect for aesthetic purposes
     for (let i = 0; i < response.descriptionResult.length; i++){
-        console.log(response.descriptionResult.charAt(i));
         descriptionField.innerHTML += response.descriptionResult.charAt(i);
         await new Promise(t => setTimeout(t, 50));
     }
