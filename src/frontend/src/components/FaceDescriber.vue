@@ -2,7 +2,7 @@
 <div>
     <div class = "main EN">
         <h1>Pick an image</h1>
-        <FileUpload id="fileUpload" url="/describe" :multiple="false" accept="image/*" :maxFileSize="1000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage">
+        <FileUpload id="fileUpload" url="/describe" :multiple="false" accept="image/*" :maxFileSize="1000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage" @select="removeImage">
             <template #empty>
                 <p>Drag and drop files to here to upload.</p>
                 <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
@@ -33,7 +33,10 @@ const toBase64 = file => new Promise((resolve, reject) => {
 async function setImage(event){
     //File to base64
     this.image = await toBase64(event.files[0]);
-
+}
+function removeImage(){
+    console.log('here');
+    this.image = null;
 }
 
 export default {
@@ -50,7 +53,8 @@ export default {
                       }
       },
   methods: {
-    setImage
+    setImage,
+    removeImage
   }
 }
 </script>
