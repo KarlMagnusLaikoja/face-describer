@@ -2,11 +2,11 @@
     <h1>xd</h1>
     <h1>{{image}}</h1>
     <img :src="require(`@/assets/${image}`)"/>
-    <p id="description"></p>
+    <p ref="description"></p>
 </template>
 
 <script>
-async function describe(fileName, language){
+async function describe(fileName, language, descriptionField){
     //Get image
     const image = require('@/assets/'+fileName);
 
@@ -37,8 +37,12 @@ async function describe(fileName, language){
     }
 
 
-    //Propagate result
-    document.getElementById('description').innerHTML = response.descriptionResult;
+    //Propagate result, typing effect for aesthetic purposes
+    for (let i = 0; i < response.descriptionResult.length; i++){
+        console.log(response.descriptionResult.charAt(i));
+        descriptionField.innerHTML += response.descriptionResult.charAt(i);
+        await new Promise(t => setTimeout(t, 50));
+    }
 
 }
 
@@ -49,7 +53,7 @@ export default {
         describe
     },
     mounted(){
-        describe(this.image, this.$store.state.languageCode);
+        describe(this.image, this.$store.state.languageCode, this.$refs.description);
     }
   }
 
