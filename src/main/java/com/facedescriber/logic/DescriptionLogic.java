@@ -98,12 +98,10 @@ public class DescriptionLogic {
         //Don't need the data:... part
         image = image.split(",")[1];
 
-        //Write the image to file
-        ImageIO.write(
-                ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(image))),
-                "png",
-                new File(fileName)
-        );
+        try (OutputStream out = new FileOutputStream(fileName)){
+            out.write(Base64.getDecoder().decode(image));
+        }
+
         logger.info("Successfully saved "+fileName+" to disk");
         return fileName;
     }
