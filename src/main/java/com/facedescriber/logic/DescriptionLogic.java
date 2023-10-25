@@ -89,6 +89,7 @@ public class DescriptionLogic {
             logger.error("Failed to delete temporary image: "+image);
             throw new IOException("Failed to delete temporary image: "+image);
         }
+        logger.info("Successfully deleted "+image+" from disk");
 }
 
     private String saveImage(String image) throws IOException {
@@ -103,6 +104,7 @@ public class DescriptionLogic {
                 "png",
                 new File(fileName)
         );
+        logger.info("Successfully saved "+fileName+" to disk");
         return fileName;
     }
 
