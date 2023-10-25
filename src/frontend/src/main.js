@@ -15,6 +15,7 @@ import Menu from 'primevue/menu';
 import Avatar from 'primevue/avatar';
 import FileUpload from 'primevue/fileupload';
 import Message from 'primevue/message';
+import Image from 'primevue/image';
 
 import './assets/app.css';
 
@@ -55,4 +56,5 @@ app.component('Menu', Menu);
 app.component('Avatar', Avatar);
 app.component('FileUpload', FileUpload);
 app.component('Message', Message);
+app.component('Image', Image);
 app.mount('#app');

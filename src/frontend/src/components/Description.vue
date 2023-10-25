@@ -1,6 +1,12 @@
 <template>
-    <img ref="image"/>
-    <p ref="description"></p>
+<div class="descriptionContainer">
+    <Image width="10" >
+        <template #image>
+            <img ref="image" />
+        </template>
+    </Image>
+    <p ref="description" class="description"></p>
+</div>
 </template>
 
 <script>
