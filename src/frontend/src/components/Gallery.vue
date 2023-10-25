@@ -22,7 +22,7 @@ export default {
   },
   data() {
             return {
-                images: ['estonianFlag.png', 'estonianFlag.png']
+                images: ['estonianFlag.png', 'britishFlag.png']
             }
         }
 }

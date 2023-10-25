@@ -36,6 +36,7 @@ async function describe(fileNameOrBase64, language, refs){
         if(document.getElementById('errorMessageContainer')){
         document.getElementById('errorMessageContainer').style.display='';
         document.getElementById('errorMessage').innerHTML = response.errorMessage;
+        refs.image.style.display = 'none'; //Do not display image on failure to describe
         return;
         }
         //No error in Gallery component, just text
