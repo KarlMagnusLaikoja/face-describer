@@ -1,22 +1,14 @@
 <template>
-    <h1>{{description}}</h1>
+    <h1>xd</h1>
+    <h1>{{image}}</h1>
+    <img :src="require(`@/assets/${image}`)"/>
+    <p id="description"></p>
 </template>
 
 <script>
-const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-});
-
-export async function describe(event){
-    //File to base64
-    var image = await toBase64(event.files[0]);
-    console.log(image);
-
-    //Get language from store
-    const language = this.$store.state.languageCode;
+async function describe(fileName, language){
+    //Get image
+    const image = require('@/assets/'+fileName);
 
     //Send description request to backend
     var response = await fetch("/describe", {
@@ -31,29 +23,36 @@ export async function describe(event){
     });
     response = await response.json();
 
-    //Propagate any errors
+    //Propagate any errors in Face-Describer component
     if (response.errorCode != 0){
+
+        if(document.getElementById('errorMessageContainer')){
         document.getElementById('errorMessageContainer').style.display='';
         document.getElementById('errorMessage').innerHTML = response.errorMessage;
+        return;
+        }
+        //Do not render in Gallery component
+        //TODO
         return;
     }
 
 
-    //Propagate result to description field
-    //TODO
-    console.log(response);
+    //Propagate result
+    document.getElementById('description').innerHTML = response.descriptionResult;
+
 }
 
 export default {
   name: 'DescriptionComponent',
-    data() {
-        return {
-            description: ''
-        }
-    },
+    props: ['image'],
     methods: {
         describe
+    },
+    mounted(){
+        describe(this.image, this.$store.state.languageCode);
     }
-}
+  }
+
+
 </script>
 

@@ -1,7 +1,9 @@
 <template>
 <div>
     <image-picker/>
-    <description/>
+    <description v-bind:image="image" v-bind:description="description"/>
+        <h1>{{image}}</h1>
+        <h1>{{description}}</h1>
 </div>
 </template>
 
@@ -17,6 +19,12 @@ export default {
   },
   mounted () {
     renderLanguage(this.$store.state.languageCode);
-  }
+  },
+  data() {
+          return {
+              image: '1',
+              description: '2'
+          }
+      }
 }
 </script>

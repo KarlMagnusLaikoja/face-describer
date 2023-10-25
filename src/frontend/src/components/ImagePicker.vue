@@ -17,13 +17,25 @@
 </template>
 
 <script>
-import {describe} from './Description.vue';
+/*
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+});
 
-
+async function describe(){
+    //File to base64
+    var image = await toBase64(event.files[0]);
+    console.log(image);
+*/
 export default {
   name: 'ImagePicker',
   methods: {
-    describe
+    describe: function(){
+        this.$root.$emit('describe');
+    }
   }
 }
 </script>
