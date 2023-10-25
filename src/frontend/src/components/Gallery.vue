@@ -1,11 +1,10 @@
 <template>
-<div class="main EN">
-    <h1>gallery</h1>
-    <description v-for="image in images" :key="image" :value="image" ref="images" v-bind:image="image" class="horizontal"/>
+<div class="gallery EN">
+    <description v-for="image in images" :key="image" :value="image" ref="images" v-bind:image="image"/>
 </div>
 <div class="main EE">
     <h1>galerii</h1>
-    <description v-for="image in images" :key="image" :value="image" ref="images" v-bind:image="image" class="horizontal"/>
+    <description v-for="image in images" :key="image" :value="image" ref="images" v-bind:image="image"/>
 </div>
 </template>
 
@@ -23,7 +22,9 @@ export default {
   },
   data() {
             return {
-                images: ['estonianFlag.png', 'estonianFlag.png']
+                images: ['estonianFlag.png', 'britishFlag.png'
+                , 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png','estonianFlag.png', 'estonianFlag.png'
+                ]
             }
         }
 }

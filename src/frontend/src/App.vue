@@ -11,6 +11,9 @@ import {renderLanguage} from './components/AppHeader.vue';
 
 export default {
   name: 'App',
+  created () {
+              document.title = "Face-Describer";
+  },
   components: {
     AppHeader,
     AppFooter

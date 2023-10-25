@@ -1,12 +1,15 @@
 <template>
-<div class="descriptionContainer">
-    <Image width="10" >
+<div class = "descriptionContainer">
+    <Image>
         <template #image>
-            <img ref="image" />
+            <img ref="image" class="image"/>
         </template>
     </Image>
-    <p ref="description" class="description"></p>
+    <Panel class="description" header="Description" toggleable>
+        <p  ref="description"/>
+    </Panel>
 </div>
+<Divider/>
 </template>
 
 <script>

@@ -1,6 +1,8 @@
 <template>
 <div class="main EN">
     <h1>homepage</h1>
+    <Divider/>
+    <h1>x</h1>
 </div>
 <div class="main EE">
     <h1>koduleht</h1>

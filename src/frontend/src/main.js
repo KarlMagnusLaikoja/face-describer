@@ -16,6 +16,8 @@ import Avatar from 'primevue/avatar';
 import FileUpload from 'primevue/fileupload';
 import Message from 'primevue/message';
 import Image from 'primevue/image';
+import Panel from 'primevue/panel';
+import Divider from 'primevue/divider';
 
 import './assets/app.css';
 
@@ -57,4 +59,7 @@ app.component('Avatar', Avatar);
 app.component('FileUpload', FileUpload);
 app.component('Message', Message);
 app.component('Image', Image);
+app.component('Panel', Panel);
+app.component('Divider', Divider);
+
 app.mount('#app');

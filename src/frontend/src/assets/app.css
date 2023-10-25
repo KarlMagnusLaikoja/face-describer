@@ -6,13 +6,28 @@ html, body{
 .main{
    width: 100%;
    height: 100%;
-   position: relative;
-   padding-top: 3.75%;
-   text-align:center;
-   margin-left: auto;
-   margin-right: auto;
-   margin-bottom: 0;
+      position: relative;
+      padding-top: 3.75%;
+      text-align:center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0;
 }
+#app{
+    height: 100%;
+}
+.gallery{
+    height: 100%;
+    //padding-top: 3.75%;
+    //padding-bottom: 3.75%;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
 #header{
     position: fixed;
     width: 100%;
@@ -70,14 +85,18 @@ html, body{
     margin-top: auto;
     margin-bottom: auto;
 }
-.vertical{
 
-}
-.horizontal{
-
+.descriptionContainer{
+    display: flex;
+    align-items: flex-end;
 }
 .description{
-background-color: #1e1e1e;
+
 }
+.image{
+    max-width: 20vw;
+}
+
+
 
 

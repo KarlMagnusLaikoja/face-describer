@@ -18,5 +18,5 @@ img = cv2.imdecode(data, color_image_flag)
 
 #result = FaceDescriber(img).describe()
 """
-result = "Placeholder results from RequestHandler.py"
+result = "Placeholder results from RequestHandler.py xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx xxxxxxxxx "
 print(result)
