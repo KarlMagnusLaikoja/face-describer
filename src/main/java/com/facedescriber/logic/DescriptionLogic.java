@@ -74,11 +74,11 @@ public class DescriptionLogic {
                     "Request body contains invalid JSON",
                     null
             );
-        } catch (InterruptedException | IOException e) {
-            logger.warn("Error "+BackendError.SCRIPT_FAILURE.getErrorCode()+": "+e.getMessage());
+        } catch (InterruptedException | IOException | IllegalArgumentException e) {
+            logger.warn("Error "+BackendError.BACKEND_FAILURE.getErrorCode()+": "+e.getMessage());
             return createResponse(
-                    BackendError.SCRIPT_FAILURE.getErrorCode(),
-                    "Script execution failed",
+                    BackendError.BACKEND_FAILURE.getErrorCode(),
+                    "Backend execution of facial description failed",
                     null
             );
         }
@@ -92,7 +92,7 @@ public class DescriptionLogic {
         logger.info("Successfully deleted "+image+" from disk");
 }
 
-    private String saveImage(String image) throws IOException {
+    private String saveImage(String image) throws IOException, IllegalArgumentException {
         String fileName = ThreadLocalRandom.current().nextInt()+".png";
 
         //Don't need the data:... part

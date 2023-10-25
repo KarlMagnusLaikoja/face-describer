@@ -5,7 +5,7 @@ public enum BackendError {
     MISSING_FIELD(1),
     INVALID_BASE64(2),
     UNSUPPORTED_LANGUAGE(3),
-    SCRIPT_FAILURE(4),
+    BACKEND_FAILURE(4),
     INVALID_JSON(5);
     int errorCode;
 
