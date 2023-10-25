@@ -33,7 +33,7 @@ async function describe(event){
     const language = this.$store.state.languageCode;
 
     //Send description request to backend
-    var response = await fetch("https://localhost:8080/describe", {
+    var response = await fetch("/describe", {
       method: "POST",
       body: JSON.stringify({
         "language": language,
