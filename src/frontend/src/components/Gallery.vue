@@ -23,7 +23,8 @@ export default {
   data() {
             return {
                 images: ['estonianFlag.png', 'britishFlag.png'
-                , 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png','estonianFlag.png', 'estonianFlag.png'
+                //, 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png','estonianFlag.png', 'estonianFlag.png'
+                //, 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png','estonianFlag.png', 'estonianFlag.png'
                 ]
             }
         }

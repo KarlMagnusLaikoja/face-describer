@@ -1,5 +1,4 @@
 html, body{
-    height: 100%;
     padding: 0;
     margin: 0;
 }
@@ -13,13 +12,9 @@ html, body{
       margin-right: auto;
       margin-bottom: 0;
 }
-#app{
-    height: 100%;
-}
 .gallery{
-    height: 100%;
-    //padding-top: 3.75%;
-    //padding-bottom: 3.75%;
+    min-height: 96.25vh;
+    position: relative;
     margin-top: 3.75%;
     margin-bottom: 3.75%;
     margin-left: 20%;
@@ -90,9 +85,7 @@ html, body{
     display: flex;
     align-items: flex-end;
 }
-.description{
 
-}
 .image{
     max-width: 20vw;
 }
