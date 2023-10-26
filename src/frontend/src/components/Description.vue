@@ -37,20 +37,14 @@ async function describe(fileNameOrBase64, language, refs){
         "Content-type": "application/json;charset=UTF-8"
       }
     });
+    if(response.status==500){ //Backend error
+        propagateError(response, refs);
+    }
     response = await response.json();
 
     //Propagate any errors to Face-Describer component
     if (response.errorCode != 0){
-
-        if(document.getElementById('errorMessageContainer')){
-        document.getElementById('errorMessageContainer').style.display='';
-        document.getElementById('errorMessage').innerHTML = response.errorMessage;
-        refs.image.style.display = 'none'; //Do not display image on failure to describe
-        return;
-        }
-        //No error in Gallery component, just text
-        refs.description.innerHTML = "Failed to describe image";
-        return;
+        propagateError(response, refs);
     }
 
 
@@ -61,6 +55,18 @@ async function describe(fileNameOrBase64, language, refs){
         await new Promise(t => setTimeout(t, 50));
     }
 
+}
+
+function propagateError(response, refs){
+    var errorText = response.status==500? "Failed to describe image" : response.errorMessage;
+    if(document.getElementById('errorMessageContainer')){
+            document.getElementById('errorMessageContainer').style.display='';
+            document.getElementById('errorMessage').innerHTML = errorText;
+            refs.image.style.display = 'none'; //Do not display image on failure to describe
+    }
+    //No error in Gallery component, just text
+    refs.description.innerHTML = errorText;
+    return;
 }
 
 export default {
