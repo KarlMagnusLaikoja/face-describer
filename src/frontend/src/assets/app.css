@@ -2,26 +2,10 @@ html, body{
     padding: 0;
     margin: 0;
 }
-.main{
-   width: 100%;
-   height: 100%;
-      position: relative;
-      padding-top: 3.75%;
-      text-align:center;
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 0;
-}
-.gallery{
-    min-height: 96.25vh;
-    position: relative;
-    margin-top: 3.75%;
-    margin-bottom: 3.75%;
-    margin-left: 20%;
-    margin-right: 20%;
-    display: flex;
-    flex-flow: row wrap;
-}
+
+
+
+
 
 #header{
     position: fixed;
@@ -57,6 +41,9 @@ html, body{
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
+
+
 #pages{
     margin-left: auto;
     margin-top: auto;
@@ -72,6 +59,70 @@ html, body{
 #english{
     margin-left: 0.5vw;
 }
+
+
+
+
+.main{
+   //width: 100%;
+   //height: 100%;
+   //position: relative;
+   //padding-top: 3.75%;
+   //text-align:center;
+   //margin-left: auto;
+   //margin-right: auto;
+   //margin-bottom: 0;
+}
+
+
+.gallery{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.contact{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.facedescriber{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.home{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+
+
+
+
+
+
 #filePicker{
     width: 50%;
     height: 100%;

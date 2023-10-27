@@ -2,8 +2,7 @@
 <div class="gallery EN">
     <description v-for="image in images" :key="image" :value="image" ref="images" v-bind:image="image"/>
 </div>
-<div class="main EE">
-    <h1>galerii</h1>
+<div class="gallery EE">
     <description v-for="image in images" :key="image" :value="image" ref="images" v-bind:image="image"/>
 </div>
 </template>

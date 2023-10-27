@@ -1,8 +1,8 @@
 <template>
-<div class="main EN">
+<div class="contact EN">
     <h1>contact</h1>
 </div>
-<div class="main EE">
+<div class="contact EE">
     <h1>kontakt</h1>
 </div>
 </template>

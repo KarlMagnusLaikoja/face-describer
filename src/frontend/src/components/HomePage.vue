@@ -1,11 +1,13 @@
 <template>
-<div class="main EN">
+<div class="home EN">
     <h1>homepage</h1>
     <Divider/>
     <h1>x</h1>
 </div>
-<div class="main EE">
+<div class="home EE">
     <h1>koduleht</h1>
+    <Divider/>
+    <h1>x</h1>
 </div>
 </template>
 

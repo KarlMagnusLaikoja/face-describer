@@ -1,10 +1,10 @@
 <template>
 <div>
-    <div class = "main EN">
+    <div class = "facedescriber EN">
         <h1>Pick an image</h1>
         <FileUpload id="filePicker" url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="1000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage" @select="removeImage">
             <template #empty>
-                <p id="dragNDrop">Drag and drop files to here to upload.</p>
+                <p id="dragNDrop">Drag and drop an image file here to describe it.</p>
                 <description v-if="image" v-bind:image="image"/>
                 <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
             </template>
@@ -13,8 +13,15 @@
 
 
 
-    <div class = "main EE">
+    <div class = "facedescriber EE">
         <h1>Vali pilt</h1>
+        <FileUpload id="filePicker" url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="1000000" uploadLabel="Kirjelda" chooseLabel="Vali" cancelLabel="Tühista" :customUpload="true" @uploader="setImage" @select="removeImage">
+            <template #empty>
+                <p id="dragNDrop">Lohista pildifail siia selle kirjeldamiseks.</p>
+                <description v-if="image" v-bind:image="image"/>
+                <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
+            </template>
+        </FileUpload>
     </div>
 
 </div>

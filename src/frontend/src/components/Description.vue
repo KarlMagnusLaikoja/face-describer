@@ -5,9 +5,12 @@
             <img ref="image" class="image"/>
         </template>
     </Image>
-    <Panel class="description" header="Description" toggleable>
-        <p  ref="description"/>
+    <Panel class="description EN" header="Description" toggleable>
+        <p  ref="description_EN"/>
     </Panel>
+    <Panel class="description EE" header="Kirjeldus" toggleable>
+            <p  ref="description_EE"/>
+        </Panel>
 </div>
 <Divider/>
 </template>
@@ -38,13 +41,14 @@ async function describe(fileNameOrBase64, language, refs){
       }
     });
     if(response.status==500){ //Backend error
-        propagateError(response, refs);
+        propagateError(response, refs, language);
+        return;
     }
     response = await response.json();
 
     //Propagate any errors to Face-Describer component
     if (response.errorCode != 0){
-        propagateError(response, refs);
+        propagateError(response, refs, language);
     }
 
 
@@ -57,16 +61,21 @@ async function describe(fileNameOrBase64, language, refs){
 
 }
 
-function propagateError(response, refs){
-    var errorText = response.status==500? "Failed to describe image" : response.errorMessage;
+function propagateError(response, refs, language){
+    var errorText = response.status==500?
+                        language=="EN"?
+                            "Failed to describe image":
+                             "Kirjeldamine ebaõnnestus"
+                        :response.errorMessage;
     if(document.getElementById('errorMessageContainer')){
             document.getElementById('errorMessageContainer').style.display='';
             document.getElementById('errorMessage').innerHTML = errorText;
             refs.image.style.display = 'none'; //Do not display image on failure to describe
     }
     //No error in Gallery component, just text
-    refs.description.innerHTML = errorText;
-    return;
+    //Can set text for both EE and EN elements, one of them is hidden anyway
+    refs.description_EE.innerHTML = errorText;
+    refs.description_EN.innerHTML = errorText;
 }
 
 export default {
@@ -77,7 +86,15 @@ export default {
     },
     mounted(){
         describe(this.image, this.$store.state.languageCode, this.$refs);
-    }
+    },
+    data() {
+        return {
+          remount: true
+        }
+      },
+    created() {
+        this.remount = !this.remount;
+      }
   }
 
 
