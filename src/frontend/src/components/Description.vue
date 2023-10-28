@@ -5,18 +5,18 @@
             <img ref="image" class="image"/>
         </template>
     </Image>
-    <Panel class="description EN" header="Description" toggleable>
-        <p  ref="description_EN"/>
+    <Panel ref="panel" class="description" header="Description" toggleable>
+        <p  ref="description"/>
     </Panel>
-    <Panel class="description EE" header="Kirjeldus" toggleable>
-            <p  ref="description_EE"/>
-        </Panel>
 </div>
 <Divider/>
 </template>
 
 <script>
 async function describe(fileNameOrBase64, language, refs){
+    //Set english or estonian headers for descriptions
+    setDescriptionHeaders(language);
+
     //Get image
     var image;
     if (fileNameOrBase64.startsWith('data')){
@@ -74,8 +74,16 @@ function propagateError(response, refs, language){
     }
     //No error in Gallery component, just text
     //Can set text for both EE and EN elements, one of them is hidden anyway
-    refs.description_EE.innerHTML = errorText;
-    refs.description_EN.innerHTML = errorText;
+    refs.description.innerHTML = errorText;
+}
+
+function setDescriptionHeaders(languageCode){
+    var headers = document.getElementsByClassName('p-panel-title');
+    for (let i = 0; i < headers.length; i++){
+        headers[i].innerHTML = languageCode == "EN" ?
+                                    "Description":
+                                    "Kirjeldus";
+    }
 }
 
 export default {
