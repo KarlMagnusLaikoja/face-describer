@@ -96,14 +96,11 @@ html, body{
     flex-flow: row wrap;
 }
 .facedescriber{
-    min-height: 96.25vh;
+    min-height: 92.5vh;
     position: relative;
-    margin-top: 3.75%;
-    margin-bottom: 3.75%;
     margin-left: 20%;
     margin-right: 20%;
     display: flex;
-    flex-flow: row wrap;
 }
 .home{
     min-height: 96.25vh;
@@ -124,8 +121,6 @@ html, body{
 
 
 #filePicker{
-    width: 50%;
-    height: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;

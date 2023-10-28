@@ -71,9 +71,9 @@ function propagateError(response, refs, language){
             document.getElementById('errorMessageContainer').style.display='';
             document.getElementById('errorMessage').innerHTML = errorText;
             refs.image.style.display = 'none'; //Do not display image on failure to describe
+            return;
     }
     //No error in Gallery component, just text
-    //Can set text for both EE and EN elements, one of them is hidden anyway
     refs.description.innerHTML = errorText;
 }
 

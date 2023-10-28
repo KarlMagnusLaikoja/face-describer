@@ -1,10 +1,10 @@
 <template>
 <div>
-    <div class = "facedescriber EN">
-        <h1>Pick an image</h1>
+    <div class = "facedescriber">
         <FileUpload id="filePicker" url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="1000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage" @select="removeImage">
             <template #empty>
-                <p id="dragNDrop">Drag and drop an image file here to describe it.</p>
+                <p id="dragNDrop" class="EN">Drag and drop an image file here to describe it.</p>
+                <p id="dragNDrop" class="EE">Lohista pildifail siia selle kirjeldamiseks.</p>
                 <description v-if="image" v-bind:image="image"/>
                 <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
             </template>
@@ -14,12 +14,11 @@
 
 
     <div class = "facedescriber EE">
-        <h1>Vali pilt</h1>
         <FileUpload id="filePicker" url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="1000000" uploadLabel="Kirjelda" chooseLabel="Vali" cancelLabel="Tühista" :customUpload="true" @uploader="setImage" @select="removeImage">
             <template #empty>
                 <p id="dragNDrop">Lohista pildifail siia selle kirjeldamiseks.</p>
                 <description v-if="image" v-bind:image="image"/>
-                <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
+                <Message severity="error" class="errorMessageContainer" style="display: none;"><p class="errorMessage"></p></Message>
             </template>
         </FileUpload>
     </div>
@@ -30,6 +29,8 @@
 <script>
 import Description from './Description.vue'
 import {renderLanguage} from './AppHeader.vue';
+import {setLabels} from './AppHeader.vue';
+
 
 const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -48,6 +49,7 @@ function removeImage(){
     this.image = null;
 }
 
+
 export default {
   name: 'FaceDescriber',
   components: {
@@ -55,6 +57,7 @@ export default {
   },
   mounted () {
     renderLanguage(this.$store.state.languageCode);
+    setLabels(this.$store.state.languageCode);
   },
   data() {
           return {

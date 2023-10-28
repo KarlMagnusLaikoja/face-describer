@@ -4,8 +4,8 @@
 <TabMenu :model="pages_EN" id="pages" class="EN"/>
 <TabMenu :model="pages_EE" id="pages" class="EE"/>
 <div id= "languages">
-<Avatar id="estonian" shape="circle" v-on:click="updateLanguageCode('EE');pickLanguage('EE');renderLanguage('EE')" size="large"/>
-<Avatar id="english" shape="circle" v-on:click="updateLanguageCode('EN');pickLanguage('EN');renderLanguage('EN')" size="large"/>
+<Avatar id="estonian" shape="circle" v-on:click="updateLanguageCode('EE');pickLanguage('EE');renderLanguage('EE');setLabels('EE')" size="large"/>
+<Avatar id="english" shape="circle" v-on:click="updateLanguageCode('EN');pickLanguage('EN');renderLanguage('EN');setLabels('EN')" size="large"/>
 </div>
 </div>
 </div>
@@ -52,6 +52,39 @@ function pickLanguage(languageCode){
     document.getElementById('estonian').style.borderStyle = 'solid';
     document.getElementById('estonian').style.borderColor = 'green';
 }
+export function setLabels(languageCode){
+    var labels = document.getElementsByClassName('p-button-label');
+    if(languageCode=="EN"){
+        for (let i = 0; i < labels.length; i++){
+            switch(labels[i].innerHTML){
+                case "Vali":
+                    labels[i].innerHTML = "Choose";
+                    break;
+                case "Kirjelda":
+                    labels[i].innerHTML = "Describe";
+                    break;
+                case "Tühista":
+                    labels[i].innerHTML = "Cancel";
+                    break;
+            }
+        }
+        return;
+    }
+    //languageCode=="EE"
+        for (let i = 0; i < labels.length; i++){
+            switch(labels[i].innerHTML){
+                case "Choose":
+                    labels[i].innerHTML = "Vali";
+                    break;
+                case "Describe":
+                    labels[i].innerHTML = "Kirjelda";
+                    break;
+                case "Cancel":
+                    labels[i].innerHTML = "Tühista";
+                    break;
+            }
+        }
+}
 export default {
   name: 'AppHeader',
   data() {
@@ -73,6 +106,7 @@ export default {
  methods: {
     renderLanguage,
     pickLanguage,
+    setLabels,
     updateLanguageCode: function (languageCode) {
         this.$store.dispatch('updateLanguageCode', languageCode)
     }
