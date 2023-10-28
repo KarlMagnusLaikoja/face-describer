@@ -39,7 +39,7 @@ public class DescriptionLogic {
         this.data = data;
     }
 
-    public String execute() throws IOException {
+    public String execute() {
         logger.info("Starting DescriptionLogic with data: "+data);
         try{
             DescriptionRequest request = validate(data);
@@ -86,10 +86,9 @@ public class DescriptionLogic {
         }
     }
 
-    private void deleteImage(String image) throws IOException {
+    private void deleteImage(String image) {
         if(!new File(image).delete()){
             logger.error("Failed to delete temporary image: "+image);
-            throw new IOException("Failed to delete temporary image: "+image);
         }
         logger.info("Successfully deleted "+image+" from disk");
 }
