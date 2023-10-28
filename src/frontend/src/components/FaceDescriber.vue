@@ -5,20 +5,9 @@
             <template #empty>
                 <p id="dragNDrop" class="EN">Drag and drop an image file here to describe it.</p>
                 <p id="dragNDrop" class="EE">Lohista pildifail siia selle kirjeldamiseks.</p>
-                <description v-if="image" v-bind:image="image"/>
+                <description v-if="image && this.$store.state.languageCode=='EN'" v-bind:image="image"/>
+                <description v-if="image && this.$store.state.languageCode=='EE'" v-bind:image="image"/>
                 <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
-            </template>
-        </FileUpload>
-    </div>
-
-
-
-    <div class = "facedescriber EE">
-        <FileUpload id="filePicker" url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="1000000" uploadLabel="Kirjelda" chooseLabel="Vali" cancelLabel="Tühista" :customUpload="true" @uploader="setImage" @select="removeImage">
-            <template #empty>
-                <p id="dragNDrop">Lohista pildifail siia selle kirjeldamiseks.</p>
-                <description v-if="image" v-bind:image="image"/>
-                <Message severity="error" class="errorMessageContainer" style="display: none;"><p class="errorMessage"></p></Message>
             </template>
         </FileUpload>
     </div>
