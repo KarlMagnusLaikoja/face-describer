@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import {toBase64} from './FaceDescriber.vue';
+
 async function describe(fileNameOrBase64, language, refs){
     //Set english or estonian headers for descriptions
     setDescriptionHeaders(language);
@@ -23,7 +25,12 @@ async function describe(fileNameOrBase64, language, refs){
         image = fileNameOrBase64;
     }
     else{
-        image = require('@/assets/gallery/'+fileNameOrBase64);
+        image = require('@/assets/gallery/'+fileNameOrBase64); //name
+        image = await fetch(image);
+        image = await image.blob();
+
+        //Convert to base64
+        image = await toBase64(image);
     }
 
     //Display image

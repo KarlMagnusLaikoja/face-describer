@@ -21,7 +21,7 @@ import {renderLanguage} from './AppHeader.vue';
 import {setLabels} from './AppHeader.vue';
 
 
-const toBase64 = file => new Promise((resolve, reject) => {
+export const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
