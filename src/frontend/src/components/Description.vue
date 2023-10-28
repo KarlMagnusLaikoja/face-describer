@@ -49,6 +49,7 @@ async function describe(fileNameOrBase64, language, refs){
     //Propagate any errors to Face-Describer component
     if (response.errorCode != 0){
         propagateError(response, refs, language);
+        return;
     }
 
 
