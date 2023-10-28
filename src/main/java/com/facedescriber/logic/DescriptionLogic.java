@@ -103,8 +103,7 @@ public class DescriptionLogic {
         }
 
         logger.info("Successfully saved "+fileName+" to disk");
-        throw new IOException();
-        //return fileName;
+        return fileName;
     }
 
     private String createResponse(int errorCode, String errorMessage, String descriptionResult) {
