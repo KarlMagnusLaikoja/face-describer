@@ -7,7 +7,6 @@
                 <p id="dragNDrop" class="EE">Lohista pildifail siia selle kirjeldamiseks.</p>
                 <description v-if="image && this.$store.state.languageCode=='EN'" v-bind:image="image"/>
                 <description v-if="image && this.$store.state.languageCode=='EE'" v-bind:image="image"/>
-                <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
             </template>
         </FileUpload>
     </div>

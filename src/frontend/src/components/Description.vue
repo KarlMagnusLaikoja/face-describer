@@ -7,6 +7,7 @@
     </Image>
     <Panel ref="panel" class="description" header="Description" toggleable>
         <p  ref="description"/>
+        <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
     </Panel>
 </div>
 <Divider/>
@@ -75,14 +76,8 @@ function propagateError(response, refs, language){
                             "Failed to describe image":
                              "Kirjeldamine ebaõnnestus"
                         :response.errorMessage;
-    if(document.getElementById('errorMessageContainer')){
-            document.getElementById('errorMessageContainer').style.display='';
-            document.getElementById('errorMessage').innerHTML = errorText;
-            refs.image.style.display = 'none'; //Do not display image on failure to describe
-            return;
-    }
-    //No error in Gallery component, just text
-    refs.description.innerHTML = errorText;
+    document.getElementById('errorMessageContainer').style.display='';
+    document.getElementById('errorMessage').innerHTML = errorText;
 }
 
 function setDescriptionHeaders(languageCode){
