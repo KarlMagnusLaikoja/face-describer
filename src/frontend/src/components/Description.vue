@@ -97,11 +97,8 @@ export default {
     },
     data() {
         return {
-          remount: true
+
         }
-      },
-    created() {
-        this.remount = !this.remount;
       }
   }
 
