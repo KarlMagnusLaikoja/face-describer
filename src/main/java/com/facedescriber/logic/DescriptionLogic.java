@@ -43,7 +43,7 @@ public class DescriptionLogic {
         logger.info("Starting DescriptionLogic with data: "+data);
         try{
             DescriptionRequest request = validate(data);
-            fileName = saveImage(request.getImage()); //Can't use base64 image directly because it can be too long. Need to save to a file instead.
+            saveImage(request.getImage()); //Can't use base64 image directly because it can be too long. Need to save to a file instead.
             String descriptionResult = executeDescription(fileName, request.getLanguage());
             deleteImage(fileName);
             return createResponse(BackendError.OK.getErrorCode(), null, descriptionResult);
@@ -93,8 +93,8 @@ public class DescriptionLogic {
         logger.info("Successfully deleted "+image+" from disk");
 }
 
-    private String saveImage(String image) throws IOException, IllegalArgumentException {
-        String fileName = ThreadLocalRandom.current().nextInt()+".png";
+    private void saveImage(String image) throws IOException, IllegalArgumentException {
+        fileName = ThreadLocalRandom.current().nextInt()+".png";
 
         //Don't need the data:... part
         image = image.split(",")[1];
@@ -104,7 +104,6 @@ public class DescriptionLogic {
         }
 
         logger.info("Successfully saved "+fileName+" to disk");
-        return fileName;
     }
 
     private String createResponse(int errorCode, String errorMessage, String descriptionResult) {
