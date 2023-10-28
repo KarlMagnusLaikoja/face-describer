@@ -31,6 +31,7 @@ public class DescriptionLogic {
     private static Logger logger = LogManager.getLogger();
 
     private static ObjectMapper mapper = new ObjectMapper();
+    private String fileName;
     public DescriptionLogic() {
     }
 
@@ -38,11 +39,11 @@ public class DescriptionLogic {
         this.data = data;
     }
 
-    public String execute(){
+    public String execute() throws IOException {
         logger.info("Starting DescriptionLogic with data: "+data);
         try{
             DescriptionRequest request = validate(data);
-            String fileName = saveImage(request.getImage()); //Can't use base64 image directly because it can be too long. Need to save to a file instead.
+            fileName = saveImage(request.getImage()); //Can't use base64 image directly because it can be too long. Need to save to a file instead.
             String descriptionResult = executeDescription(fileName, request.getLanguage());
             deleteImage(fileName);
             return createResponse(BackendError.OK.getErrorCode(), null, descriptionResult);
@@ -76,6 +77,7 @@ public class DescriptionLogic {
             );
         } catch (InterruptedException | IOException | IllegalArgumentException e) {
             logger.warn("Error "+BackendError.BACKEND_FAILURE.getErrorCode()+": "+e.getMessage());
+            deleteImage(fileName);
             return createResponse(
                     BackendError.BACKEND_FAILURE.getErrorCode(),
                     "Backend execution of facial description failed",
