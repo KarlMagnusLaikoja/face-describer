@@ -16,15 +16,20 @@ export default {
   components: {
       Description
   },
+  created () {
+    //Get all images in gallery and push them to the array
+    const galleryFiles = require.context('../assets/gallery', false)
+                                .keys().map(key => key.slice(2))
+        for (let i = 0; i < galleryFiles.length; i++){
+            this.images.push(galleryFiles[i]);
+        }
+  },
   mounted () {
     renderLanguage(this.$store.state.languageCode);
   },
   data() {
             return {
-                images: ['estonianFlag.png', 'britishFlag.png'
-                //, 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png','estonianFlag.png', 'estonianFlag.png'
-                //, 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png', 'estonianFlag.png','estonianFlag.png', 'estonianFlag.png'
-                ]
+                images: []
             }
         }
 }

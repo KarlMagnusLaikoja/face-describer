@@ -23,7 +23,7 @@ async function describe(fileNameOrBase64, language, refs){
         image = fileNameOrBase64;
     }
     else{
-        image = require('@/assets/'+fileNameOrBase64);
+        image = require('@/assets/gallery/'+fileNameOrBase64);
     }
 
     //Display image
