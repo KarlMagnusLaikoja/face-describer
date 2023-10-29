@@ -3,6 +3,7 @@ package com.facedescriber.logic;
 import com.facedescriber.constants.BackendError;
 import com.facedescriber.validation.InvalidBase64Exception;
 import com.facedescriber.validation.MissingFieldException;
+import com.facedescriber.validation.PythonException;
 import com.facedescriber.validation.UnsupportedLanguageException;
 import com.facedescriber.validation.image.ImageValidator;
 import com.facedescriber.validation.json.JsonValidator;
@@ -69,10 +70,18 @@ public class DescriptionLogic {
                     null
             );
         } catch (JsonProcessingException e) {
-            logger.warn("Error "+BackendError.INVALID_JSON.getErrorCode()+": "+e.getMessage());
+            logger.warn("Error " + BackendError.INVALID_JSON.getErrorCode() + ": " + e.getMessage());
             return createResponse(
                     BackendError.INVALID_JSON.getErrorCode(),
                     "Request body contains invalid JSON",
+                    null
+            );
+        } catch (PythonException e){
+            logger.warn("Error "+BackendError.PYTHON_ERROR.getErrorCode()+": "+e.getMessage());
+            deleteImage(fileName);
+            return createResponse(
+                    BackendError.PYTHON_ERROR.getErrorCode(),
+                    e.getMessage(),
                     null
             );
         } catch (InterruptedException | IOException | IllegalArgumentException e) {
@@ -129,8 +138,8 @@ public class DescriptionLogic {
         return request;
     }
 
-    private String executeDescription(String fileName, String language) throws InterruptedException, IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("python3", "RequestHandler.py", fileName, language);
+    private String executeDescription(String fileName, String language) throws InterruptedException, IOException, PythonException {
+        ProcessBuilder processBuilder = new ProcessBuilder("python3", "FaceDescriber.py", fileName, language);
         processBuilder.directory(new File("src/main/python"));
         processBuilder.redirectErrorStream(true);
         logger.info(
@@ -142,8 +151,8 @@ public class DescriptionLogic {
         );
         Process process = processBuilder.start();
         int exitCode = process.waitFor();
-        if(exitCode != 0) throw new IOException("Python execution exited with code "+exitCode);
         try(BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()))){
+            if(exitCode == BackendError.PYTHON_ERROR.getErrorCode()) throw new PythonException(exitCode, br.lines().findFirst().get());
             return br.lines().findFirst().get(); //Expecting only 1 output line
         }
     }
