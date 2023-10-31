@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -21,6 +22,7 @@ import java.util.Base64;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
+@Scope("request")
 public class DescriptionLogic {
     private String data;
     @Autowired
@@ -84,7 +86,7 @@ public class DescriptionLogic {
                     e.getMessage(),
                     null
             );
-        } catch (InterruptedException | IOException | IllegalArgumentException e) {
+        } catch (Exception e) {
             logger.warn("Error "+BackendError.BACKEND_FAILURE.getErrorCode()+": "+e.getMessage());
             deleteImage(fileName);
             return createResponse(
@@ -138,7 +140,7 @@ public class DescriptionLogic {
         return request;
     }
 
-    private String executeDescription(String fileName, String language) throws InterruptedException, IOException, PythonException {
+    private String executeDescription(String fileName, String language) throws Exception {
         ProcessBuilder processBuilder = new ProcessBuilder("python3", "FaceDescriber.py", fileName, language);
         processBuilder.directory(new File("src/main/python"));
         processBuilder.redirectErrorStream(true);
@@ -153,7 +155,10 @@ public class DescriptionLogic {
         int exitCode = process.waitFor();
         try(BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()))){
             if(exitCode == BackendError.PYTHON_ERROR.getErrorCode()) throw new PythonException(exitCode, br.lines().findFirst().get());
-            return br.lines().findFirst().get(); //Expecting only 1 output line
+
+            if(exitCode == 0) return br.lines().findFirst().get(); //Expecting only 1 output line
+
+            throw new Exception();
         }
     }
 }
