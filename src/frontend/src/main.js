@@ -18,6 +18,7 @@ import Message from 'primevue/message';
 import Image from 'primevue/image';
 import Panel from 'primevue/panel';
 import Divider from 'primevue/divider';
+import Tree from 'primevue/tree';
 
 import './assets/app.css';
 
@@ -25,6 +26,7 @@ import HomePage from './/components/HomePage.vue'
 import FaceDescriber from './/components/FaceDescriber.vue'
 import Contact from './/components/Contact.vue'
 import Gallery from './/components/Gallery.vue'
+
 const routes = [
   { path: '/', component: HomePage },
   { path: '/face-describer', component: FaceDescriber },
@@ -61,5 +63,6 @@ app.component('Message', Message);
 app.component('Image', Image);
 app.component('Panel', Panel);
 app.component('Divider', Divider);
+app.component('Tree', Tree);
 
 app.mount('#app');

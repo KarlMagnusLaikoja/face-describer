@@ -10,6 +10,10 @@
     <div class="homepage_description EE" v-if="this.$store.state.languageCode=='EE'">
         <description v-for="image in images" :key="image" :value="image" ref="images" v-bind:image="image"/>
     </div>
+    <Divider/>
+    <div class="faq">
+            <p>intro</p>
+    </div>
 </div>
 </template>
 
