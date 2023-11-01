@@ -1,7 +1,10 @@
 <template>
 <div>
     <div class = "facedescriber">
-        <FileUpload id="filePicker" url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="1000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage" @select="removeImage">
+        <div id="filePicker">
+        <h1 class="fdheader EN">Pick an image</h1>
+        <h1 class="fdheader EE">Vali pilt</h1>
+        <FileUpload url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="1000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage" @select="removeImage">
             <template #empty>
                 <p id="dragNDrop" class="EN">Drag and drop an image file here to describe it.</p>
                 <p id="dragNDrop" class="EE">Lohista pildifail siia selle kirjeldamiseks.</p>
@@ -9,8 +12,15 @@
                 <description v-if="image && this.$store.state.languageCode=='EE'" v-bind:image="image"/>
             </template>
         </FileUpload>
+        </div>
+        <h1 class="fdheader EN">or</h1>
+        <h1 class="fdheader EE">või</h1>
+        <div id="webcam">
+        <h1 class="fdheader EN">Open your webcam</h1>
+        <h1 class="fdheader EE">Ava oma veebikaamera</h1>
+        <p>TODO</p>
+        </div>
     </div>
-
 </div>
 </template>
 

@@ -12,7 +12,7 @@
     </div>
     <Divider/>
     <div class="faq">
-            <p>intro</p>
+            <p>faq</p>
     </div>
 </div>
 </template>

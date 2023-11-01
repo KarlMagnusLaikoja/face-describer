@@ -126,6 +126,19 @@ html, body{
     margin-top: auto;
     margin-bottom: auto;
 }
+#webcam{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+h1.fdheader{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
 
 .descriptionContainer{
     display: flex;
