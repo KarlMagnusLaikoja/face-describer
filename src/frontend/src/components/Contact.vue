@@ -1,13 +1,13 @@
 <template>
 <div class="contact EN">
-    <Tree :value="treenodes_EN">
+    <Tree :value="treenodes_EN" class="content">
         <template #url="{ node }">
             <a :href="node.data" target="_blank">{{ node.label }}</a>
             </template>
     </Tree>
 </div>
 <div class="contact EE">
-    <Tree :value="treenodes_EE">
+    <Tree :value="treenodes_EE" class="content">
         <template #url="{ node }">
             <a :href="node.data" target="_blank">{{ node.label }}</a>
             </template>

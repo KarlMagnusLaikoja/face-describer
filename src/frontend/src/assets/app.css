@@ -136,6 +136,17 @@ html, body{
     max-width: 20vw;
 }
 
+.contact > .content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200%;
+}
+.p-treenode{
+    margin-top: 12.5%;
+    margin-bottom: 12.5%;
+}
 
 
 
