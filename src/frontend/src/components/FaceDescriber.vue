@@ -8,27 +8,26 @@
             <template #empty>
                 <p id="dragNDrop" class="EN">Drag and drop an image file here to describe it.</p>
                 <p id="dragNDrop" class="EE">Lohista pildifail siia selle kirjeldamiseks.</p>
-                <description v-if="image && this.$store.state.languageCode=='EN'" v-bind:image="image"/>
-                <description v-if="image && this.$store.state.languageCode=='EE'" v-bind:image="image"/>
             </template>
         </FileUpload>
         </div>
         <h1 class="fdheader EN">or</h1>
         <h1 class="fdheader EE">või</h1>
         <div id="webcam">
-        <h1 class="fdheader EN">Open your webcam</h1>
-        <h1 class="fdheader EE">Ava oma veebikaamera</h1>
-        <p>TODO</p>
+        <h1 class="fdheader EN">Use your webcam</h1>
+        <h1 class="fdheader EE">Kasuta oma veebikaamerat</h1>
+        <WebCamUI :fullscreenButton="{display: false, text: '', css: ''}" @photoTaken="takePhoto" />
         </div>
+        <description v-if="image && this.$store.state.languageCode=='EN'" v-bind:image="image"/>
+        <description v-if="image && this.$store.state.languageCode=='EE'" v-bind:image="image"/>
     </div>
 </div>
 </template>
 
 <script>
-import Description from './Description.vue'
 import {renderLanguage} from './AppHeader.vue';
 import {setLabels} from './AppHeader.vue';
-
+import { WebCamUI } from 'vue-camera-lib';
 
 export const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -40,18 +39,23 @@ async function setImage(event){
     //File to base64
     this.image = await toBase64(event.files[0]);
 
-    //Hide the drag n drop text
-    document.getElementById('dragNDrop').innerHTML = '';
+    //Needed
+    renderLanguage(this.$store.state.languageCode);
 }
 function removeImage(){
     this.image = null;
+}
+async function takePhoto(data){
+    this.image = null;
+    await new Promise(r => setTimeout(r, 500));
+    this.image = data.image_data_url;
 }
 
 
 export default {
   name: 'FaceDescriber',
   components: {
-    Description
+    WebCamUI
   },
   mounted () {
     renderLanguage(this.$store.state.languageCode);
@@ -64,7 +68,8 @@ export default {
       },
   methods: {
     setImage,
-    removeImage
+    removeImage,
+    takePhoto
   }
 }
 </script>

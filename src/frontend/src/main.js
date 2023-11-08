@@ -20,12 +20,16 @@ import Panel from 'primevue/panel';
 import Divider from 'primevue/divider';
 import Tree from 'primevue/tree';
 
+import VueCameraLib from 'vue-camera-lib';
+
 import './assets/app.css';
 
 import HomePage from './/components/HomePage.vue'
 import FaceDescriber from './/components/FaceDescriber.vue'
 import Contact from './/components/Contact.vue'
 import Gallery from './/components/Gallery.vue'
+
+import Description from './/components/Description.vue'
 
 const routes = [
   { path: '/', component: HomePage },
@@ -55,6 +59,7 @@ app.use(PrimeVue);
 app.use(router);
 app.use(Vuex);
 app.use(store);
+app.use(VueCameraLib);
 app.component('TabMenu', TabMenu);
 app.component('Menu', Menu);
 app.component('Avatar', Avatar);
@@ -64,5 +69,6 @@ app.component('Image', Image);
 app.component('Panel', Panel);
 app.component('Divider', Divider);
 app.component('Tree', Tree);
+app.component('Description', Description);
 
 app.mount('#app');

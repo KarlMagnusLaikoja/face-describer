@@ -101,6 +101,7 @@ html, body{
     margin-left: 20%;
     margin-right: 20%;
     display: flex;
+    flex-wrap: wrap;
 }
 .home{
     min-height: 96.25vh;
@@ -143,10 +144,12 @@ h1.fdheader{
 .descriptionContainer{
     display: flex;
     align-items: flex-end;
+    width: 100%;
 }
 
 .image{
     max-width: 20vw;
+    max-height: 20vh;
 }
 
 .contact > .content{
@@ -159,6 +162,10 @@ h1.fdheader{
 .p-treenode{
     margin-top: 12.5%;
     margin-bottom: 12.5%;
+}
+#webcam-ui{
+    max-width: 20vw;
+    max-height: 20vh;
 }
 
 

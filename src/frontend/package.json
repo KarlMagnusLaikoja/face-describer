@@ -13,9 +13,12 @@
     "primeicons": "^6.0.1",
     "primevue": "^3.37.0",
     "vue": "^3.2.13",
+    "vue-camera-lib": "^1.0.4",
     "vue-router": "^4.0.3",
+    "vue-web-cam": "^1.9.0",
     "vuex": "^4.0.2",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex-persistedstate": "^4.1.0",
+    "webcam-easy": "^1.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
