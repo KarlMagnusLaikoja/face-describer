@@ -31,6 +31,8 @@ public class DescriptionLogic {
     private ImageValidator imageValidator;
     @Autowired
     private DescriptionResponse response;
+    @Autowired
+    private PythonHandler pythonHandler;
     private static Logger logger = LogManager.getLogger();
 
     private static ObjectMapper mapper = new ObjectMapper();
@@ -47,7 +49,7 @@ public class DescriptionLogic {
         try{
             DescriptionRequest request = validate(data);
             saveImage(request.getImage()); //Can't use base64 image directly because it can be too long. Need to save to a file instead.
-            String descriptionResult = executeDescription(fileName, request.getLanguage());
+            String descriptionResult = pythonHandler.executeDescription(fileName, request.getLanguage());
             deleteImage(fileName);
             return createResponse(BackendError.OK.getErrorCode(), null, descriptionResult);
         } catch (MissingFieldException e) {
@@ -138,28 +140,6 @@ public class DescriptionLogic {
         logger.info("Validating base64 image");
         imageValidator.validate(request);
         return request;
-    }
-
-    private String executeDescription(String fileName, String language) throws Exception {
-        ProcessBuilder processBuilder = new ProcessBuilder("python3", "FaceDescriber.py", fileName, language);
-        processBuilder.directory(new File("src/main/python"));
-        processBuilder.redirectErrorStream(true);
-        logger.info(
-                String.format("Executing OS command: %s %s %s %s",
-                        "python3",
-                        "RequestHandler.py",
-                        fileName,
-                        language)
-        );
-        Process process = processBuilder.start();
-        int exitCode = process.waitFor();
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()))){
-            if(exitCode == BackendError.PYTHON_ERROR.getErrorCode()) throw new PythonException(exitCode, br.lines().findFirst().get());
-
-            if(exitCode == 0) return br.lines().findFirst().get(); //Expecting only 1 output line
-
-            throw new Exception();
-        }
     }
 }
 
