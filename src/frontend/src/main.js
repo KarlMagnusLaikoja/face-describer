@@ -19,6 +19,9 @@ import Image from 'primevue/image';
 import Panel from 'primevue/panel';
 import Divider from 'primevue/divider';
 import Tree from 'primevue/tree';
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
+
 
 import VueCameraLib from 'vue-camera-lib';
 
@@ -70,5 +73,8 @@ app.component('Panel', Panel);
 app.component('Divider', Divider);
 app.component('Tree', Tree);
 app.component('Description', Description);
+app.component('Accordion', Accordion);
+app.component('AccordionTab', AccordionTab);
+
 
 app.mount('#app');
