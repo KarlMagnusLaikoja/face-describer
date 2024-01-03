@@ -4,7 +4,7 @@
         <div id="filePicker">
         <h1 class="fdheader EN">Pick an image</h1>
         <h1 class="fdheader EE">Vali pilt</h1>
-        <FileUpload url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="1000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage" @select="removeImage">
+        <FileUpload url="/describe" :multiple="false" uploadIcon="pi pi-fw pi-cog" accept="image/*" :maxFileSize="10000000" uploadLabel="Describe" :customUpload="true" @uploader="setImage" @select="removeImage">
             <template #empty>
                 <p id="dragNDrop" class="EN">Drag and drop an image file here to describe it.</p>
                 <p id="dragNDrop" class="EE">Lohista pildifail siia selle kirjeldamiseks.</p>
