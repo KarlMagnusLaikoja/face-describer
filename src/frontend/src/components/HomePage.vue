@@ -9,7 +9,7 @@
         <div class="EE">
             <h1>Loo sisukas näokirjeldus</h1>
             <p>Face-Describer on rakendus loodud sisendpildilt nägude leidmiseks ja kirjeldamiseks kasutades pilditöötlust.</p>
-            <p>See loodi autori bakalaureusetöö tulemusena.</p>
+            <p>See valmis autori bakalaureusetöö tulemusena.</p>
         </div>
 
         <div class="links">
