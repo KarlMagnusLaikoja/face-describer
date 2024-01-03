@@ -1,3 +1,4 @@
+@media(min-width: 1024px){
 html, body{
     padding: 0;
     margin: 0;
@@ -154,7 +155,369 @@ div.links{
     margin-top: 5%;
     margin-bottom: 5%;
 }
+}
 
+
+
+
+
+
+
+
+
+
+
+@media(max-width: 1023px) and (min-width: 768px){
+html, body{
+    padding: 0;
+    margin: 0;
+
+}
+#header{
+    position: fixed;
+    width: 100%;
+    height: 7.5%;
+    top: 0;
+    background-color: #1e1e1e;
+    z-index: 9999;
+}
+#footer{
+    position: fixed;
+    width: 100%;
+    height: 7.5%;
+    bottom: 0;
+    background-color: #1e1e1e;
+}
+#headerContent{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+}
+#footerContent{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+#pages{
+    margin-left: auto;
+    margin-top: auto;
+}
+#languages{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 1%;
+}
+#english{
+    margin-left: 0.5vw;
+}
+.gallery{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.contact{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.facedescriber{
+    min-height: 92.5vh;
+    position: relative;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.home{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-flow: row wrap;
+}
+#filePicker{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#webcam{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+h1.fdheader{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+.descriptionContainer{
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+}
+.image{
+    max-width: 20vw;
+    max-height: 20vh;
+}
+.contact > .content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200%;
+}
+.p-treenode{
+    margin-top: 12.5%;
+    margin-bottom: 12.5%;
+}
+#webcam-ui{
+    max-width: 20vw;
+    max-height: 20vh;
+}
+div.faq{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+}
+.algorithmSteps{
+    width: 50%;
+}
+div.intro{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+}
+div.links{
+    display: flex;
+    flex-direction: column;
+}
+.links button{
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+}
+
+
+
+
+
+
+
+
+@media(max-width: 767px){
+html, body{
+    padding: 0;
+    margin: 0;
+}
+#header{
+    position: fixed;
+    width: 100%;
+    height: 7.5%;
+    top: 0;
+    background-color: #1e1e1e;
+    z-index: 9999;
+}
+#header span{
+    white-space:nowrap;
+}
+#footer{
+    position: fixed;
+    width: 100%;
+    height: 7.5%;
+    bottom: 0;
+    background-color: #1e1e1e;
+}
+#headerContent{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+}
+#footerContent{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+#pages{
+    margin-left: auto;
+    margin-top: auto;
+    max-width: 50%;
+}
+#languages{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 1%;
+}
+#english{
+    margin-left: 0.5vw;
+}
+.gallery{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.contact{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 3.75%;
+    margin-bottom: 3.75%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.facedescriber{
+    min-height: 80vh;
+    position: relative;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: grid;
+    grid-template: 1fr / 1fr;
+    place-items: center;
+}
+.home{
+    min-height: 96.25vh;
+    position: relative;
+    margin-top: 6%;
+    margin-bottom: 12%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-flow: row wrap;
+}
+#filePicker{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#webcam{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+h1.fdheader{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    font-size: 24px;
+}
+.descriptionContainer{
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+}
+.image{
+    max-width: 40vw;
+    max-height: 40vh;
+}
+.contact > .content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200%;
+}
+.p-treenode{
+    margin-top: 12.5%;
+    margin-bottom: 12.5%;
+}
+#webcam-ui{
+    max-width: 20vw;
+    max-height: 20vh;
+}
+div.faq{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+}
+.algorithmSteps{
+    width: 50%;
+}
+div.intro{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+}
+div.links{
+    display: flex;
+    flex-direction: column;
+}
+.links button{
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+span{
+    font-size: 8px;
+}
+.p-avatar{
+    max-width: 50%;
+    max-height: 50%;
+}
+.facedescriber .m{
+    display: none;
+}
+#webcam{
+    display: none;
+}
+
+.contact a{
+    color: inherit;
+}
+#footer a{
+    color: inherit;
+}
+}
 
 
 

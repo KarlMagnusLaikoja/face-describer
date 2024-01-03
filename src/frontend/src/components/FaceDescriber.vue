@@ -11,8 +11,8 @@
             </template>
         </FileUpload>
         </div>
-        <h1 class="fdheader EN">or</h1>
-        <h1 class="fdheader EE">või</h1>
+        <h1 class="fdheader EN m">or</h1>
+        <h1 class="fdheader EE m">või</h1>
         <div id="webcam">
         <h1 class="fdheader EN">Use your webcam</h1>
         <h1 class="fdheader EE">Kasuta oma veebikaamerat</h1>
