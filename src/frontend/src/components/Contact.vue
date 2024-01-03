@@ -27,7 +27,7 @@ export default {
         treenodes_EN: [
                         {
                           key: 0,
-                          label: "Help develop Face-Describer",
+                          label: "Learn about the source code",
                           children: [
                               {key: 0-0, icon: "pi pi-google", label: "E-mail: karl.magnus.laikoja@gmail.com"},
                               {key: 0-1, icon: "pi pi-github", label: "Face-Describer repository", data:"https://github.com/KarlMagnusLaikoja/face-describer", type: 'url'},
@@ -65,7 +65,7 @@ export default {
         treenodes_EE: [
                         {
                           key: 0,
-                          label: "Aita arendada Face-Describerit",
+                          label: "Uuri lähtekoodi",
                           children: [
                               {key: 0-0, icon: "pi pi-google", label: "E-mail: karl.magnus.laikoja@gmail.com"},
                               {key: 0-1, icon: "pi pi-github", label: "Face-Describer repositoorium", data:"https://github.com/KarlMagnusLaikoja/face-describer", type: 'url'},
