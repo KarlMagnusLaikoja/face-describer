@@ -27,7 +27,7 @@ public class PythonHandler {
         logger.info(
                 String.format("Executing OS command: %s %s %s %s",
                         "python3",
-                        "RequestHandler.py",
+                        "FaceDescriber.py",
                         fileName,
                         language)
         );
