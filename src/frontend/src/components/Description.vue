@@ -7,7 +7,9 @@
     </Image>
     <Panel ref="panel" class="description" header="Description" toggleable>
         <p  ref="description"/>
-        <Message severity="error" id="errorMessageContainer" style="display: none;"><p id="errorMessage"></p></Message>
+        <div ref="errorMessageContainer" style="display: none;">
+        <Message severity="error"><p ref="errorMessage"></p></Message>
+        </div>
     </Panel>
 </div>
 <Divider/>
@@ -35,7 +37,11 @@ async function describe(fileNameOrBase64, language, refs){
     }
 
     //Display image
+    try{
     refs.image.src = image;
+    } catch (error){
+        //Ignore exception, image ref will load eventually
+    }
 
     //Send description request to backend
     var response = await fetch("/describe", {
@@ -49,14 +55,22 @@ async function describe(fileNameOrBase64, language, refs){
       }
     });
     if(response.status==500){ //Backend error
+        try{
         propagateError(response, refs, language);
+        } catch (error){
+        //Ignore exception, error refs will load eventually
+        }
         return;
     }
     response = await response.json();
 
-    //Propagate any errors to Face-Describer component
+    //Propagate any errors to field
     if (response.errorCode != 0){
+        try{
         propagateError(response, refs, language);
+        } catch (error){
+        //Ignore exception, error refs will load eventually
+        }
         return;
     }
 
@@ -76,8 +90,8 @@ function propagateError(response, refs, language){
                             "Failed to describe image":
                              "Kirjeldamine ebaõnnestus"
                         :response.errorMessage;
-    document.getElementById('errorMessageContainer').style.display='';
-    document.getElementById('errorMessage').innerHTML = errorText;
+    refs.errorMessageContainer.style.display='';
+    refs.errorMessage.innerHTML = errorText;
 }
 
 function setDescriptionHeaders(languageCode){
