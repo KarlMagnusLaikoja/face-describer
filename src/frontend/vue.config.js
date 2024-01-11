@@ -2,6 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 const fs = require('fs')
 module.exports = {
     devServer: {
+        allowedHosts: "all",
         https: {
                 key: fs.readFileSync('../main/resources/ssl/key.pem'),
                 cert: fs.readFileSync('../main/resources/ssl/cert.pem'),
