@@ -6,7 +6,7 @@ from PIL import Image
 from subdescribers.EyeColourDescriber import EyeColourDescriber
 from subdescribers.SkinColourDescriber import SkinColourDescriber
 
-def crop(coordinates):
+def getCoordinatesFromPoints(coordinates):
     xCoordinates = [pair[0] for pair in coordinates]
     yCoordinates = [pair[1] for pair in coordinates]
     lowestX = min(xCoordinates)
@@ -64,8 +64,8 @@ class FaceDescriber:
         #Describe eyecolour
         #params: left eye coordinates, right eye coordinates in format ((lowestX, highestX), (lowestY, highestY))
         self.describeEyeColour(
-            crop(coordinates[42:47+1]),
-            crop(coordinates[36:41+1]),
+            getCoordinatesFromPoints(coordinates[42:47+1]),
+            getCoordinatesFromPoints(coordinates[36:41+1]),
             skinColourRGB
         )
 
