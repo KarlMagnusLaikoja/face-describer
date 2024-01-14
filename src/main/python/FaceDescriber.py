@@ -4,7 +4,7 @@ import cv2
 import extcolors
 from PIL import Image
 from subdescribers.EyeColourDescriber import EyeColourDescriber
-
+from subdescribers.SkinColourDescriber import SkinColourDescriber
 
 def crop(coordinates):
     xCoordinates = [pair[0] for pair in coordinates]
@@ -19,8 +19,8 @@ class FaceDescriber:
     def __init__(self, image, language):
         self.image = cv2.imread("../../../"+image)
         self.language = language
-        self.output_EE = "Pildil oleval inimesel on %eyeColour% värvi %eyeShape% kujuga silmad. Tal on  %skinColour% värvi nahk."
-        self.output_EN = "The person in the picture has %eyeColour%, %eyeShape% shaped eyes. They have %skinColour% coloured skin."
+        self.output_EE = "Pildil oleval inimesel on %skinColour% nahk. Tal on %eyeColour% värvi %eyeShape% kujuga silmad."
+        self.output_EN = "The person in the picture has %skinColour% skin. They have %eyeColour%, %eyeShape% shaped eyes."
 
     def assertSingleFace(self, face_landmarks_list):
         if(len(face_landmarks_list)==0):
@@ -52,11 +52,17 @@ class FaceDescriber:
 
 
         #Describe skin colour
-        skinColourRGB = self.describeSkinColour(coordinates)
+        #params: cheek area coordinates in format ((lowestX, highestX), (lowestY, highestY))
+        skinColourRGB = self.describeSkinColour(
+            (
+                (coordinates[4][0], coordinates[12+1][0]),
+                (coordinates[1][1], coordinates[34+1][1])
+            )
+        )
+
 
         #Describe eyecolour
-        #params: left eye coordinates, right eye coordinates
-        #format: ((lowestX, highestX), (lowestY, highestY))
+        #params: left eye coordinates, right eye coordinates in format ((lowestX, highestX), (lowestY, highestY))
         self.describeEyeColour(
             crop(coordinates[42:47+1]),
             crop(coordinates[36:41+1]),
@@ -75,40 +81,24 @@ class FaceDescriber:
 
 
     def describeSkinColour(self, coordinates):
-        #Take the cheek area and go through every pixel, return the average RGB value and corresponding skin colour
+        #Instantiate skin colour describer
+        skinColourDescriber = SkinColourDescriber(self.image, coordinates)
 
-        cheekArea = self.image[
-                coordinates[1][1]:coordinates[34+1][1],
-                coordinates[4][0]:coordinates[12+1][0]
-              ]
+        #Describe skin colour
+        (r, g, b), colour = skinColourDescriber.describe()
 
-        #Convert to correct format
-        cheekArea = cv2.cvtColor(cheekArea, cv2.COLOR_BGR2RGB)
-        colours = []
-        #Gather all the found RGB
-        for i in range(len(cheekArea)):
-            for j in range(len(cheekArea[i])):
-                colours.append(cheekArea[i][j])
+        #Mapping from english to estonian
+        colourMapping = {
+            "pale white": "kahvatu valge",
+            "fair": "hele",
+            "darker white": "tumedam valge",
+            "light brown": "helepruun",
+            "brown": "pruun",
+            "dark brown or black": "tumepruun või must"
+        }
 
-        #Find the average
-        rTotal = 0
-        gTotal = 0
-        bTotal = 0
-        for (r, g, b) in colours:
-            rTotal+=r
-            gTotal+=g
-            bTotal+=b
-
-        r = round(rTotal/len(colours))
-        g = round(gTotal/len(colours))
-        b = round(bTotal/len(colours))
-
-
-        #TODO - compare to hardcoded skin colours
-
-
-        self.output_EN = self.output_EN.replace("%skinColour%", str((r,g,b)))
-        self.output_EE = self.output_EE.replace("%skinColour%", str((r,g,b)))
+        self.output_EN = self.output_EN.replace("%skinColour%", colour)
+        self.output_EE = self.output_EE.replace("%skinColour%", colourMapping[colour])
         return (r, g, b)
 
 

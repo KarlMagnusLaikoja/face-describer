@@ -41,6 +41,7 @@ class EyeColourDescriber:
         #The shortest Euclidean distance in 3 dimensions is considered the correct colour
 
         #The following are the hardcoded values that are considered as representatives of each eye colour
+        #These are found by getting the average RGB values of examples of each eye colour
         #Blue: [78, 113, 132]
         #Brown: [52, 32, 23]
         #Green: [83, 88, 47]
@@ -114,11 +115,18 @@ class EyeColourDescriber:
 
 
         #Return the smallest found value, meaning the shortest Euclidean distance
-        diffAndColor = {differenceFromBlue: "blue", differenceFromBrown: "brown", differenceFromGreen: "green", differenceFromGrey: "grey", differenceFromHazel: "hazel", differenceFromRed: "red"}
+        diffAndColour = {
+            differenceFromBlue: "blue",
+            differenceFromBrown: "brown",
+            differenceFromGreen: "green",
+            differenceFromGrey: "grey",
+            differenceFromHazel: "hazel",
+            differenceFromRed: "red"
+        }
         result = ""
         diff = 9999999
-        for key in diffAndColor:
+        for key in diffAndColour:
             if(key<diff):
                 diff = key
-                result = diffAndColor[key]
+                result = diffAndColour[key]
         return result
