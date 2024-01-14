@@ -16,7 +16,7 @@
 (EE) Frontend teenuse käivitamiseks tuleb jooksutada skripti ("/usr/bin/env bash src/frontend/startFrontendService.sh"). Vaja on sudo õiguseid.\
 (EN) In order to run the frontend service, run the script ("/usr/bin/env bash src/frontend/startFrontendService.sh"). Sudo permissions are needed.
 
-# Märkmed/Notes
+## Märkmed/Notes
 (EE) See repositoorium sisaldab iseallkirjastatud serti https toe jaoks. Brauserid seda serti vaikimisi ei usalda.\
 (EN) This repository contains a self-signed certificate for https support. Browsers will not trust the certificate by default.
 
