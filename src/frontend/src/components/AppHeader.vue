@@ -91,14 +91,14 @@ export default {
               return {
                   pages_EE: [
                        {label: 'Kodu', icon: 'pi pi-fw pi-home', to: '/'},
-                       {label: 'Face-Describer', icon: 'pi pi-fw pi-cog', to: '/face-describer'},
-                       {label: 'Kontakt', icon: 'pi pi-fw pi-phone', to: '/contact'},
+                       {label: 'Facedescriber', icon: 'pi pi-fw pi-cog', to: '/face-describer'},
+                       //{label: 'Kontakt', icon: 'pi pi-fw pi-phone', to: '/contact'},
                        {label: 'Galerii', icon: 'pi pi-fw pi-images', to: '/gallery'}
                   ],
                   pages_EN: [
                       {label: 'Home', icon: 'pi pi-fw pi-home', to: '/'},
-                      {label: 'Face-Describer', icon: 'pi pi-fw pi-cog', to: '/face-describer'},
-                      {label: 'Contact', icon: 'pi pi-fw pi-phone', to: '/contact'},
+                      {label: 'Facedescriber', icon: 'pi pi-fw pi-cog', to: '/face-describer'},
+                      //{label: 'Contact', icon: 'pi pi-fw pi-phone', to: '/contact'},
                       {label: 'Gallery', icon: 'pi pi-fw pi-images', to: '/gallery'}
                   ],
               }

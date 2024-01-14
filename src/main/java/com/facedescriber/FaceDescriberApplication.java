@@ -24,7 +24,7 @@ public class FaceDescriberApplication {
 		try {
 			processBuilder.start();
 		} catch (IOException e) {
-			throw new RuntimeException("Failed to setup python: "+e);
+			throw new RuntimeException("Failed to setup python virtual environment: "+e);
 		}
 	}
 

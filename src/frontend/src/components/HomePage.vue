@@ -3,18 +3,18 @@
     <div class="intro">
         <div class="EN">
             <h1>Create a comprehensive facial description</h1>
-            <p>Face-Describer is an application created to find and describe faces within an input image via image processing.</p>
+            <p>Facedescriber is an application created to find and describe faces within an input image via image processing.</p>
             <p>It was produced as the result of the author's bachelor's thesis.</p>
         </div>
         <div class="EE">
             <h1>Loo sisukas näokirjeldus</h1>
-            <p>Face-Describer on rakendus loodud sisendpildilt nägude leidmiseks ja kirjeldamiseks kasutades pilditöötlust.</p>
+            <p>Facedescriber on rakendus loodud sisendpildilt nägude leidmiseks ja kirjeldamiseks kasutades pilditöötlust.</p>
             <p>See valmis autori bakalaureusetöö tulemusena.</p>
         </div>
 
         <div class="links">
-        <Button icon="pi pi-fw pi-cog" label="Try Face-Describer" @click="this.$router.push('/face-describer')" class = "EN"/>
-        <Button icon="pi pi-fw pi-cog" label="Proovi Face-Describerit" @click="this.$router.push('/face-describer')" class = "EE"/>
+        <Button icon="pi pi-fw pi-cog" label="Try Facedescriber" @click="this.$router.push('/face-describer')" class = "EN"/>
+        <Button icon="pi pi-fw pi-cog" label="Proovi Facedescriberit" @click="this.$router.push('/face-describer')" class = "EE"/>
         <a href = "https://github.com/KarlMagnusLaikoja/face-describer" target="_blank">
                 <Button icon="pi pi-github" label="See the source code" class = "EN"/>
                 <Button icon="pi pi-github" label="Vaata lähtekoodi" class = "EE"/>
@@ -30,8 +30,8 @@
     </div>
     <Divider/>
     <div class="faq">
-            <h1 class="EN">What does Face-Describer do?</h1>
-            <h1 class="EE">Mida teeb Face-Describer?</h1>
+            <h1 class="EN">What does Facedescriber do?</h1>
+            <h1 class="EE">Mida teeb Facedescriber?</h1>
             <Accordion multiple="true" :activeIndex="0" class="algorithmSteps">
                 <AccordionTab>
                     <template #header>

@@ -1,30 +1,24 @@
-# English below
+# Facedescriber
+(EE) Veebirakendus nägude kirjeldamiseks pilditöötluse abil
+(EN) Web application for facial description via image processing
 
-# Face-Describer
-Veebirakendus nägude kirjeldamiseks pilditöötluse abil
-
-# Sammud backend teenuse käivitamiseks
-1. Jooksutada FaceDescriberApplication.java
-
-# Sammud frontend teenuse käivitamiseks
-2. "sudo npm run serve" käsk src/frontend kaustas
-3. "sudo node proxy.js" käsk src/frontend/proxy kaustas jooksutamaks puhverserverit http -> https suunamiseks
-
-# Notes
-See repositoorium sisaldab iseallkirjastatud serti https toe jaoks. Brauserid seda vaikimisi ei usalda.
-This repository contains a self-signed certificate for https support. Browsers will not trust the certificate by default.
+## Arhitektuur/Architecture
+(EE) Facedescriber koosneb eraldatud Vue frontend ja Java backend teenustest, lisaks Node.js ümbersuunamisserver HTTP päringute jaoks. Algoritm on realiseeritud Pythoni abil.
+(EN) Facedescriber consists of separated Vue frontend and Java backend services, as well as a Node.js redirect server for HTTP requests. Python is used for the algorithm itself.
 
 
+## Backend
+(EE) Backend teenuse käivitamiseks piisab FaceDescriberApplication.java jooksutamisest. Pythoni virtuaalkeskkonna loomise ja kõige muuga tegeleb see ise.
+(EN) In order to run the backend service, it is enough to just run FaceDescriberApplication.java. It will create the necessary Python virtual environment and everything else it needs by itself.
 
-# Face-Describer
-Web application for facial description via image processing
 
-# Steps to run backend service
-1. Run FaceDescriberApplication.java
+## Frontend
+(EE) Frontend teenuse käivitamiseks tuleb jooksutada skripti ("/usr/bin/env bash src/frontend/startFrontendService.sh"). Vaja on sudo õiguseid.
+(EN) In order to run the frontend service, run the script ("/usr/bin/env bash src/frontend/startFrontendService.sh"). Sudo permissions are needed.
 
-# Steps to run frontend service
-2. "sudo npm run serve" in src/frontend directory 
-3. "sudo node proxy.js" in src/frontend/proxy directory to run proxy for http to https redirects
+# Märkmed/Notes
+(EE) See repositoorium sisaldab iseallkirjastatud serti https toe jaoks. Brauserid seda serti vaikimisi ei usalda.
+(EN) This repository contains a self-signed certificate for https support. Browsers will not trust the certificate by default.
 
-# Notes
-This repository contains a self-signed certificate for https support. Browsers will not trust the certificate.
+
+
