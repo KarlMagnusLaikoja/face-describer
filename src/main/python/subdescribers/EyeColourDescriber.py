@@ -26,92 +26,76 @@ class EyeColourDescriber:
               coordinates[0][0]:coordinates[0][1]
               ]
 
-        #Find RGB values within the image of the eye
+        #Convert to correct format
         eye = cv2.cvtColor(eye, cv2.COLOR_BGR2RGB)
-        eye_pil = Image.fromarray(eye)
-        colours = extcolors.extract_from_image(eye_pil, tolerance = 12, limit = 12)[0]
-        colours = [rgb[0] for rgb in colours]  #Not all colours are the eye colour specifically
+        colours = []
+        #Gather all the found RGB
+        for i in range(len(eye)):
+            for j in range(len(eye[i])):
+                colours.append(eye[i][j])
+
+        #Find the average
+        rTotal = 0
+        gTotal = 0
+        bTotal = 0
+        for (r, g, b) in colours:
+            rTotal+=r
+            gTotal+=g
+            bTotal+=b
+
+        r = round(rTotal/len(colours))
+        g = round(gTotal/len(colours))
+        b = round(bTotal/len(colours))
 
 
-        #Compare the found colours to predefined eye colours (blue, brown etc)
-        return self.compareRGB(colours)
+        #Compare the found colour to predefined eye colours
+        return self.compareRGB( (r, g, b) )
 
 
-    def compareRGB(self, colours):
+    def compareRGB(self, colour):
         #The shortest Euclidean distance in 3 dimensions is considered the correct colour
 
         #The following are the hardcoded values that are considered as representatives of each eye colour
         #These are found by getting the average RGB values of examples of each eye colour
-        #Blue: [78, 113, 132]
-        #Brown: [52, 32, 23]
-        #Green: [83, 88, 47]
-        #Grey: [155, 156, 160]
-        #Hazel: [124, 104, 49]
-        #Red: [151, 90, 102]
+        #Blue: [89, 117, 130]
+        #Brown: [62, 48, 40]
+        #Green: [70, 70, 42]
+        #Grey: [113, 109, 114]
+        #Hazel: [118, 99, 63]
+        #Red: [158, 114, 120]
 
-        #Compare all of the found RGB values to the representative values and keep the ones with the smallest distance
-        differenceFromBlue = 999999
-        differenceFromBrown = 999999
-        differenceFromGreen = 999999
-        differenceFromGrey = 999999
-        differenceFromHazel = 999999
-        differenceFromRed = 999999
 
-        for foundRGB in colours:
-
-            #Difference from blue
-            foundDifferenceFromBlue = math.sqrt(
-                math.pow(foundRGB[0]-78, 2) +
-                math.pow(foundRGB[1]-113, 2) +
-                math.pow(foundRGB[2]-132, 2)
-            )
-            if(foundDifferenceFromBlue<differenceFromBlue):
-                differenceFromBlue = foundDifferenceFromBlue
-
-            #Difference from brown
-            foundDifferenceFromBrown = math.sqrt(
-                math.pow(foundRGB[0]-52, 2) +
-                math.pow(foundRGB[1]-32, 2) +
-                math.pow(foundRGB[2]-23, 2)
-            )
-            if(foundDifferenceFromBrown<differenceFromBrown):
-                differenceFromBrown = foundDifferenceFromBrown
-
-            #Difference from green
-            foundDifferenceFromGreen = math.sqrt(
-                math.pow(foundRGB[0]-83, 2) +
-                math.pow(foundRGB[1]-88, 2) +
-                math.pow(foundRGB[2]-47, 2)
-            )
-            if(foundDifferenceFromGreen<differenceFromGreen):
-                differenceFromGreen = foundDifferenceFromGreen
-
-            #Difference from grey
-            foundDifferenceFromGrey = math.sqrt(
-                math.pow(foundRGB[0]-155, 2) +
-                math.pow(foundRGB[1]-156, 2) +
-                math.pow(foundRGB[2]-160, 2)
-            )
-            if(foundDifferenceFromGrey<differenceFromGrey):
-                differenceFromGrey = foundDifferenceFromGrey
-
-            #Difference from hazel
-            foundDifferenceFromHazel = math.sqrt(
-                math.pow(foundRGB[0]-124, 2) +
-                math.pow(foundRGB[1]-104, 2) +
-                math.pow(foundRGB[2]-49, 2)
-            )
-            if(foundDifferenceFromHazel<differenceFromHazel):
-                differenceFromHazel = foundDifferenceFromHazel
-
-            #Difference from red
-            foundDifferenceFromRed = math.sqrt(
-                math.pow(foundRGB[0]-151, 2) +
-                math.pow(foundRGB[1]-90, 2) +
-                math.pow(foundRGB[2]-102, 2)
-            )
-            if(foundDifferenceFromRed<differenceFromRed):
-                differenceFromRed = foundDifferenceFromRed
+        #Compare the found RGB values to the representative values and return the smallest found value
+        differenceFromBlue = math.sqrt(
+            math.pow(colour[0] - 89, 2) +
+            math.pow(colour[1] - 117, 2) +
+            math.pow(colour[2] - 130, 2)
+        )
+        differenceFromBrown = math.sqrt(
+            math.pow(colour[0] - 62, 2) +
+            math.pow(colour[1] - 48, 2) +
+            math.pow(colour[2] - 40, 2)
+        )
+        differenceFromGreen = math.sqrt(
+            math.pow(colour[0] - 70, 2) +
+            math.pow(colour[1] - 70, 2) +
+            math.pow(colour[2] - 42, 2)
+        )
+        differenceFromGrey = math.sqrt(
+            math.pow(colour[0] - 113, 2) +
+            math.pow(colour[1] - 109, 2) +
+            math.pow(colour[2] - 114, 2)
+        )
+        differenceFromHazel = math.sqrt(
+            math.pow(colour[0] - 118, 2) +
+            math.pow(colour[1] - 99, 2) +
+            math.pow(colour[2] - 63, 2)
+        )
+        differenceFromRed = math.sqrt(
+            math.pow(colour[0] - 158, 2) +
+            math.pow(colour[1] - 114, 2) +
+            math.pow(colour[2] - 120, 2)
+        )
 
 
         #Return the smallest found value, meaning the shortest Euclidean distance

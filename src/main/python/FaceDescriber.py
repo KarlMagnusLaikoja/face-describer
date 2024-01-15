@@ -7,6 +7,7 @@ from subdescribers.EyeColourDescriber import EyeColourDescriber
 from subdescribers.SkinColourDescriber import SkinColourDescriber
 
 def getCoordinatesFromPoints(coordinates):
+    #Gets the pair of "lowest" and "highest" coordinates within a set of coordinates/points
     xCoordinates = [pair[0] for pair in coordinates]
     yCoordinates = [pair[1] for pair in coordinates]
     lowestX = min(xCoordinates)
@@ -52,10 +53,10 @@ class FaceDescriber:
 
 
         #Describe skin colour
-        #params: cheek area coordinates in format ((lowestX, highestX), (lowestY, highestY))
+        #params: left cheek area coordinates in format ((lowestX, highestX), (lowestY, highestY))
         skinColourRGB = self.describeSkinColour(
             (
-                (coordinates[4][0], coordinates[12+1][0]),
+                (coordinates[10][0], coordinates[12+1][0]),
                 (coordinates[1][1], coordinates[34+1][1])
             )
         )
@@ -64,8 +65,14 @@ class FaceDescriber:
         #Describe eyecolour
         #params: left eye coordinates, right eye coordinates in format ((lowestX, highestX), (lowestY, highestY))
         self.describeEyeColour(
-            getCoordinatesFromPoints(coordinates[42:47+1]),
-            getCoordinatesFromPoints(coordinates[36:41+1]),
+            (
+                (coordinates[43][0], coordinates[45+1][0]),
+                (coordinates[43][1], coordinates[45+1][1])
+            ),
+            (
+                (coordinates[37][0], coordinates[39+1][0]),
+                (coordinates[37][1], coordinates[39+1][1])
+            ),
             skinColourRGB
         )
 
