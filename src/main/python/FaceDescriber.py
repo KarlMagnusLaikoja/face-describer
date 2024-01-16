@@ -54,8 +54,8 @@ class FaceDescriber:
         #params: left cheek area coordinates in format ((lowestX, highestX), (lowestY, highestY))
         skinColourRGB = self.describeSkinColour(
             (
-                (coordinates[10][0], coordinates[12+1][0]),
-                (coordinates[1][1], coordinates[34+1][1])
+                (coordinates[10][0], coordinates[13][0]),
+                (coordinates[1][1], coordinates[35][1])
             )
         )
 
@@ -64,12 +64,12 @@ class FaceDescriber:
         #params: left eye coordinates, right eye coordinates in format ((lowestX, highestX), (lowestY, highestY))
         self.describeEyeColour(
             (
-                (coordinates[43][0], coordinates[45+1][0]),
-                (coordinates[43][1], coordinates[45+1][1])
+                (coordinates[43][0], coordinates[46][0]),
+                (coordinates[43][1], coordinates[46][1])
             ),
             (
-                (coordinates[37][0], coordinates[39+1][0]),
-                (coordinates[37][1], coordinates[39+1][1])
+                (coordinates[37][0], coordinates[40][0]),
+                (coordinates[37][1], coordinates[40][1])
             ),
             skinColourRGB
         )
