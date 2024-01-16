@@ -1,8 +1,5 @@
-import face_recognition
 import cv2
-import extcolors
 import math
-from PIL import Image
 
 
 class EyeColourDescriber:

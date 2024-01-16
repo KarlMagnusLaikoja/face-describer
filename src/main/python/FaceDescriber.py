@@ -1,8 +1,6 @@
 import face_recognition
 import sys
 import cv2
-import extcolors
-from PIL import Image
 from subdescribers.EyeColourDescriber import EyeColourDescriber
 from subdescribers.SkinColourDescriber import SkinColourDescriber
 
@@ -20,8 +18,8 @@ class FaceDescriber:
     def __init__(self, image, language):
         self.image = cv2.imread("../../../"+image)
         self.language = language
-        self.output_EE = "Pildil oleval inimesel on %skinColour% nahk. Tal on %eyeColour% värvi %eyeShape% kujuga silmad."
-        self.output_EN = "The person in the picture has %skinColour% skin. They have %eyeColour%, %eyeShape% shaped eyes."
+        self.output_EE = "Pildil oleval inimesel on %skinColour% nahk. Tal on %eyeColour% värvi silmad."
+        self.output_EN = "The person in the picture has %skinColour% skin. They have %eyeColour% eyes."
 
     def assertSingleFace(self, face_landmarks_list):
         if(len(face_landmarks_list)==0):
