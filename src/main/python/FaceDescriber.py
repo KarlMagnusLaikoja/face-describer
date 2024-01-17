@@ -3,6 +3,7 @@ import sys
 import cv2
 from subdescribers.EyeColourDescriber import EyeColourDescriber
 from subdescribers.SkinColourDescriber import SkinColourDescriber
+from subdescribers.FaceShapeDescriber import FaceShapeDescriber
 
 def getCoordinatesFromPoints(coordinates):
     #Gets the pair of "lowest" and "highest" coordinates within a set of coordinates/points
@@ -18,8 +19,8 @@ class FaceDescriber:
     def __init__(self, image, language):
         self.image = cv2.imread("../../../"+image)
         self.language = language
-        self.output_EE = "Pildil oleval inimesel on %skinColour% nahk. Tal on %eyeColour% värvi silmad."
-        self.output_EN = "The person in the picture has %skinColour% skin. They have %eyeColour% eyes."
+        self.output_EE = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi silmad."
+        self.output_EN = "The person in the picture has a face that is %faceShape% shaped with %skinColour% skin. They have %eyeColour% eyes."
 
     def assertSingleFace(self, face_landmarks_list):
         if(len(face_landmarks_list)==0):
@@ -49,6 +50,15 @@ class FaceDescriber:
             for (x, y) in v:
                 coordinates.append((x, y))
 
+
+        #Describe face shape
+        #params: entire coordinates in format ((lowestX, highestX), (lowestY, highestY))
+        self.describeFaceShape(
+            (
+                (coordinates[0][0], coordinates[16][0]),
+                (coordinates[24][1], coordinates[8][1])
+            )
+        )
 
         #Describe skin colour
         #params: left cheek area coordinates in format ((lowestX, highestX), (lowestY, highestY))
@@ -82,6 +92,27 @@ class FaceDescriber:
             return self.output_EE
         elif(self.language=="EN"):
             return self.output_EN
+
+
+    def describeFaceShape(self, coordinates):
+        #Instantiate face shape describer
+        faceShapeDescriber = FaceShapeDescriber(self.image, coordinates)
+
+        #Describe face shape
+        shape = faceShapeDescriber.describe()
+
+        #Mapping from english to estonian
+        shapeMapping = {
+            "diamond": "teemandi kujuline",
+            "oblong": "oblongi kujuline",
+            "oval": "ovaali kujuline",
+            "round": "ümmargune",
+            "square": "ruudu kujuline",
+        }
+
+        self.output_EN = self.output_EN.replace("%faceShape%", shape)
+        self.output_EE = self.output_EE.replace("%faceShape%", shapeMapping[shape])
+
 
 
 
