@@ -89,7 +89,7 @@ async function describe(fileNameOrBase64, language, refs){
 
 async function compileAndPropagateResult(response, refs, language){
     var description = "";
-    const data = response.description;
+    const data = language == "EE" ? response.kirjeldus : response.description;
 
     if(language == "EE"){
         description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi silmad.";
