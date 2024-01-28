@@ -92,7 +92,7 @@ async function compileAndPropagateResult(response, refs, language){
             "oblong": "oblongi kujuline",
             "ovaal": "ovaali kujuline",
             "ümmargune": "ümmargune",
-            "ruudu kujuline": "ruudu kujuline",
+            "ruut": "ruudu kujuline",
         };
         description = description.replace("%faceShape%", faceShapeMapping[data["näo kuju"]]);
 

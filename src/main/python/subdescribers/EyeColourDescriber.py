@@ -3,18 +3,17 @@ import math
 
 
 class EyeColourDescriber:
-    def __init__(self, image, leftEyeCoordinates, rightEyeCoordinates, skinColourRGB):
+    def __init__(self, image, leftEyeCoordinates, rightEyeCoordinates):
         self.image = image
         self.leftEyeCoordinates = leftEyeCoordinates
         self.rightEyeCoordinates = rightEyeCoordinates
-        self.skinColourRGB = skinColourRGB
 
     def describe(self):
-        return self.findEyeColour(self.leftEyeCoordinates, self.skinColourRGB), self.findEyeColour(self.rightEyeCoordinates, self.skinColourRGB)
+        return self.findEyeColour(self.leftEyeCoordinates), self.findEyeColour(self.rightEyeCoordinates)
 
 
 
-    def findEyeColour(self, coordinates, skinColourRGB):
+    def findEyeColour(self, coordinates):
         #coordinates format: ((lowestX, highestX), (lowestY, highestY))
 
         #Crop the image using the eye coordinates so that it only contains the eye
