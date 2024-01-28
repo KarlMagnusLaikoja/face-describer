@@ -54,6 +54,7 @@ public class DescriptionResponse implements Serializable {
             return this;
         }
         public Builder descriptionResult(String descriptionResult) throws ParseException {
+            if(descriptionResult == null) return this;
             this.descriptionResult = (JSONObject)
                     parser.parse(
                             descriptionResult.replace("\'", "\"")

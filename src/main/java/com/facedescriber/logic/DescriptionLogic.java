@@ -47,39 +47,44 @@ public class DescriptionLogic {
 
     public String execute() {
         logger.info("Starting DescriptionLogic with data: "+data);
+        DescriptionRequest request = null;
         try{
-            DescriptionRequest request = validate(data);
+            request = validate(data);
             saveImage(request.getImage()); //Can't use base64 image directly because it can be too long. Need to save to a file instead.
             String descriptionResult = pythonHandler.executeDescription(fileName, request.getLanguage());
             deleteImage(fileName);
-            return createResponse(BackendError.OK.getErrorCode(), null, descriptionResult);
+            return createResponse(BackendError.OK.getErrorCode(), null, descriptionResult, request.getLanguage());
         } catch (MissingFieldException e) {
             logger.warn("Error "+BackendError.MISSING_FIELD.getErrorCode()+": "+e.getMessage());
             return createResponse(
                     BackendError.MISSING_FIELD.getErrorCode(),
                     e.getMessage(),
-                    null
+                    null,
+                    "EN"
             );
         } catch (UnsupportedLanguageException e) {
             logger.warn("Error "+BackendError.UNSUPPORTED_LANGUAGE.getErrorCode()+": "+e.getMessage());
             return createResponse(
                     BackendError.UNSUPPORTED_LANGUAGE.getErrorCode(),
                     e.getMessage(),
-                    null
+                    null,
+                    "EN"
             );
         }catch (InvalidBase64Exception e) {
             logger.warn("Error "+BackendError.INVALID_BASE64.getErrorCode()+": "+e.getMessage());
             return createResponse(
                     BackendError.INVALID_BASE64.getErrorCode(),
                     e.getMessage(),
-                    null
+                    null,
+                    "EN"
             );
         } catch (JsonProcessingException e) {
             logger.warn("Error " + BackendError.INVALID_JSON.getErrorCode() + ": " + e.getMessage());
             return createResponse(
                     BackendError.INVALID_JSON.getErrorCode(),
                     "Request body contains invalid JSON",
-                    null
+                    null,
+                    "EN"
             );
         } catch (PythonException e){
             logger.warn("Error "+BackendError.PYTHON_ERROR.getErrorCode()+": "+e.getMessage());
@@ -87,15 +92,19 @@ public class DescriptionLogic {
             return createResponse(
                     BackendError.PYTHON_ERROR.getErrorCode(),
                     e.getMessage(),
-                    null
+                    null,
+                    request.getLanguage()
             );
         } catch (Exception e) {
             logger.warn("Error "+BackendError.BACKEND_FAILURE.getErrorCode()+": "+e.getMessage());
             deleteImage(fileName);
             return createResponse(
                     BackendError.BACKEND_FAILURE.getErrorCode(),
-                    "Backend execution of facial description failed",
-                    null
+                    request.getLanguage().equals("EE")?
+                            "Näokirjeldus ebaõnnestus":
+                            "Backend execution of facial description failed",
+                    null,
+                    request.getLanguage()
             );
         }
     }
@@ -120,15 +129,19 @@ public class DescriptionLogic {
         logger.info("Successfully saved "+fileName+" to disk");
     }
 
-    private String createResponse(int errorCode, String errorMessage, String descriptionResult) {
+    private String createResponse(int errorCode, String errorMessage, String descriptionResult, String languageCode) {
         try {
-            return mapper.writeValueAsString(
+            String response = mapper.writeValueAsString(
                     DescriptionResponse.responseBuilder(
-                            errorCode,
-                            errorMessage,
-                            descriptionResult
-                    ).build()
+                                    errorCode,
+                                    errorMessage,
+                                    descriptionResult
+                            )
+                            .build()
             );
+            return languageCode.equals("EE")?
+                    response.replace("errorCode", "veakood").replace("errorMessage", "veateade").replace("description", "kirjeldus") :
+                    response;
         } catch (JsonProcessingException | ParseException e) {
             logger.error("Response creation failed: "+e.getMessage());
             throw new RuntimeException(e);
