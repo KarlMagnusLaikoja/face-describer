@@ -101,7 +101,7 @@ public class DescriptionLogic {
             return createResponse(
                     BackendError.BACKEND_FAILURE.getErrorCode(),
                     request.getLanguage().equals("EE")?
-                            "Näokirjeldus ebaõnnestus":
+                            "Näokirjelduse teostamine ebaõnnestus":
                             "Backend execution of facial description failed",
                     null,
                     request.getLanguage()

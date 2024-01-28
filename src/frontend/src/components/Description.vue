@@ -65,11 +65,19 @@ async function describe(fileNameOrBase64, language, refs){
     response = await response.json();
 
     //Propagate any errors to field
-    if (response.errorCode != 0){
+    if (response.errorCode && response.errorCode != 0){
         try{
         propagateError(response, refs, language);
         } catch (error){
         //Ignore exception, error refs will load eventually
+        }
+        return;
+    }
+    else if (response.veakood && response.veakood != 0){
+        try{
+            propagateError(response, refs, language);
+        } catch (error){
+            //Ignore exception, error refs will load eventually
         }
         return;
     }
@@ -155,7 +163,10 @@ function propagateError(response, refs, language){
                         language=="EN"?
                             "Failed to describe image":
                              "Kirjeldamine ebaõnnestus"
-                        :response.errorMessage;
+                        :language=="EN"?
+                            response.errorMessage:
+                            response.veateade
+                        ;
     refs.errorMessageContainer.style.display='';
     refs.errorMessage.innerHTML = errorText;
 }
