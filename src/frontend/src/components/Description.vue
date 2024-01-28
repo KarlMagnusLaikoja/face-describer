@@ -75,13 +75,79 @@ async function describe(fileNameOrBase64, language, refs){
     }
 
 
-    //Propagate result, typing effect for aesthetic purposes
-    for (let i = 0; i < response.descriptionResult.length; i++){
-        if (!refs.description) return; //Hacky fix for when user navigates before the text has been written
-        refs.description.innerHTML += response.descriptionResult.charAt(i);
-        await new Promise(t => setTimeout(t, 50));
+    //Propagate result
+    compileAndPropagateResult(response, refs, language);
+}
+
+async function compileAndPropagateResult(response, refs, language){
+    var description = "";
+    const data = response.description;
+
+    if(language == "EE"){
+        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi silmad.";
+
+        //Face shape
+        const faceShapeMapping = {
+            "teemant": "teemandi kujuline",
+            "oblong": "oblongi kujuline",
+            "ovaal": "ovaali kujuline",
+            "ümmargune": "ümmargune",
+            "ruudu kujuline": "ruudu kujuline",
+        };
+        description = description.replace("%faceShape%", faceShapeMapping[data["näo kuju"]]);
+
+        //Skin colour
+        description = description.replace("%skinColour%", data["naha värv"]);
+
+
+        //Eye colour
+        const eyeColourMapping = {
+            "sinine": "sinist",
+            "pruun": "pruuni",
+            "roheline": "rohelist",
+            "hall": "halli",
+            "pähkelpruun": "pähkelpruuni",
+            "punane": "punast"
+        }
+
+        //Consider case where eyes are different coloured
+        if(data["parema silma värv"] == data["vasaku silma värv"]){
+            description = description.replace("%eyeColour%", eyeColourMapping[data["parema silma värv"]]);
+        }
+        else{
+            description = description.replace("värvi", "").replace("%eyeColour%", "eri värvi (vasak "+data["vasaku silma värv"]+", parem "+data["parema silma värv"]+")")
+        }
     }
 
+
+
+    if(language == "EN"){
+        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% eyes.";
+
+        //Face shape
+        description = description.replace("%faceShape%", data["face shape"]);
+
+        //Skin colour
+        description = description.replace("%skinColour%", data["skin colour"]);
+
+       //Eye colour
+       //Consider case where eyes are different coloured
+       if(data["right eye colour"] == data["left eye colour"]){
+                description = description.replace("%eyeColour%", data["right eye colour"]);
+       }
+       else{
+            description = description.replace("%eyeColour%", "different coloured (the left is "+data["left eye colour"]+", the right is "+data["right eye colour"]+")");
+       }
+    }
+
+
+
+    //Typing effect for aesthetic purposes
+    for (let i = 0; i < description.length; i++){
+        if (!refs.description) return; //Hacky fix for when user navigates before the text has been written
+        refs.description.innerHTML += description.charAt(i);
+        await new Promise(t => setTimeout(t, 50));
+    }
 }
 
 function propagateError(response, refs, language){

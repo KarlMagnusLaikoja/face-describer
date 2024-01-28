@@ -2,6 +2,9 @@ package com.facedescriber.logic;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -15,22 +18,22 @@ public class DescriptionResponse implements Serializable {
     @JsonProperty
     private String errorMessage;
     @JsonProperty
-    private String descriptionResult;
+    private JSONObject description;
 
     public DescriptionResponse() {
     }
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
     }
-    public void setDescriptionResult(String descriptionResult) {
-        this.descriptionResult = descriptionResult;
+    public void setDescription(JSONObject description) {
+        this.description = description;
     }
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    public static Builder responseBuilder(int errorCode, String errorMessage, String descriptionResult){
+    public static Builder responseBuilder(int errorCode, String errorMessage, String descriptionResult) throws ParseException {
         return new Builder()
                 .errorCode(errorCode)
                 .errorMessage(errorMessage)
@@ -38,9 +41,10 @@ public class DescriptionResponse implements Serializable {
     }
 
     public static class Builder{
+        private static JSONParser parser = new JSONParser();
         private int errorCode;
         private String errorMessage;
-        private String descriptionResult;
+        private JSONObject descriptionResult;
         public Builder errorCode(int errorCode) {
             this.errorCode = errorCode;
             return this;
@@ -49,15 +53,18 @@ public class DescriptionResponse implements Serializable {
             this.errorMessage = errorMessage;
             return this;
         }
-        public Builder descriptionResult(String descriptionResult) {
-            this.descriptionResult = descriptionResult;
+        public Builder descriptionResult(String descriptionResult) throws ParseException {
+            this.descriptionResult = (JSONObject)
+                    parser.parse(
+                            descriptionResult.replace("\'", "\"")
+                    );
             return this;
         }
         public DescriptionResponse build(){
             DescriptionResponse response = new DescriptionResponse();
             response.setErrorCode(this.errorCode);
             response.setErrorMessage(this.errorMessage);
-            response.setDescriptionResult(this.descriptionResult);
+            response.setDescription(this.descriptionResult);
             return response;
         }
     }

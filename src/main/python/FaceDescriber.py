@@ -19,8 +19,18 @@ class FaceDescriber:
     def __init__(self, image, language):
         self.image = cv2.imread("../../../"+image)
         self.language = language
-        self.output_EE = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi silmad."
-        self.output_EN = "The person in the picture has a face that is %faceShape% shaped with %skinColour% skin. They have %eyeColour% eyes."
+        self.output_EN = {
+            "face shape": "",
+            "skin colour": "",
+            "right eye colour": "",
+            "left eye colour": ""
+        }
+        self.output_EE = {
+            "näo kuju": "",
+            "naha värv": "",
+            "parema silma värv": "",
+            "vasaku silma värv": ""
+        }
 
     def assertSingleFace(self, face_landmarks_list):
         if(len(face_landmarks_list)==0):
@@ -103,15 +113,16 @@ class FaceDescriber:
 
         #Mapping from english to estonian
         shapeMapping = {
-            "diamond": "teemandi kujuline",
-            "oblong": "oblongi kujuline",
-            "oval": "ovaali kujuline",
+            "diamond": "teemant",
+            "oblong": "oblong",
+            "oval": "ovaal",
             "round": "ümmargune",
-            "square": "ruudu kujuline",
+            "square": "ruut",
         }
 
-        self.output_EN = self.output_EN.replace("%faceShape%", shape)
-        self.output_EE = self.output_EE.replace("%faceShape%", shapeMapping[shape])
+
+        self.output_EN["face shape"] = shape
+        self.output_EE["näo kuju"] = shapeMapping[shape]
 
 
 
@@ -133,8 +144,9 @@ class FaceDescriber:
             "dark brown or black": "tumepruun või must"
         }
 
-        self.output_EN = self.output_EN.replace("%skinColour%", colour)
-        self.output_EE = self.output_EE.replace("%skinColour%", colourMapping[colour])
+
+        self.output_EN["skin colour"] = colour
+        self.output_EE["naha värv"] = colourMapping[colour]
         return (r, g, b)
 
 
@@ -148,22 +160,19 @@ class FaceDescriber:
 
         #Mapping from english to estonian
         colourMapping = {
-            "blue": ["sinine", "sinist"],
-            "brown": ["pruun", "pruuni"],
-            "green": ["roheline", "rohelist"],
-            "grey": ["hall", "halli"],
-            "hazel": ["pähkelpruun", "pähkelpruuni"],
-            "red": ["punane", "punast"]
+            "blue": "sinine",
+            "brown": "pruun",
+            "green": "roheline",
+            "grey": "hall",
+            "hazel": "pähkelpruun",
+            "red": "punane"
         }
 
-        #Consider case where eyes are different coloured
-        if(rightEyeColour==leftEyeColour):
-            self.output_EN = self.output_EN.replace("%eyeColour%", rightEyeColour)
-            self.output_EE = self.output_EE.replace("%eyeColour%", colourMapping[rightEyeColour][1])
-        else:
-            self.output_EN = self.output_EN.replace("%eyeColour%", "different coloured (the left is "+leftEyeColour+", the right is "+rightEyeColour+")")
-            self.output_EE = self.output_EE.replace("värvi", "").replace("%eyeColour%", "eri värvi (vasak "+colourMapping[leftEyeColour][0]+", parem "+colourMapping[rightEyeColour][0]+")")
 
+        self.output_EN["left eye colour"] = leftEyeColour
+        self.output_EN["right eye colour"] = rightEyeColour
+        self.output_EE["vasaku silma värv"] = colourMapping[leftEyeColour]
+        self.output_EE["parema silma värv"] = colourMapping[rightEyeColour]
 
 
 
