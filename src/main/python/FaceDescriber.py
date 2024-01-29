@@ -265,13 +265,20 @@ class FaceDescriber:
 
 
         #Mapping from english to estonian
+        thicknessMapping = {
+            "none": "puudub",
+            "thin": "õhuke",
+            "thick": "tihe"
+        }
         colourMapping = {
-            "blue": "sinine",
-            "brown": "pruun",
-            "green": "roheline",
+            "red": "punane",
+            "blonde": "blond",
+            "light brown": "helepruun",
+            "dark brown": "tumepruun",
+            "black": "must",
             "grey": "hall",
-            "hazel": "pähkelpruun",
-            "red": "punane"
+            "white": "valge",
+            "": ""
         }
 
 
@@ -279,8 +286,8 @@ class FaceDescriber:
         self.output_EN["facial hair thickness"] = thickness
         self.output_EN["facial hair colour"] = colour
 
-        self.output_EE["näokarvade tihedus"] = thickness
-        self.output_EE["näokarvade värv"] = colour
+        self.output_EE["näokarvade tihedus"] = thicknessMapping[thickness]
+        self.output_EE["näokarvade värv"] = colourMapping[colour]
 
 
 

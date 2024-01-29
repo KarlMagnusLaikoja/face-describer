@@ -1,5 +1,6 @@
 import cv2
 import math
+import numpy as np
 
 
 
@@ -44,10 +45,13 @@ class FacialHairDescriber:
         facialHairPixels = getFacialHairPixels(pixels, self.skinColourRGB, 0.25)
 
 
-
+        thickness = self.describeFacialHairThickness(pixels, facialHairPixels)
+        colour = ""
+        if(thickness != "none"):
+            colour = self.describeFacialHairColour(facialHairPixels)
         return (
-            self.describeFacialHairThickness(pixels, facialHairPixels),
-            self.describeFacialHairColour()
+            thickness,
+            colour
             )
 
 
@@ -65,12 +69,12 @@ class FacialHairDescriber:
 
 
         #<75% - no facial hair
-        #75-90% - light facial hair
+        #75-90% - thin facial hair
         #90+% - thick facial hair
         if(facialHairPercentage<0.75):
             return "none"
         elif(facialHairPercentage<0.9):
-            return "light"
+            return "thin"
         else:
             return "thick"
 
@@ -80,8 +84,15 @@ class FacialHairDescriber:
 
 
 
-    def describeFacialHairColour(self):
-        return "TODO"
+    def describeFacialHairColour(self, facialHairPixels):
+        #Compares the average RGB values within the "facial hair pixels" to representatives and classifies the image based on that
+
+        #Get the average RGB value of the facial hair pixels
+        (r, g, b) = getAverageRGB(facialHairPixels)
+
+
+        #Compare it to representatives
+        return compareRGB( (r, g, b) )
 
 
 
@@ -143,3 +154,134 @@ def pixelDiffersOverThreshold(colour1, colour2, threshold):
     bDiff = math.sqrt(math.pow(colour1[2]-colour2[2], 2)) / colour2[2]
 
     return (rDiff+gDiff+bDiff)/3 >= threshold
+
+
+
+
+
+
+
+
+
+
+
+
+def getAverageRGB(pixels):
+    #Calculates the average RGB value from a list of pixels
+
+    rTotal = 0
+    gTotal = 0
+    bTotal = 0
+
+    for (r, g, b) in pixels:
+        rTotal += r
+        gTotal += g
+        bTotal += b
+
+
+    r = np.round(rTotal/len(pixels))
+    g = np.round(gTotal/len(pixels))
+    b = np.round(bTotal/len(pixels))
+    return (r, g, b)
+
+
+
+
+
+
+
+
+
+
+
+
+def compareRGB(colour):
+    #The shortest Euclidean distance in 3 dimensions is considered the correct colour
+
+    #The following are the hardcoded values that are considered as representatives of each facial hair colour
+    #These are found by getting the average RGB values of examples of each facial hair colour
+    #Red: (190.0, 144.0, 98.0)
+    #Blonde: (192.0, 151.0, 102.0)
+    #Light brown: (125.0, 100.0, 91.0)
+    #Dark brown: (75.0, 62.0, 55.0)
+    #Black: (61.0, 61.0, 62.0)
+    #Grey: (120.0, 120.0, 119.0)
+    #White: (236.0, 242.0, 224.0)
+
+
+
+    #Compare the found RGB values to the representative values and return the smallest found value
+    differenceFromRed = math.sqrt(
+        math.pow(colour[0] - 190, 2) +
+        math.pow(colour[1] - 144, 2) +
+        math.pow(colour[2] - 98, 2)
+    )
+
+
+
+    differenceFromBlonde = math.sqrt(
+        math.pow(colour[0] - 192, 2) +
+        math.pow(colour[1] - 151, 2) +
+        math.pow(colour[2] - 102, 2)
+    )
+
+
+
+    differenceFromLightBrown = math.sqrt(
+        math.pow(colour[0] - 125, 2) +
+        math.pow(colour[1] - 100, 2) +
+        math.pow(colour[2] - 91, 2)
+    )
+
+
+
+    differenceFromDarkBrown = math.sqrt(
+        math.pow(colour[0] - 75, 2) +
+        math.pow(colour[1] - 62, 2) +
+        math.pow(colour[2] - 55, 2)
+    )
+
+
+
+    differenceFromBlack = math.sqrt(
+        math.pow(colour[0] - 61, 2) +
+        math.pow(colour[1] - 61, 2) +
+        math.pow(colour[2] - 62, 2)
+    )
+
+
+
+    differenceFromGrey = math.sqrt(
+        math.pow(colour[0] - 120, 2) +
+        math.pow(colour[1] - 120, 2) +
+        math.pow(colour[2] - 119, 2)
+    )
+
+
+
+    differenceFromWhite = math.sqrt(
+        math.pow(colour[0] - 236, 2) +
+        math.pow(colour[1] - 242, 2) +
+        math.pow(colour[2] - 224, 2)
+    )
+
+
+
+
+    #Return the smallest found value, meaning the shortest Euclidean distance
+    diffAndColour = {
+        differenceFromRed: "red",
+        differenceFromBlonde: "blonde",
+        differenceFromLightBrown: "light brown",
+        differenceFromDarkBrown: "dark brown",
+        differenceFromBlack: "black",
+        differenceFromGrey: "grey",
+        differenceFromWhite: "white"
+    }
+    result = ""
+    diff = 9999999
+    for key in diffAndColour:
+        if(key<diff):
+            diff = key
+            result = diffAndColour[key]
+    return result
