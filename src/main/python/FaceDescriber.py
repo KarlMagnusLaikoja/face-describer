@@ -7,6 +7,13 @@ from subdescribers.FaceShapeDescriber import FaceShapeDescriber
 from subdescribers.FacialHairDescriber import FacialHairDescriber
 
 
+
+
+
+
+
+
+
 def getCoordinatesFromPoints(coordinates):
     #Gets the pair of "lowest" and "highest" coordinates within a set of coordinates/points
     xCoordinates = [pair[0] for pair in coordinates]
@@ -18,9 +25,13 @@ def getCoordinatesFromPoints(coordinates):
     return ((lowestX, highestX), (lowestY, highestY))
 
 class FaceDescriber:
+
+
     def __init__(self, image, language):
+
         self.image = cv2.imread("../../../"+image)
         self.language = language
+
         self.output_EN = {
             "face shape": "",
             "skin colour": "",
@@ -29,6 +40,7 @@ class FaceDescriber:
             "facial hair thickness": "",
             "facial hair colour": ""
         }
+
         self.output_EE = {
             "näo kuju": "",
             "naha värv": "",
@@ -38,15 +50,22 @@ class FaceDescriber:
             "näokarvade värv": ""
         }
 
+
+
+
     def assertSingleFace(self, face_landmarks_list):
+
         if(len(face_landmarks_list)==0):
+
             if(self.language=="EE"):
                 print("Pildilt ei tuvastatud ühtegi nägu.")
                 sys.exit(101)
             elif(self.language=="EN"):
                 print("Couldn't detect any faces.")
                 sys.exit(101)
+
         elif(len(face_landmarks_list)>1):
+
             if(self.language=="EE"):
                 print("Pildilt tuvastati mitu nägu.")
                 sys.exit(101)
@@ -54,17 +73,25 @@ class FaceDescriber:
                 print("Multiple faces were detected.")
                 sys.exit(101)
 
+
+
+
     def describe(self):
+
         image = self.image
         face_landmarks_list = face_recognition.face_landmarks(image)
+
         #Verify that the image only contains a single face
         self.assertSingleFace(face_landmarks_list)
         face_landmarks = face_landmarks_list[0]
+
         #Gather all the coordinates into a single list
         coordinates = []
         for k, v in face_landmarks.items():
             for (x, y) in v:
                 coordinates.append((x, y))
+
+
 
 
         #Describe face shape
@@ -76,6 +103,10 @@ class FaceDescriber:
             )
         )
 
+
+
+
+
         #Describe skin colour
         #params: left cheek area coordinates in format ((lowestX, highestX), (lowestY, highestY))
         skinColourRGB = self.describeSkinColour(
@@ -84,6 +115,9 @@ class FaceDescriber:
                 (coordinates[1][1], coordinates[35][1])
             )
         )
+
+
+
 
 
         #Describe eyecolour
@@ -98,6 +132,9 @@ class FaceDescriber:
                 (coordinates[37][1], coordinates[40][1])
             )
         )
+
+
+
 
 
 
@@ -118,6 +155,9 @@ class FaceDescriber:
 
 
 
+
+
+
         #Return output based on provided language code
         if(self.language=="EE"):
             return self.output_EE
@@ -125,7 +165,13 @@ class FaceDescriber:
             return self.output_EN
 
 
+
+
+
+
+
     def describeFaceShape(self, coordinates):
+
         #Instantiate face shape describer
         faceShapeDescriber = FaceShapeDescriber(self.image, coordinates)
 
@@ -148,7 +194,11 @@ class FaceDescriber:
 
 
 
+
+
+
     def describeSkinColour(self, coordinates):
+
         #Instantiate skin colour describer
         skinColourDescriber = SkinColourDescriber(self.image, coordinates)
 
@@ -168,10 +218,13 @@ class FaceDescriber:
 
         self.output_EN["skin colour"] = colour
         self.output_EE["naha värv"] = colourMapping[colour]
+
+
         return (r, g, b)
 
 
     def describeEyeColour(self, leftEyeCoordinates, rightEyeCoordinates):
+
         #Instantiate eye colour describer
         eyeColourDescriber = EyeColourDescriber(self.image, leftEyeCoordinates, rightEyeCoordinates)
 
@@ -192,12 +245,18 @@ class FaceDescriber:
 
         self.output_EN["left eye colour"] = leftEyeColour
         self.output_EN["right eye colour"] = rightEyeColour
+
         self.output_EE["vasaku silma värv"] = colourMapping[leftEyeColour]
         self.output_EE["parema silma värv"] = colourMapping[rightEyeColour]
 
 
 
+
+
+
+
     def describeFacialHair(self, facialHairCoordinates, skinColourRGB):
+
         #Instantiate facial hair describer
         facialHairDescriber = FacialHairDescriber(self.image, facialHairCoordinates, skinColourRGB)
 
@@ -216,10 +275,27 @@ class FaceDescriber:
         }
 
 
+
         self.output_EN["facial hair thickness"] = thickness
         self.output_EN["facial hair colour"] = colour
+
         self.output_EE["näokarvade tihedus"] = thickness
         self.output_EE["näokarvade värv"] = colour
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 fileName = sys.argv[1]

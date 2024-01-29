@@ -2,19 +2,45 @@ import cv2
 import math
 
 
+
+
+
+
+
+
+
 class EyeColourDescriber:
+
+
     def __init__(self, image, leftEyeCoordinates, rightEyeCoordinates):
+
         self.image = image
         self.leftEyeCoordinates = leftEyeCoordinates
         self.rightEyeCoordinates = rightEyeCoordinates
 
+
+
+
+
+
+
+
     def describe(self):
-        return self.findEyeColour(self.leftEyeCoordinates), self.findEyeColour(self.rightEyeCoordinates)
+
+        return (
+            self.findEyeColour(self.leftEyeCoordinates),
+            self.findEyeColour(self.rightEyeCoordinates)
+            )
+
+
+
+
 
 
 
     def findEyeColour(self, coordinates):
         #coordinates format: ((lowestX, highestX), (lowestY, highestY))
+
 
         #Crop the image using the eye coordinates so that it only contains the eye
         eye = self.image[
@@ -22,26 +48,37 @@ class EyeColourDescriber:
               coordinates[0][0]:coordinates[0][1]
               ]
 
+
         #Convert to correct format
         eye = cv2.cvtColor(eye, cv2.COLOR_BGR2RGB)
-        colours = []
+
+
+
         #Gather all the found RGB
+        colours = []
         for i in range(len(eye)):
             for j in range(len(eye[i])):
                 colours.append(eye[i][j])
+
+
+
 
         #Find the average
         rTotal = 0
         gTotal = 0
         bTotal = 0
+
         for (r, g, b) in colours:
             rTotal+=r
             gTotal+=g
             bTotal+=b
 
+
+
         r = round(rTotal/len(colours))
         g = round(gTotal/len(colours))
         b = round(bTotal/len(colours))
+
 
 
         #Compare the found colour to predefined eye colours
@@ -61,37 +98,57 @@ class EyeColourDescriber:
         #Red: [158, 114, 120]
 
 
+
         #Compare the found RGB values to the representative values and return the smallest found value
+
         differenceFromBlue = math.sqrt(
             math.pow(colour[0] - 89, 2) +
             math.pow(colour[1] - 117, 2) +
             math.pow(colour[2] - 130, 2)
         )
+
+
+
         differenceFromBrown = math.sqrt(
             math.pow(colour[0] - 62, 2) +
             math.pow(colour[1] - 48, 2) +
             math.pow(colour[2] - 40, 2)
         )
+
+
+
         differenceFromGreen = math.sqrt(
             math.pow(colour[0] - 70, 2) +
             math.pow(colour[1] - 70, 2) +
             math.pow(colour[2] - 42, 2)
         )
+
+
+
         differenceFromGrey = math.sqrt(
             math.pow(colour[0] - 113, 2) +
             math.pow(colour[1] - 109, 2) +
             math.pow(colour[2] - 114, 2)
         )
+
+
+
         differenceFromHazel = math.sqrt(
             math.pow(colour[0] - 118, 2) +
             math.pow(colour[1] - 99, 2) +
             math.pow(colour[2] - 63, 2)
         )
+
+
+
         differenceFromRed = math.sqrt(
             math.pow(colour[0] - 158, 2) +
             math.pow(colour[1] - 114, 2) +
             math.pow(colour[2] - 120, 2)
         )
+
+
+
 
 
         #Return the smallest found value, meaning the shortest Euclidean distance

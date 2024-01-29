@@ -1,20 +1,40 @@
 import cv2
 import numpy as np
 
+
+
+
+
 class FaceShapeDescriber:
+
     def __init__(self, image, coordinates):
+
         self.image = image
         self.coordinates = coordinates
 
+
+
+
+
     def describe(self):
+
         return self.describeFaceShape(self.coordinates)
+
+
+
+
+
 
 
     def describeFaceShape(self, coordinates):
         #coordinates format: ((lowestX, highestX), (lowestY, highestY))
 
+
+
         #Read in the templates to which we will compare the face to
         templates = readTemplates()
+
+
 
         #Crop the image using the face coordinates
         face = self.image[
@@ -22,8 +42,12 @@ class FaceShapeDescriber:
                coordinates[0][0]:coordinates[0][1]
                ]
 
+
+
         #Resize the input image to be the same size as the templates
         face = cv2.resize(face, (110, 110))
+
+
 
 
         #Go over the input with all of the templates, find the best match
@@ -38,7 +62,15 @@ class FaceShapeDescriber:
         return best_template
 
 
+
+
+
+
+
 def readTemplates():
+    #Reads the face shape templates into a list
+
+
     templates = {
         "diamond": None,
         "oblong": None,
@@ -47,11 +79,13 @@ def readTemplates():
         "square": None
     }
 
+
     templates["diamond"] = cv2.imread("templates/faceshapes/diamond.png")
     templates["oblong"] = cv2.imread("templates/faceshapes/oblong.png")
     templates["oval"] = cv2.imread("templates/faceshapes/oval.png")
     templates["round"] = cv2.imread("templates/faceshapes/round.png")
     templates["square"] = cv2.imread("templates/faceshapes/square.png")
+
 
     return templates
 
