@@ -142,7 +142,14 @@ async function compileAndPropagateResult(response, refs, language){
         description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% eyes. They have %facialHairThickness% %facialHairColour% facial hair.";
 
         //Face shape
-        description = description.replace("%faceShape%", data["face shape"]);
+        const faceShapeMapping = {
+            "diamond": "a diamond shaped",
+            "oblong": "an oblong",
+            "oval": "an oval",
+            "round": "a round",
+            "square": "a square",
+        };
+        description = description.replace("a %faceShape% shaped", faceShapeMapping[data["face shape"]]);
 
         //Skin colour
         description = description.replace("%skinColour%", data["skin colour"]);
@@ -158,7 +165,7 @@ async function compileAndPropagateResult(response, refs, language){
 
        //Facial hair
        if(data["facial hair thickness"] == "none"){
-            description = description.replace("They have %facialHairThickness% %facialHairColour% facial hair", "They don't have or have very light facial hair.");
+            description = description.replace("They have %facialHairThickness% %facialHairColour% facial hair.", "They don't have or have very light facial hair.");
        }
        else{
             description = description.replace("%facialHairThickness%", data["facial hair thickness"]).replace("%facialHairColour%", data["facial hair colour"]);

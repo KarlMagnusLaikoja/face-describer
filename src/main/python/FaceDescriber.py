@@ -273,11 +273,9 @@ class FaceDescriber:
         colourMapping = {
             "red": "punane",
             "blonde": "blond",
-            "light brown": "helepruun",
-            "dark brown": "tumepruun",
+            "brown": "pruun",
             "black": "must",
             "grey": "hall",
-            "white": "valge",
             "": ""
         }
 

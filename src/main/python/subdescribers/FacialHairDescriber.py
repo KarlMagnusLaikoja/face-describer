@@ -200,69 +200,51 @@ def compareRGB(colour):
 
     #The following are the hardcoded values that are considered as representatives of each facial hair colour
     #These are found by getting the average RGB values of examples of each facial hair colour
-    #Red: (190.0, 144.0, 98.0)
-    #Blonde: (192.0, 151.0, 102.0)
-    #Light brown: (125.0, 100.0, 91.0)
-    #Dark brown: (75.0, 62.0, 55.0)
-    #Black: (61.0, 61.0, 62.0)
-    #Grey: (120.0, 120.0, 119.0)
-    #White: (236.0, 242.0, 224.0)
+    #Red: (147.0, 87.0, 66.0)
+    #Blonde: (129.0, 109.0, 90.0)
+    #Brown: (126.0, 70.0, 55.0)
+    #Black: (24.0, 26.0, 27.0)
+    #Grey: (137.0, 137.0, 142.0)
 
 
 
     #Compare the found RGB values to the representative values and return the smallest found value
     differenceFromRed = math.sqrt(
-        math.pow(colour[0] - 190, 2) +
-        math.pow(colour[1] - 144, 2) +
-        math.pow(colour[2] - 98, 2)
+        math.pow(colour[0] - 147, 2) +
+        math.pow(colour[1] - 87, 2) +
+        math.pow(colour[2] - 66, 2)
     )
 
 
 
     differenceFromBlonde = math.sqrt(
-        math.pow(colour[0] - 192, 2) +
-        math.pow(colour[1] - 151, 2) +
-        math.pow(colour[2] - 102, 2)
+        math.pow(colour[0] - 129, 2) +
+        math.pow(colour[1] - 109, 2) +
+        math.pow(colour[2] - 90, 2)
     )
 
 
 
-    differenceFromLightBrown = math.sqrt(
-        math.pow(colour[0] - 125, 2) +
-        math.pow(colour[1] - 100, 2) +
-        math.pow(colour[2] - 91, 2)
-    )
-
-
-
-    differenceFromDarkBrown = math.sqrt(
-        math.pow(colour[0] - 75, 2) +
-        math.pow(colour[1] - 62, 2) +
+    differenceFromBrown = math.sqrt(
+        math.pow(colour[0] - 126, 2) +
+        math.pow(colour[1] - 70, 2) +
         math.pow(colour[2] - 55, 2)
     )
 
 
 
     differenceFromBlack = math.sqrt(
-        math.pow(colour[0] - 61, 2) +
-        math.pow(colour[1] - 61, 2) +
-        math.pow(colour[2] - 62, 2)
+        math.pow(colour[0] - 24, 2) +
+        math.pow(colour[1] - 26, 2) +
+        math.pow(colour[2] - 27, 2)
     )
 
 
 
     differenceFromGrey = math.sqrt(
-        math.pow(colour[0] - 120, 2) +
-        math.pow(colour[1] - 120, 2) +
-        math.pow(colour[2] - 119, 2)
-    )
-
-
-
-    differenceFromWhite = math.sqrt(
-        math.pow(colour[0] - 236, 2) +
-        math.pow(colour[1] - 242, 2) +
-        math.pow(colour[2] - 224, 2)
+        math.pow(colour[0] - 137, 2) +
+        math.pow(colour[1] - 137, 2) +
+        math.pow(colour[2] - 142, 2)
     )
 
 
@@ -272,11 +254,9 @@ def compareRGB(colour):
     diffAndColour = {
         differenceFromRed: "red",
         differenceFromBlonde: "blonde",
-        differenceFromLightBrown: "light brown",
-        differenceFromDarkBrown: "dark brown",
+        differenceFromBrown: "brown",
         differenceFromBlack: "black",
         differenceFromGrey: "grey",
-        differenceFromWhite: "white"
     }
     result = ""
     diff = 9999999
