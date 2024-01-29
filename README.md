@@ -31,9 +31,9 @@ npm 9.8.1
 
 ## Märkmed/Notes
 (EE) See repositoorium sisaldab iseallkirjastatud serti https toe jaoks. Brauserid seda serti vaikimisi ei usalda.\
-(EN) This repository contains a self-signed certificate for https support. Browsers will not trust the certificate by default.\
+(EN) This repository contains a self-signed certificate for https support. Browsers will not trust the certificate by default.
 
 (EE) Ekstra materjalid (esindajate leidmine, kirjeldajate näidisväljundid) on saadaval kaustas src/main/python/extras.\
-(EN) Extra material (finding the representatives, examples of the describers' output) is available in src/main/python/extras.\
+(EN) Extra material (finding the representatives, examples of the describers' output) is available in src/main/python/extras.
 
 
