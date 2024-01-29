@@ -47,7 +47,7 @@ const router = createRouter({
 
 const store = new Vuex.Store({
     state: {
-        languageCode: 'EE',
+        languageCode: 'EN',
     },
     mutations: {
         setLanguageCode: (state, languageCode) => state.languageCode = languageCode

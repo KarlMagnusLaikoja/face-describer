@@ -5,6 +5,7 @@ from subdescribers.EyeColourDescriber import EyeColourDescriber
 from subdescribers.SkinColourDescriber import SkinColourDescriber
 from subdescribers.FaceShapeDescriber import FaceShapeDescriber
 from subdescribers.FacialHairDescriber import FacialHairDescriber
+from subdescribers.NoseShapeDescriber import NoseShapeDescriber
 
 
 
@@ -38,7 +39,8 @@ class FaceDescriber:
             "right eye colour": "",
             "left eye colour": "",
             "facial hair thickness": "",
-            "facial hair colour": ""
+            "facial hair colour": "",
+            "nose shape": ""
         }
 
         self.output_EE = {
@@ -47,7 +49,8 @@ class FaceDescriber:
             "parema silma värv": "",
             "vasaku silma värv": "",
             "näokarvade tihedus": "",
-            "näokarvade värv": ""
+            "näokarvade värv": "",
+            "nina kuju": ""
         }
 
 
@@ -95,7 +98,7 @@ class FaceDescriber:
 
 
         #Describe face shape
-        #params: entire coordinates in format ((lowestX, highestX), (lowestY, highestY))
+        #params: entire face coordinates in format ((lowestX, highestX), (lowestY, highestY))
         self.describeFaceShape(
             (
                 (coordinates[0][0], coordinates[16][0]),
@@ -150,6 +153,18 @@ class FaceDescriber:
         self.describeFacialHair(
             facialHairCoordinates,
             skinColourRGB
+        )
+
+
+
+
+        #Describe nose shape
+        #params: nose coordinates in format ((lowestX, highestX), (lowestY, highestY))
+        self.describeNoseShape(
+            (
+                (coordinates[39][0], coordinates[41+1][0]),
+                (coordinates[27][1], coordinates[33+1][1])
+            )
         )
 
 
@@ -289,6 +304,37 @@ class FaceDescriber:
 
 
 
+
+
+
+
+
+
+    def describeNoseShape(self, coordinates):
+
+        #Instantiate nose shape describer
+        noseShapeDescriber = NoseShapeDescriber(self.image, coordinates)
+
+        #Describe nose shape
+        shape = noseShapeDescriber.describe()
+
+        #Mapping from english to estonian
+        shapeMapping = {
+            "bulbous": "sibulakujuline",
+            "button": "nööpnina",
+            "crooked": "kõver",
+            "East Asian": "Ida-Aasia",
+            "fleshy": "lihav",
+            "Greek": "Kreeka",
+            "hawk": "kull/kongus",
+            "Nubian": "Nuubia",
+            "Roman": "Rooma",
+            "upturned": "ülespööratud"
+        }
+
+
+        self.output_EN["nose shape"] = shape
+        self.output_EE["nina kuju"] = shapeMapping[shape]
 
 
 

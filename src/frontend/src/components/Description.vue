@@ -92,7 +92,7 @@ async function compileAndPropagateResult(response, refs, language){
     const data = language == "EE" ? response.kirjeldus : response.description;
 
     if(language == "EE"){
-        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi silmad. Tal on %facialHairThickness% %facialHairColour% näokarva kate.";
+        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi silmad ja %noseShape% nina. Tal on %facialHairThickness% %facialHairColour% näokarva kate.";
 
         //Face shape
         const faceShapeMapping = {
@@ -134,12 +134,23 @@ async function compileAndPropagateResult(response, refs, language){
         else{
             description = description.replace("%facialHairThickness%", data["näokarvade tihedus"]).replace("%facialHairColour%", data["näokarvade värv"]);
         }
+
+        //Nose shape
+        if(data["nina kuju"] == "nööpnina"){
+             description = description.replace("%noseShape% nina", "nööpnina");
+        }
+        else if(data["nina kuju"] == "kull/kongus"){
+            description = description.replace("%noseShape% nina", "kulli nina/kongus nina");
+        }
+        else{
+            description = description.replace("%noseShape%", data["nina kuju"]);
+        }
     }
 
 
 
     if(language == "EN"){
-        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% eyes. They have %facialHairThickness% %facialHairColour% facial hair.";
+        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% eyes and a %noseShape% nose. They have %facialHairThickness% %facialHairColour% facial hair.";
 
         //Face shape
         const faceShapeMapping = {
@@ -169,6 +180,14 @@ async function compileAndPropagateResult(response, refs, language){
        }
        else{
             description = description.replace("%facialHairThickness%", data["facial hair thickness"]).replace("%facialHairColour%", data["facial hair colour"]);
+       }
+
+       //Nose shape
+       if(data["nose shape"] == "East Asian" || data["nose shape"] == "upturned"){
+        description = description.replace("a %noseShape%", "an "+data["nose shape"]);
+       }
+       else{
+        description = description.replace("%noseShape%", data["nose shape"]);
        }
     }
 
