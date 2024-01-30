@@ -14,9 +14,7 @@ imageio-ffmpeg==0.4.9
 nltk==3.8.1
 numpy==1.23.5
 
-opencv-contrib-python==4.8.0.76
-opencv-python==4.8.0.76
-opencv-python-headless==4.8.1.78
+opencv-contrib-python==4.9.0.80
 
 pandas==1.5.3
 pandas-datareader==0.10.0

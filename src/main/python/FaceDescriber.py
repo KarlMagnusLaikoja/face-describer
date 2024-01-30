@@ -98,13 +98,8 @@ class FaceDescriber:
 
 
         #Describe face shape
-        #params: entire face coordinates in format ((lowestX, highestX), (lowestY, highestY))
-        self.describeFaceShape(
-            (
-                (coordinates[0][0], coordinates[16][0]),
-                (coordinates[24][1], coordinates[8][1])
-            )
-        )
+        #params: all the coordinates
+        self.describeFaceShape(coordinates)
 
 
 
@@ -145,10 +140,10 @@ class FaceDescriber:
         #params: coordinates of facial hair areas in format [((lowestX, highestX), (lowestY, highestY)), ((lowestX, highestX), (lowestY, highestY)), ...]
         # and skin colour's RGB value
         facialHairCoordinates = [
-            ((coordinates[7][0], coordinates[8+1][0]), (coordinates[5][1], coordinates[7+1][1])),
-            ((coordinates[7][0], coordinates[8+1][0]), (coordinates[33][1], coordinates[49+1][1])),
-            ((coordinates[10][0], coordinates[11+1][0]), (coordinates[57][1], coordinates[11+1][1])),
-            ((coordinates[5][0], coordinates[6+1][0]), (coordinates[57][1], coordinates[11+1][1]))
+            ((coordinates[7][0], coordinates[9][0]), (coordinates[5][1], coordinates[8][1])),
+            ((coordinates[7][0], coordinates[9][0]), (coordinates[33][1], coordinates[50][1])),
+            ((coordinates[10][0], coordinates[12][0]), (coordinates[57][1], coordinates[12][1])),
+            ((coordinates[5][0], coordinates[7][0]), (coordinates[57][1], coordinates[12][1]))
         ]
         self.describeFacialHair(
             facialHairCoordinates,
@@ -162,8 +157,8 @@ class FaceDescriber:
         #params: nose coordinates in format ((lowestX, highestX), (lowestY, highestY))
         self.describeNoseShape(
             (
-                (coordinates[39][0], coordinates[41+1][0]),
-                (coordinates[27][1], coordinates[33+1][1])
+                (coordinates[39][0], coordinates[42][0]),
+                (coordinates[27][1], coordinates[34][1])
             )
         )
 

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Scope("request")
@@ -34,11 +36,19 @@ public class PythonHandler {
         Process process = processBuilder.start();
         int exitCode = process.waitFor();
         try(BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()))){
-            if(exitCode == BackendError.PYTHON_ERROR.getErrorCode()) throw new PythonException(exitCode, br.lines().findFirst().get());
+            if(exitCode != 0){
+                List<String> output = br.lines().collect(Collectors.toList());
+                logger.error(
+                        String.format(
+                                "OS command exited with code %d: %s",
+                                exitCode,
+                                output
+                        )
+                );
+                throw new PythonException(exitCode, br.lines().findFirst().get());
+            }
 
-            if(exitCode == 0) return br.lines().findFirst().get(); //Expecting only 1 output line
-
-            throw new Exception();
+            return br.lines().findFirst().get(); //Expecting only 1 output line
         }
     }
 }
