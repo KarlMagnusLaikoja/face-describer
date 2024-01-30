@@ -35,7 +35,7 @@ class FaceShapeDescriber:
 
 
 
-        #Crop the image using some of the face-recognition coordinates and contouring + manual cropping to get
+        #Crop the image using some of the face-recognition coordinates and skeletonization + manual cropping to get
         #the entire face (including the forehead, which you can't get using just the face-recognition coordinates)
         face = toTemplate(self.image, coordinates)
 
@@ -114,12 +114,12 @@ def toTemplate(img, coordinates):
     #Grayscaling
     result = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    #Thresholding
+    #Skeletonization
     _, result = cv2.threshold(result, 128, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY_INV)
     result = cv2.ximgproc.thinning(result)
 
     #Start from the top of the image and find the first white pixels- this is likely
-    #to be the first edge that the previous thresholding process produced, meaning this is where
+    #to be the first contour that the previous skeletonization process produced, meaning this is where
     #the face actually starts
     minY = 0
     minYFound = False
@@ -144,7 +144,7 @@ def toTemplate(img, coordinates):
 
 
     #Under perfect conditions, the resulting image is completely black,
-    #with the entire face being contoured by a single white line.
+    #with the entire face area being contoured by a single white line.
 
     #Even with imperfect conditions such as contours inside the outer contour,
     #the classification should not be affected due to all the templates having their accuracy reduced
