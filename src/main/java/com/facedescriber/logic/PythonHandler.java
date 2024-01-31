@@ -23,12 +23,12 @@ public class PythonHandler {
     public PythonHandler(){}
 
     public String executeDescription(String fileName, String language) throws Exception {
-        ProcessBuilder processBuilder = new ProcessBuilder("python3", "FaceDescriber.py", fileName, language);
+        ProcessBuilder processBuilder = new ProcessBuilder("venv/bin/python3", "FaceDescriber.py", fileName, language);
         processBuilder.directory(new File("src/main/python"));
         processBuilder.redirectErrorStream(true);
         logger.info(
                 String.format("Executing OS command: %s %s %s %s",
-                        "python3",
+                        "venv/bin/python3",
                         "FaceDescriber.py",
                         fileName,
                         language)

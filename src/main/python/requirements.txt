@@ -1,12 +1,8 @@
-cmake==3.27.7
 colorama==0.4.6
 colormap==1.0.6
 colour==0.1.5
-dlib==19.24.2
 easydev==0.12.1
 extcolors==1.0.0
-face-recognition==1.3.0
-face-recognition-models==0.3.0
 
 imageio==2.31.6
 imageio-ffmpeg==0.4.9

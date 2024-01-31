@@ -3,16 +3,16 @@
 (EN) Web application for facial description via image processing.
 
 ## Arhitektuur/Architecture
-(EE) Facedescriber koosneb eraldatud Vue frontend ja Java backend teenustest, lisaks Node.js ümbersuunamisserver HTTP päringute jaoks. Algoritm on realiseeritud Pythoni abil.\
-(EN) Facedescriber consists of separated Vue frontend and Java backend services, as well as a Node.js redirect server for HTTP requests. Python is used for the algorithm itself.
+(EE) Facedescriber koosneb eraldatud Vue frontend ja Java backend teenustest, lisaks Node.js ümbersuunamisserver HTTP päringute jaoks. Näokirjeldus on realiseeritud Pythoni abil.\
+(EN) Facedescriber consists of separated Vue frontend and Java backend services, as well as a Node.js redirect server for HTTP requests. Python is used for the facial description itself.
 
 ## Backend
-(EE) Backend teenuse käivitamiseks piisab FaceDescriberApplication.java jooksutamisest. Pythoni virtuaalkeskkonna loomise ja kõige muuga tegeleb see ise.\
-(EN) In order to run the backend service, it is enough to just run FaceDescriberApplication.java. It will create the necessary Python virtual environment and everything else it needs by itself.
+(EE) Backend teenuse püsti seadmiseks tuleb luua Pythoni virtuaalkeskkond ja installeerida vajalikud moodulid. Selleks on olemas skript, mida tuleb jooksutada vaid üks kord ("sudo /usr/bin/env bash src/main/python/setup.sh). Edaspidi piisab teenuse käivitamiseks FaceDescriberApplication.java jooksutamisest.\
+(EN) In order to set up the backend service, you need to create a Python virtual environment and install the necessary dependencies. There is a one-time script for this ("sudo /usr/bin/env bash src/main/python/setup.sh). After that, in order to run the backend service, it is enough to just run FaceDescriberApplication.java.
 
 ### Backend API
-(EE) Suhtlus frontend ja backend teenuste vahel on realiseeritud REST programmeerimisliidesega, millele pääsevad ligi ka teised kliendid. Näiteid erinevatest päringutest Linuxi terminalis jooksutamiseks saab leida siit: src/main/java/examples/examples.md.\
-(EN) Communication between the frontend and backend services is realized using a REST API, which can also be accessed by other clients. Examples of different calls to the API using Linux terminal are found in src/main/java/examples/examples.md.
+(EE) Suhtlus frontend ja backend teenuste vahel on realiseeritud REST programmeerimisliidesega backend teenuses, millele pääsevad ligi ka teised kliendid. Näiteid erinevatest Bash päringutest saab leida siit: src/main/java/examples/examples.md.\
+(EN) Communication between the frontend and backend services is realized using a REST API in the backend service, which can also be accessed by other clients. Examples of different calls to the API using Bash commands are found in src/main/java/examples/examples.md.
 
 ## Frontend
 (EE) Frontend teenuse käivitamiseks tuleb jooksutada skripti ("/usr/bin/env bash src/frontend/startFrontendService.sh"). Vaja on sudo õiguseid.\
