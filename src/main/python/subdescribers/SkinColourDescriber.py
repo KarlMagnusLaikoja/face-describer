@@ -86,62 +86,65 @@ class SkinColourDescriber:
         #The shortest Euclidean distance in 3 dimensions is considered the correct colour
 
         #The following are the hardcoded values that are considered as representatives of each skin colour
-        #These are found by getting the average RGB values of examples of each skin colour
-        #Pale white: [245, 186, 164]
-        #Fair: [148, 115, 106]
-        #Darker white: [146, 101, 78]
-        #Light brown: [159, 122, 110]
-        #Brown: [160, 112, 109]
-        #Dark brown or black: [50, 37, 32]
+        #These are found by getting the median RGB values of each skin colour category
+        #Categories: https://dermnetnz.org/topics/skin-phototype
+        #Skin colour RGB values: https://www.researchgate.net/publication/310443424_Improvement_of_Haar_Feature_Based_Face_Detection_in_OpenCV_Incorporating_Human_Skin_Color_Characteristic
+        #Pale white: [255, 218, 190]
+        #Fair: [240, 184, 160]
+        #Darker white: [195, 149, 130]
+        #Light brown: [150, 114, 100]
+        #Brown: [105, 80, 70]
+        #Dark brown or black: [60, 46, 40]
 
 
 
         #Compare the found RGB values to the representative values and return the smallest found value
         differenceFromPaleWhite = math.sqrt(
-            math.pow(colour[0] - 245, 2) +
-            math.pow(colour[1] - 186, 2) +
-            math.pow(colour[2] - 164, 2)
+            math.pow(colour[0] - 255, 2) +
+            math.pow(colour[1] - 218, 2) +
+            math.pow(colour[2] - 190, 2)
         )
 
 
 
         differenceFromFair = math.sqrt(
-            math.pow(colour[0] - 148, 2) +
-            math.pow(colour[1] - 115, 2) +
-            math.pow(colour[2] - 106, 2)
+            math.pow(colour[0] - 240, 2) +
+            math.pow(colour[1] - 184, 2) +
+            math.pow(colour[2] - 160, 2)
         )
 
 
 
         differenceFromDarkerWhite = math.sqrt(
-            math.pow(colour[0] - 146, 2) +
-            math.pow(colour[1] - 101, 2) +
-            math.pow(colour[2] - 78, 2)
+            math.pow(colour[0] - 195, 2) +
+            math.pow(colour[1] - 149, 2) +
+            math.pow(colour[2] - 130, 2)
         )
 
 
 
         differenceFromLightBrown = math.sqrt(
-            math.pow(colour[0] - 159, 2) +
-            math.pow(colour[1] - 122, 2) +
-            math.pow(colour[2] - 110, 2)
+            math.pow(colour[0] - 150, 2) +
+            math.pow(colour[1] - 114, 2) +
+            math.pow(colour[2] - 100, 2)
         )
 
 
 
         differenceFromBrown = math.sqrt(
-            math.pow(colour[0] - 160, 2) +
-            math.pow(colour[1] - 112, 2) +
-            math.pow(colour[2] - 109, 2)
+            math.pow(colour[0] - 105, 2) +
+            math.pow(colour[1] - 80, 2) +
+            math.pow(colour[2] - 70, 2)
         )
 
 
 
         differenceFromDarkBrownOrBlack = math.sqrt(
-            math.pow(colour[0] - 50, 2) +
-            math.pow(colour[1] - 37, 2) +
-            math.pow(colour[2] - 32, 2)
+            math.pow(colour[0] - 60, 2) +
+            math.pow(colour[1] - 46, 2) +
+            math.pow(colour[2] - 40, 2)
         )
+
 
 
 
