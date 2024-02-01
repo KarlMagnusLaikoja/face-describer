@@ -16,10 +16,16 @@
         <div id="webcam">
         <h1 class="fdheader EN">Use your webcam</h1>
         <h1 class="fdheader EE">Kasuta oma veebikaamerat</h1>
-        <WebCamUI :fullscreenButton="{display: false, text: '', css: ''}" @photoTaken="takePhoto" />
+        <WebCamUI :fullscreenButton="{display: false, text: '', css: ''}" @photoTaken="takePhoto"/>
         </div>
         <description v-if="image && this.$store.state.languageCode=='EN'" v-bind:image="image"/>
         <description v-if="image && this.$store.state.languageCode=='EE'" v-bind:image="image"/>
+        <Sidebar v-model:visible="infoBarVisible" position="bottom" id="infobar">
+                        <div v-if="this.$store.state.languageCode=='EN'" v-html="englishInfoBarText" class="infobardiv"/>
+                        <div v-if="this.$store.state.languageCode=='EE'" v-html="estonianInfoBarText" class="infobardiv"/>
+        </Sidebar>
+        <Button icon="pi pi-info-circle" @click="infoBarVisible = true" label="How can I get the most accurate results?" class="EN" id = "infobarbutton"/>
+        <Button icon="pi pi-info-circle" @click="infoBarVisible = true" label="Kuidas saan ma täpseima tulemuse?" class="EE" id = "infobarbutton"/>
     </div>
 </div>
 </template>
@@ -52,6 +58,7 @@ async function takePhoto(data){
 }
 
 
+
 export default {
   name: 'FaceDescriber',
   components: {
@@ -63,7 +70,10 @@ export default {
   },
   data() {
           return {
-                          image: null
+                          image: null,
+                          infoBarVisible: false,
+                          englishInfoBarText: "<h1>How can I get the most accurate results?</h1><h3>1. Face directly toward the camera with a neutral expression.</h3><p>Keep your eyes open, mouth closed and your face parallel to the camera.</p><h3>2. Achieve standard, uniform lighting.</h3><p>No bright lights or shadows being cast on the face.</p><h3>3. Do not wear any accessories.</h3><p>No hats or facial coverings.</p>",
+                          estonianInfoBarText: "<h1>Kuidas saan ma täpseima tulemuse?</h1><h3>1. Vaata otse kaamera poole neutraalse ilmega.</h3><p>Hoia silmad lahti, suu kinni ja nägu paralleelselt kaamera suhtes.</p><h3>2. Saavuta tavaline, ühtlane valgustus.</h3><p>Näo peale ei tohiks langeda varje või väga eredat valgust.</p><h3>3. Ära kanna aksessuaare.</h3><p>Eemalda mütsid ja näokatted.</p>"
                       }
       },
   methods: {

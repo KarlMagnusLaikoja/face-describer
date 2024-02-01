@@ -159,6 +159,17 @@ div.links{
     max-width: 10vw;
     max-height: 5vh;
 }
+#infobarbutton{
+    width: 100%;
+    height: 1%;
+    align-self: flex-end;
+}
+#infobar{
+height: max-content;
+}
+.infobardiv{
+    text-align: center;
+}
 }
 
 
@@ -250,7 +261,7 @@ html, body{
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 5%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     display: grid;
     grid-template: 1fr / 1fr;
     place-items: center;
@@ -342,6 +353,17 @@ div.links{
 #logo{
     max-width: 10vw;
     max-height: 5vh;
+}
+#infobarbutton{
+    width: 100%;
+    height: 1%;
+    align-self: flex-end;
+}
+#infobar{
+height: max-content;
+}
+.infobardiv{
+    text-align: center;
 }
 }
 
@@ -545,6 +567,17 @@ span{
 #logo{
     max-width: 20vw;
     max-height: 3vh;
+}
+#infobarbutton{
+    width: 100%;
+    height: 1%;
+    align-self: flex-end;
+}
+#infobar{
+height: max-content;
+}
+.infobardiv{
+    text-align: center;
 }
 }
 

@@ -22,6 +22,7 @@ import Tree from 'primevue/tree';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
 import Button from 'primevue/button';
+import Sidebar from 'primevue/sidebar';
 
 import VueCameraLib from 'vue-camera-lib';
 
@@ -76,6 +77,7 @@ app.component('Description', Description);
 app.component('Accordion', Accordion);
 app.component('AccordionTab', AccordionTab);
 app.component('Button', Button);
+app.component('Sidebar', Sidebar);
 
 
 app.mount('#app');
