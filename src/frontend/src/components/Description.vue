@@ -92,7 +92,7 @@ async function compileAndPropagateResult(response, refs, language){
     const data = language == "EE" ? response.kirjeldus : response.description;
 
     if(language == "EE"){
-        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi silmad ja %noseShape% nina. Tal on %facialHairThickness% %facialHairColour% näokarva kate.";
+        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi %eyeShape% silmad ja %noseShape% nina. Tal on %facialHairThickness% %facialHairColour% näokarva kate.";
 
         //Face shape
         const faceShapeMapping = {
@@ -145,12 +145,23 @@ async function compileAndPropagateResult(response, refs, language){
         else{
             description = description.replace("%noseShape%", data["nina kuju"]);
         }
+
+        //Eye shape
+        const eyeShapeMapping = {
+            "mandel": "mandlikujulised",
+            "ümmargune": "ümmargused",
+            "monoliidne": "monoliidsed",
+            "alla suunatud": "alla suunatud",
+            "üles suunatud": "üles suunatud",
+            "varjatud/kapuutsiga": "varjatud/kapuutsiga"
+        }
+        description = description.replace("%eyeShape%", eyeShapeMapping[data["silma kuju"]]);
     }
 
 
 
     if(language == "EN"){
-        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% eyes and a %noseShape% nose. They have %facialHairThickness% %facialHairColour% facial hair.";
+        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% %eyeShape% eyes and a %noseShape% nose. They have %facialHairThickness% %facialHairColour% facial hair.";
 
         //Face shape
         const faceShapeMapping = {
@@ -189,6 +200,9 @@ async function compileAndPropagateResult(response, refs, language){
        else{
         description = description.replace("%noseShape%", data["nose shape"]);
        }
+
+       //Eye shape
+       description = description.replace("%eyeShape%", data["eye shape"]);
     }
 
 

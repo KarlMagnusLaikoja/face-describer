@@ -6,6 +6,7 @@ from subdescribers.SkinColourDescriber import SkinColourDescriber
 from subdescribers.FaceShapeDescriber import FaceShapeDescriber
 from subdescribers.FacialHairDescriber import FacialHairDescriber
 from subdescribers.NoseShapeDescriber import NoseShapeDescriber
+from subdescribers.EyeShapeDescriber import EyeShapeDescriber
 
 
 
@@ -15,15 +16,7 @@ from subdescribers.NoseShapeDescriber import NoseShapeDescriber
 
 
 
-def getCoordinatesFromPoints(coordinates):
-    #Gets the pair of "lowest" and "highest" coordinates within a set of coordinates/points
-    xCoordinates = [pair[0] for pair in coordinates]
-    yCoordinates = [pair[1] for pair in coordinates]
-    lowestX = min(xCoordinates)
-    lowestY = min(yCoordinates)
-    highestX = max(xCoordinates)
-    highestY = max(yCoordinates)
-    return ((lowestX, highestX), (lowestY, highestY))
+
 
 class FaceDescriber:
 
@@ -40,7 +33,8 @@ class FaceDescriber:
             "left eye colour": "",
             "facial hair thickness": "",
             "facial hair colour": "",
-            "nose shape": ""
+            "nose shape": "",
+            "eye shape": "",
         }
 
         self.output_EE = {
@@ -50,7 +44,8 @@ class FaceDescriber:
             "vasaku silma värv": "",
             "näokarvade tihedus": "",
             "näokarvade värv": "",
-            "nina kuju": ""
+            "nina kuju": "",
+            "silma kuju": ""
         }
 
 
@@ -160,6 +155,16 @@ class FaceDescriber:
                 (coordinates[39][0], coordinates[42][0]),
                 (coordinates[27][1], coordinates[34][1])
             )
+        )
+
+
+
+
+        #Describe eye shape
+        #params: left eye, right eye coordinates in format ((lowestX, highestX), (lowestY, highestY))
+        self.describeEyeShape(
+            getCoordinatesFromPoints(coordinates[42:48]),
+            getCoordinatesFromPoints(coordinates[36:42])
         )
 
 
@@ -334,7 +339,40 @@ class FaceDescriber:
 
 
 
+    def describeEyeShape(self, leftEyeCoordinates, rightEyeCoordinates):
 
+        #Instantiate eye shape describer
+        eyeShapeDescriber = EyeShapeDescriber(self.image, leftEyeCoordinates, rightEyeCoordinates)
+
+        #Describe eye shape
+        shape = eyeShapeDescriber.describe()
+
+        #Mapping from english to estonian
+        shapeMapping = {
+            "almond": "mandel",
+            "round": "ümmargune",
+            "monolid": "monoliidne",
+            "downturned": "alla suunatud",
+            "upturned": "üles suunatud",
+            "hooded": "varjatud/kapuutsiga",
+        }
+
+
+        self.output_EN["eye shape"] = shape
+        self.output_EE["silma kuju"] = shapeMapping[shape]
+
+
+
+
+def getCoordinatesFromPoints(coordinates):
+    #Gets the pair of "lowest" and "highest" coordinates within a list of coordinates/points
+    xCoordinates = [pair[0] for pair in coordinates]
+    yCoordinates = [pair[1] for pair in coordinates]
+    lowestX = min(xCoordinates)
+    lowestY = min(yCoordinates)
+    highestX = max(xCoordinates)
+    highestY = max(yCoordinates)
+    return ((lowestX, highestX), (lowestY, highestY))
 
 
 
