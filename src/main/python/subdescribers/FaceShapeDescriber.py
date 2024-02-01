@@ -41,7 +41,7 @@ class FaceShapeDescriber:
 
 
         #Resize the input image to be the same size as the templates
-        face = cv2.resize(face, (163, 110))
+        face = cv2.resize(face, (110, 163))
 
 
 

@@ -45,7 +45,7 @@ class NoseShapeDescriber:
 
 
         #Resize the input image to be the same size as the templates
-        nose = cv2.resize(nose, (30, 25))
+        nose = cv2.resize(nose, (25, 30))
 
 
         #Greyscale the input image
