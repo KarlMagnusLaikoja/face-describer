@@ -155,7 +155,21 @@ div.links{
     margin-top: 5%;
     margin-bottom: 5%;
 }
+#logo{
+    max-width: 10vw;
+    max-height: 5vh;
 }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 @media(min-width: 768px) and (max-width: 1112px){
@@ -325,7 +339,22 @@ div.links{
 #webcam{
     margin-bottom: 5%;
 }
+#logo{
+    max-width: 10vw;
+    max-height: 5vh;
 }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -512,6 +541,10 @@ span{
 }
 #footer a{
     color: inherit;
+}
+#logo{
+    max-width: 20vw;
+    max-height: 3vh;
 }
 }
 

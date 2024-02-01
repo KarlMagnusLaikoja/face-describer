@@ -1,6 +1,7 @@
 <template>
 <div id = "header">
 <div id = "headerContent">
+<img src="../assets/full_logo.png" id="logo">
 <TabMenu :model="pages_EN" id="pages" class="EN"/>
 <TabMenu :model="pages_EE" id="pages" class="EE"/>
 <div id= "languages">
