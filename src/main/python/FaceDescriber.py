@@ -7,6 +7,7 @@ from subdescribers.FaceShapeDescriber import FaceShapeDescriber
 from subdescribers.FacialHairDescriber import FacialHairDescriber
 from subdescribers.NoseShapeDescriber import NoseShapeDescriber
 from subdescribers.EyeShapeDescriber import EyeShapeDescriber
+from subdescribers.EyePlacementDescriber import EyePlacementDescriber
 
 
 
@@ -35,6 +36,7 @@ class FaceDescriber:
             "facial hair colour": "",
             "nose shape": "",
             "eye shape": "",
+            "eye placement": ""
         }
 
         self.output_EE = {
@@ -45,7 +47,8 @@ class FaceDescriber:
             "näokarvade tihedus": "",
             "näokarvade värv": "",
             "nina kuju": "",
-            "silma kuju": ""
+            "silma kuju": "",
+            "silmade asetus": ""
         }
 
 
@@ -163,6 +166,16 @@ class FaceDescriber:
         #Describe eye shape
         #params: left eye, right eye coordinates in format ((lowestX, highestX), (lowestY, highestY))
         self.describeEyeShape(
+            getCoordinatesFromPoints(coordinates[42:48]),
+            getCoordinatesFromPoints(coordinates[36:42])
+        )
+
+
+
+
+        #Describe eye placement
+        #params: left eye, right eye coordinates in format ((lowestX, highestX), (lowestY, highestY))
+        self.describeEyePlacement(
             getCoordinatesFromPoints(coordinates[42:48]),
             getCoordinatesFromPoints(coordinates[36:42])
         )
@@ -360,6 +373,27 @@ class FaceDescriber:
 
         self.output_EN["eye shape"] = shape
         self.output_EE["silma kuju"] = shapeMapping[shape]
+
+
+
+
+    def describeEyePlacement(self, leftEyeCoordinates, rightEyeCoordinates):
+
+        #Instantiate eye placement describer
+        eyePlacementDescriber = EyePlacementDescriber(leftEyeCoordinates, rightEyeCoordinates)
+
+        #Describe eye placement
+        placement = eyePlacementDescriber.describe()
+
+        #Mapping from english to estonian
+        placementMapping = {
+            "close-set": "lähedal asetsevad",
+            "wide-set": "laia asetusega"
+        }
+
+
+        self.output_EN["eye placement"] = placement
+        self.output_EE["silmade asetus"] = placementMapping[placement]
 
 
 

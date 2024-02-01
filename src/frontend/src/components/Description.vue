@@ -92,7 +92,7 @@ async function compileAndPropagateResult(response, refs, language){
     const data = language == "EE" ? response.kirjeldus : response.description;
 
     if(language == "EE"){
-        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi %eyeShape% silmad ja %noseShape% nina. Tal on %facialHairThickness% %facialHairColour% näokarva kate.";
+        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi %eyePlacement%, %eyeShape% silmad ja %noseShape% nina. Tal on %facialHairThickness% %facialHairColour% näokarva kate.";
 
         //Face shape
         const faceShapeMapping = {
@@ -156,12 +156,15 @@ async function compileAndPropagateResult(response, refs, language){
             "varjatud/kapuutsiga": "varjatud/kapuutsiga"
         }
         description = description.replace("%eyeShape%", eyeShapeMapping[data["silma kuju"]]);
+
+        //Eye placement
+        description = description.replace("%eyePlacement%", data["silmade asetus"]);
     }
 
 
 
     if(language == "EN"){
-        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% %eyeShape% eyes and a %noseShape% nose. They have %facialHairThickness% %facialHairColour% facial hair.";
+        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% %eyePlacement%, %eyeShape% eyes and a %noseShape% nose. They have %facialHairThickness% %facialHairColour% facial hair.";
 
         //Face shape
         const faceShapeMapping = {
@@ -203,6 +206,9 @@ async function compileAndPropagateResult(response, refs, language){
 
        //Eye shape
        description = description.replace("%eyeShape%", data["eye shape"]);
+
+       //Eye placement
+       description = description.replace("%eyePlacement%", data["eye placement"]);
     }
 
 
