@@ -88,9 +88,9 @@ export default {
         Description
   },
   created () {
-      //Get first image from gallery
+      //Get specific image from gallery
       const galleryFiles = require.context('../assets/gallery', false)
-                                  .keys().map(key => key.slice(2))
+                                  .keys().map(key => key.slice(2)).filter((file) => file == "homepage.png")
       this.images.push(galleryFiles[0]);
   },
   mounted () {
