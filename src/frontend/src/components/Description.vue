@@ -102,10 +102,10 @@ async function compileAndPropagateResult(response, refs, language){
             "ümmargune": "ümmargune",
             "ruut": "ruudu kujuline",
         };
-        description = description.replace("%faceShape%", faceShapeMapping[data["näo kuju"]]);
+        description = description.replace("%faceShape%", faceShapeMapping[data["üldine"]["näo_kuju"]]);
 
         //Skin colour
-        description = description.replace("%skinColour%", data["naha värv"]);
+        description = description.replace("%skinColour%", data["üldine"]["naha_värv"]);
 
 
         //Eye colour
@@ -119,31 +119,31 @@ async function compileAndPropagateResult(response, refs, language){
         }
 
         //Consider case where eyes are different coloured
-        if(data["parema silma värv"] == data["vasaku silma värv"]){
-            description = description.replace("%eyeColour%", eyeColourMapping[data["parema silma värv"]]);
+        if(data["silmad"]["värv_parem"] == data["silmad"]["värv_vasak"]){
+            description = description.replace("%eyeColour%", eyeColourMapping[data["silmad"]["värv_parem"]]);
         }
         else{
-            description = description.replace("värvi", "").replace("%eyeColour%", "eri värvi (vasak "+data["vasaku silma värv"]+", parem "+data["parema silma värv"]+")")
+            description = description.replace("värvi", "").replace("%eyeColour%", "eri värvi (vasak "+data["silmad"]["värv_vasak"]+", parem "+data["silmad"]["värv_parem"]+")")
         }
 
 
         //Facial hair
-        if(data["näokarvade tihedus"] == "puudub"){
+        if(data["näokarvad"]["tihedus"] == "puudub"){
             description = description.replace("Tal on %facialHairThickness% %facialHairColour% näokarva kate.", "Tal puudub või on väga õrn näokarva kate.");
         }
         else{
-            description = description.replace("%facialHairThickness%", data["näokarvade tihedus"]).replace("%facialHairColour%", data["näokarvade värv"]);
+            description = description.replace("%facialHairThickness%", data["näokarvad"]["tihedus"]).replace("%facialHairColour%", data["näokarvad"]["värv"]);
         }
 
         //Nose shape
-        if(data["nina kuju"] == "nööpnina"){
+        if(data["nina"]["kuju"] == "nööpnina"){
              description = description.replace("%noseShape% nina", "nööpnina");
         }
-        else if(data["nina kuju"] == "kull/kongus"){
+        else if(data["nina"]["kuju"] == "kull/kongus"){
             description = description.replace("%noseShape% nina", "kulli nina/kongus nina");
         }
         else{
-            description = description.replace("%noseShape%", data["nina kuju"]);
+            description = description.replace("%noseShape%", data["nina"]["kuju"]);
         }
 
         //Eye shape
@@ -155,10 +155,10 @@ async function compileAndPropagateResult(response, refs, language){
             "üles suunatud": "üles suunatud",
             "varjatud/kapuutsiga": "varjatud/kapuutsiga"
         }
-        description = description.replace("%eyeShape%", eyeShapeMapping[data["silma kuju"]]);
+        description = description.replace("%eyeShape%", eyeShapeMapping[data["silmad"]["kuju"]]);
 
         //Eye placement
-        description = description.replace("%eyePlacement%", data["silmade asetus"]);
+        description = description.replace("%eyePlacement%", data["silmad"]["asetus"]);
     }
 
 
@@ -174,41 +174,41 @@ async function compileAndPropagateResult(response, refs, language){
             "round": "a round",
             "square": "a square",
         };
-        description = description.replace("a %faceShape% shaped", faceShapeMapping[data["face shape"]]);
+        description = description.replace("a %faceShape% shaped", faceShapeMapping[data["general"]["face_shape"]]);
 
         //Skin colour
-        description = description.replace("%skinColour%", data["skin colour"]);
+        description = description.replace("%skinColour%", data["general"]["skin_colour"]);
 
        //Eye colour
        //Consider case where eyes are different coloured
-       if(data["right eye colour"] == data["left eye colour"]){
-                description = description.replace("%eyeColour%", data["right eye colour"]);
+       if(data["eyes"]["colour_right"] == data["eyes"]["colour_left"]){
+                description = description.replace("%eyeColour%", data["eyes"]["colour_right"]);
        }
        else{
-            description = description.replace("%eyeColour%", "different coloured (the left is "+data["left eye colour"]+", the right is "+data["right eye colour"]+")");
+            description = description.replace("%eyeColour%", "different coloured (the left is "+data["eyes"]["colour_left"]+", the right is "+data["eyes"]["colour_right"]+")");
        }
 
        //Facial hair
-       if(data["facial hair thickness"] == "none"){
+       if(data["facial_hair"]["thickness"] == "none"){
             description = description.replace("They have %facialHairThickness% %facialHairColour% facial hair.", "They don't have or have very light facial hair.");
        }
        else{
-            description = description.replace("%facialHairThickness%", data["facial hair thickness"]).replace("%facialHairColour%", data["facial hair colour"]);
+            description = description.replace("%facialHairThickness%", data["facial_hair"]["thickness"]).replace("%facialHairColour%", data["facial_hair"]["colour"]);
        }
 
        //Nose shape
-       if(data["nose shape"] == "East Asian" || data["nose shape"] == "upturned"){
-        description = description.replace("a %noseShape%", "an "+data["nose shape"]);
+       if(data["nose"]["shape"] == "East Asian" || data["nose"]["shape"] == "upturned"){
+        description = description.replace("a %noseShape%", "an "+data["nose"]["shape"]);
        }
        else{
-        description = description.replace("%noseShape%", data["nose shape"]);
+        description = description.replace("%noseShape%", data["nose"]["shape"]);
        }
 
        //Eye shape
-       description = description.replace("%eyeShape%", data["eye shape"]);
+       description = description.replace("%eyeShape%", data["eyes"]["shape"]);
 
        //Eye placement
-       description = description.replace("%eyePlacement%", data["eye placement"]);
+       description = description.replace("%eyePlacement%", data["eyes"]["placement"]);
     }
 
 

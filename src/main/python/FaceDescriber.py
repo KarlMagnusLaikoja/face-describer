@@ -28,27 +28,46 @@ class FaceDescriber:
         self.language = language
 
         self.output_EN = {
-            "face shape": "",
-            "skin colour": "",
-            "right eye colour": "",
-            "left eye colour": "",
-            "facial hair thickness": "",
-            "facial hair colour": "",
-            "nose shape": "",
-            "eye shape": "",
-            "eye placement": ""
+            "general": {
+                "skin_colour": "",
+                "face_shape": ""
+            },
+            "eyes": {
+                "shape": "",
+                "placement": "",
+                "colour_right": "",
+                "colour_left": ""
+            },
+            "nose": {
+                "shape": ""
+            },
+            "facial_hair": {
+                "thickness": "",
+                "colour": ""
+            },
+            "hair": "TODO"
         }
 
+
         self.output_EE = {
-            "näo kuju": "",
-            "naha värv": "",
-            "parema silma värv": "",
-            "vasaku silma värv": "",
-            "näokarvade tihedus": "",
-            "näokarvade värv": "",
-            "nina kuju": "",
-            "silma kuju": "",
-            "silmade asetus": ""
+            "üldine": {
+                "naha_värv": "",
+                "näo_kuju": ""
+            },
+            "silmad": {
+                "kuju": "",
+                "asetus": "",
+                "värv_parem": "",
+                "värv_vasak": ""
+            },
+            "nina": {
+                "kuju": ""
+            },
+            "näokarvad": {
+                "tihedus": "",
+                "värv": ""
+            },
+            "juuksed": "TODO"
         }
 
 
@@ -216,8 +235,8 @@ class FaceDescriber:
         }
 
 
-        self.output_EN["face shape"] = shape
-        self.output_EE["näo kuju"] = shapeMapping[shape]
+        self.output_EN["general"]["face_shape"] = shape
+        self.output_EE["üldine"]["näo_kuju"] = shapeMapping[shape]
 
 
 
@@ -244,8 +263,8 @@ class FaceDescriber:
         }
 
 
-        self.output_EN["skin colour"] = colour
-        self.output_EE["naha värv"] = colourMapping[colour]
+        self.output_EN["general"]["skin_colour"] = colour
+        self.output_EE["üldine"]["naha_värv"] = colourMapping[colour]
 
 
         return (r, g, b)
@@ -271,11 +290,11 @@ class FaceDescriber:
         }
 
 
-        self.output_EN["left eye colour"] = leftEyeColour
-        self.output_EN["right eye colour"] = rightEyeColour
+        self.output_EN["eyes"]["colour_left"] = leftEyeColour
+        self.output_EN["eyes"]["colour_right"] = rightEyeColour
 
-        self.output_EE["vasaku silma värv"] = colourMapping[leftEyeColour]
-        self.output_EE["parema silma värv"] = colourMapping[rightEyeColour]
+        self.output_EE["silmad"]["värv_vasak"] = colourMapping[leftEyeColour]
+        self.output_EE["silmad"]["värv_parem"] = colourMapping[rightEyeColour]
 
 
 
@@ -309,11 +328,11 @@ class FaceDescriber:
 
 
 
-        self.output_EN["facial hair thickness"] = thickness
-        self.output_EN["facial hair colour"] = colour
+        self.output_EN["facial_hair"]["thickness"] = thickness
+        self.output_EN["facial_hair"]["colour"] = colour
 
-        self.output_EE["näokarvade tihedus"] = thicknessMapping[thickness]
-        self.output_EE["näokarvade värv"] = colourMapping[colour]
+        self.output_EE["näokarvad"]["tihedus"] = thicknessMapping[thickness]
+        self.output_EE["näokarvad"]["värv"] = colourMapping[colour]
 
 
 
@@ -346,8 +365,8 @@ class FaceDescriber:
         }
 
 
-        self.output_EN["nose shape"] = shape
-        self.output_EE["nina kuju"] = shapeMapping[shape]
+        self.output_EN["nose"]["shape"] = shape
+        self.output_EE["nina"]["kuju"] = shapeMapping[shape]
 
 
 
@@ -371,8 +390,8 @@ class FaceDescriber:
         }
 
 
-        self.output_EN["eye shape"] = shape
-        self.output_EE["silma kuju"] = shapeMapping[shape]
+        self.output_EN["eyes"]["shape"] = shape
+        self.output_EE["silmad"]["kuju"] = shapeMapping[shape]
 
 
 
@@ -392,8 +411,8 @@ class FaceDescriber:
         }
 
 
-        self.output_EN["eye placement"] = placement
-        self.output_EE["silmade asetus"] = placementMapping[placement]
+        self.output_EN["eyes"]["placement"] = placement
+        self.output_EE["silmad"]["asetus"] = placementMapping[placement]
 
 
 

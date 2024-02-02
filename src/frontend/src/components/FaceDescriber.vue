@@ -72,8 +72,8 @@ export default {
           return {
                           image: null,
                           infoBarVisible: false,
-                          englishInfoBarText: "<h1>How can I get the most accurate results?</h1><h3>1. Face directly toward the camera with a neutral expression.</h3><p>Keep your eyes open, mouth closed and your face parallel to the camera.</p><h3>2. Achieve standard, uniform lighting.</h3><p>No bright lights or shadows being cast on the face.</p><h3>3. Do not wear any accessories.</h3><p>No hats or facial coverings.</p>",
-                          estonianInfoBarText: "<h1>Kuidas saan ma täpseima tulemuse?</h1><h3>1. Vaata otse kaamera poole neutraalse ilmega.</h3><p>Hoia silmad lahti, suu kinni ja nägu paralleelselt kaamera suhtes.</p><h3>2. Saavuta tavaline, ühtlane valgustus.</h3><p>Näo peale ei tohiks langeda varje või väga eredat valgust.</p><h3>3. Ära kanna aksessuaare.</h3><p>Eemalda mütsid ja näokatted.</p>"
+                          englishInfoBarText: "<h1>How can I get the most accurate results?</h1><h3>1. Face directly toward the camera with a neutral expression.</h3><p>Keep your eyes open, mouth closed and your face parallel to the camera.</p><h3>2. Achieve standard, uniform lighting.</h3><p>No bright lights or shadows being cast on the face.</p><h3>3. Do not wear any accessories.</h3><p>No hats, glasses or facial coverings.</p>",
+                          estonianInfoBarText: "<h1>Kuidas saan ma täpseima tulemuse?</h1><h3>1. Vaata otse kaamera poole neutraalse ilmega.</h3><p>Hoia silmad lahti, suu kinni ja nägu paralleelselt kaamera suhtes.</p><h3>2. Saavuta tavaline, ühtlane valgustus.</h3><p>Näo peale ei tohiks langeda varje või väga eredat valgust.</p><h3>3. Ära kanna aksessuaare.</h3><p>Eemalda mütsid, prillid ja näokatted.</p>"
                       }
       },
   methods: {
