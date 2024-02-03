@@ -3,8 +3,8 @@
 (EN) Web application for facial description via image processing.
 
 ## Arhitektuur/Architecture
-(EE) Facedescriber koosneb eraldatud Vue frontend ja Java backend teenustest, lisaks Node.js ümbersuunamisserver HTTP päringute jaoks. Näokirjeldus on realiseeritud Pythoni abil.\
-(EN) Facedescriber consists of separated Vue frontend and Java backend services, as well as a Node.js redirect server for HTTP requests. Python is used for the facial description itself.
+(EE) Facedescriber koosneb eraldatud Vue frontend ja Java backend teenustest, lisaks Node.js ümbersuunamisserver HTTP päringute jaoks. Näokirjeldus on realiseeritud Pythoni abil. Lihtsustatud ülevaade: simple_architecture.png\
+(EN) Facedescriber consists of separated Vue frontend and Java backend services, as well as a Node.js redirect server for HTTP requests. Python is used for the facial description itself. Simplified overview: simple_architecture.png
 
 ## Backend
 (EE) Backend teenuse püsti seadmiseks tuleb luua Pythoni virtuaalkeskkond ja installeerida vajalikud moodulid. Selleks on olemas skript, mida tuleb jooksutada vaid üks kord ("sudo /usr/bin/env bash src/main/python/setup.sh). Edaspidi piisab teenuse käivitamiseks FaceDescriberApplication.java jooksutamisest.\
