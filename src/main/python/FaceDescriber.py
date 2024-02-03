@@ -233,7 +233,7 @@ class FaceDescriber:
 
 
 
-        if(hasHair):
+        if(hasHair == "true"):
             #Describe hair colour
             #params: list of hair pixels
             self.describeHairColour(hairPixels)

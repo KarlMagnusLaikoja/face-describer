@@ -26,7 +26,6 @@ class HairColourDescriber:
 
         #Compare it to representatives
         return compareRGB( (r, g, b) )
-        #return str((r, g, b))
 
 
 
@@ -66,43 +65,43 @@ def compareRGB(colour):
 
     #The following are the hardcoded values that are considered as representatives of each hair colour
     #These are found by getting the average RGB values of examples of each such hair colour
-    #Red: (136.0, 74.0, 35.0)
-    #Blonde: (182.0, 151.0, 123.0)
-    #Brown: (89.0, 66.0, 58.0)
-    #Black: (52.0, 57.0, 62.0)
+    #Red: (161.0, 104.0, 80.0)
+    #Blonde: (145.0, 116.0, 91.0)
+    #Brown: (87.0, 74.0, 64.0)
+    #Black: (46.0, 52.0, 51.0)
     #Grey: (186.0, 182.0, 176.0)
 
 
 
     #Compare the found RGB values to the representative values and return the smallest found value
     differenceFromRed = math.sqrt(
-        math.pow(colour[0] - 136, 2) +
-        math.pow(colour[1] - 74, 2) +
-        math.pow(colour[2] - 35, 2)
+        math.pow(colour[0] - 161, 2) +
+        math.pow(colour[1] - 104, 2) +
+        math.pow(colour[2] - 80, 2)
     )
 
 
 
     differenceFromBlonde = math.sqrt(
-        math.pow(colour[0] - 182, 2) +
-        math.pow(colour[1] - 151, 2) +
-        math.pow(colour[2] - 123, 2)
+        math.pow(colour[0] - 145, 2) +
+        math.pow(colour[1] - 116, 2) +
+        math.pow(colour[2] - 91, 2)
     )
 
 
 
     differenceFromBrown = math.sqrt(
-        math.pow(colour[0] - 89, 2) +
-        math.pow(colour[1] - 66, 2) +
-        math.pow(colour[2] - 58, 2)
+        math.pow(colour[0] - 87, 2) +
+        math.pow(colour[1] - 74, 2) +
+        math.pow(colour[2] - 64, 2)
     )
 
 
 
     differenceFromBlack = math.sqrt(
-        math.pow(colour[0] - 52, 2) +
-        math.pow(colour[1] - 57, 2) +
-        math.pow(colour[2] - 62, 2)
+        math.pow(colour[0] - 46, 2) +
+        math.pow(colour[1] - 52, 2) +
+        math.pow(colour[2] - 51, 2)
     )
 
 
