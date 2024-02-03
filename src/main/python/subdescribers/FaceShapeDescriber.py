@@ -35,7 +35,7 @@ class FaceShapeDescriber:
 
 
 
-        #Crop the image using some of the face-recognition coordinates and skeletonization + manual cropping to get
+        #Crop the image using some of the face-recognition coordinates and edge detection + manual cropping to get
         #the entire face (including the forehead, which you can't get using just the face-recognition coordinates)
         face = toTemplate(self.image, coordinates)
 
@@ -114,17 +114,24 @@ def toTemplate(img, coordinates):
     #Grayscaling
     result = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    #Skeletonization
-    _, result = cv2.threshold(result, 128, 255, cv2.THRESH_OTSU + cv2.THRESH_BINARY_INV)
-    result = cv2.ximgproc.thinning(result)
+    #Detect edges
+    result = cv2.Canny(result,50,100)
+
+    #Edge detection leaves vertical lines surrounding the image - cutting the image by 5px on each side should suffice
+    #and should be safe
+    h, w = result.shape
+    result = result[
+        :h,
+        5: (w-5)
+        ]
 
     #Start from the top of the image and find the first white pixels- this is likely
-    #to be the first contour that the previous skeletonization process produced, meaning this is where
+    #to be the first edge (i.e. the hairline), meaning this is where
     #the face actually starts
     minY = 0
     minYFound = False
     for y in result:
-        if(minY < 5):
+        if(minY < 5): #Ignore the first 5 pixels due to horizontal edges being detected at the top of the image
             minY+=1
             continue
         for x in y:
@@ -135,16 +142,15 @@ def toTemplate(img, coordinates):
             break
         minY+=1
 
-    #Crop the image with the calculated beginning y-coordinate, the x-coordinates and ending y-coordinate
-    #can be taken from the coordinates provided by the face-recognition module
+    #Crop the image with the calculated beginning y-coordinate,
+    #the x-coordinates and ending y-coordinate can be taken from the coordinates provided by the face-recognition module
     result = result[
              minY: coordinates[8][1],
              coordinates[0][0]:coordinates[16][0]
              ]
 
 
-    #Under perfect conditions, the resulting image is completely black,
-    #with the entire face area being contoured by a single white line.
+    #Result: Black and white image of only the face with the edges detected within the face
 
     #Even with imperfect conditions such as contours inside the outer contour,
     #the classification should not be affected due to all the templates having their accuracy reduced
