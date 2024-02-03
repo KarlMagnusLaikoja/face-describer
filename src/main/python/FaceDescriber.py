@@ -5,11 +5,12 @@ from subdescribers.EyeColourDescriber import EyeColourDescriber
 from subdescribers.SkinColourDescriber import SkinColourDescriber
 from subdescribers.FaceShapeDescriber import FaceShapeDescriber
 from subdescribers.FacialHairDescriber import FacialHairDescriber
+from subdescribers.FacialHairColourDescriber import FacialHairColourDescriber
 from subdescribers.NoseShapeDescriber import NoseShapeDescriber
 from subdescribers.EyeShapeDescriber import EyeShapeDescriber
 from subdescribers.EyePlacementDescriber import EyePlacementDescriber
-
-
+from subdescribers.HairDescriber import HairDescriber
+from subdescribers.HairColourDescriber import HairColourDescriber
 
 
 
@@ -45,7 +46,10 @@ class FaceDescriber:
                 "thickness": "",
                 "colour": ""
             },
-            "hair": "TODO"
+            "hair": {
+                "has_hair": "",
+                "colour": ""
+            }
         }
 
 
@@ -67,7 +71,10 @@ class FaceDescriber:
                 "tihedus": "",
                 "värv": ""
             },
-            "juuksed": "TODO"
+            "juuksed": {
+                "on_olemas": "",
+                "värv": ""
+            }
         }
 
 
@@ -153,7 +160,7 @@ class FaceDescriber:
 
 
 
-        #Describe facial hair
+        #Describe facial hair thickness
         #params: coordinates of facial hair areas in format [((lowestX, highestX), (lowestY, highestY)), ((lowestX, highestX), (lowestY, highestY)), ...]
         # and skin colour's RGB value
         facialHairCoordinates = [
@@ -162,10 +169,20 @@ class FaceDescriber:
             ((coordinates[10][0], coordinates[12][0]), (coordinates[57][1], coordinates[12][1])),
             ((coordinates[5][0], coordinates[7][0]), (coordinates[57][1], coordinates[12][1]))
         ]
-        self.describeFacialHair(
+        facialHairThickness, facialHairPixels = self.describeFacialHair(
             facialHairCoordinates,
             skinColourRGB
         )
+
+
+
+        if(facialHairThickness != "none"):
+            #Describe facial hair colour
+            #params: List of facial hair pixels
+            self.describeFacialHairColour(facialHairPixels)
+
+
+
 
 
 
@@ -200,6 +217,26 @@ class FaceDescriber:
         )
 
 
+
+
+        #Describe hair (whether they have it or not)
+        #params: coordinates of the face and whatever is above it (starting y-coordinate is 0) in format ((lowestX, highestX), (lowestY, highestY))
+        #returns boolean value (whether the person has hair or not) and the list of hair pixels to find the hair colour later
+        hasHair, hairPixels = self.describeHair(
+            (
+                (coordinates[0][0], coordinates[16][0]),
+                (0, coordinates[19][1])
+            ),
+            skinColourRGB
+        )
+
+
+
+
+        if(hasHair):
+            #Describe hair colour
+            #params: list of hair pixels
+            self.describeHairColour(hairPixels)
 
 
 
@@ -307,8 +344,8 @@ class FaceDescriber:
         #Instantiate facial hair describer
         facialHairDescriber = FacialHairDescriber(self.image, facialHairCoordinates, skinColourRGB)
 
-        #Describe facial hair thickness and colour
-        thickness, colour = facialHairDescriber.describe()
+        #Describe facial hair thickness
+        thickness, facialHairPixels = facialHairDescriber.describe()
 
 
         #Mapping from english to estonian
@@ -317,25 +354,39 @@ class FaceDescriber:
             "thin": "õhuke",
             "thick": "tihe"
         }
+
+
+        self.output_EN["facial_hair"]["thickness"] = thickness
+        self.output_EE["näokarvad"]["tihedus"] = thicknessMapping[thickness]
+
+
+        return thickness, facialHairPixels #Return the list of facial hair pixels so the colour can be found
+
+
+
+
+    def describeFacialHairColour(self, facialHairPixels):
+
+        #Instantiate facial hair colour describer
+        facialHairColourDescriber = FacialHairColourDescriber(facialHairPixels)
+
+        #Describe facial hair colour
+        colour = facialHairColourDescriber.describe()
+
+
+        #Mapping from english to estonian
         colourMapping = {
             "red": "punane",
             "blonde": "blond",
             "brown": "pruun",
             "black": "must",
             "grey": "hall",
-            "": ""
         }
 
 
 
-        self.output_EN["facial_hair"]["thickness"] = thickness
         self.output_EN["facial_hair"]["colour"] = colour
-
-        self.output_EE["näokarvad"]["tihedus"] = thicknessMapping[thickness]
         self.output_EE["näokarvad"]["värv"] = colourMapping[colour]
-
-
-
 
 
 
@@ -417,6 +468,52 @@ class FaceDescriber:
 
 
 
+    def describeHair(self, coordinates, skinColourRGB):
+
+        #Instantiate hair describer
+        hairDescriber = HairDescriber(self.image, coordinates, skinColourRGB)
+
+        #Describe hair
+        hasHair, hairPixels = hairDescriber.describe()
+
+        #Mapping from english to estonian
+        mapping = {
+            "true": "tõene",
+            "false": "väär"
+        }
+
+
+        self.output_EN["hair"]["has_hair"] = hasHair
+        self.output_EE["juuksed"]["on_olemas"] = mapping[hasHair]
+
+        return hasHair, hairPixels #Return list of hair pixels to find the colour
+
+
+
+
+
+    def describeHairColour(self, hairPixels):
+
+        #Instantiate hair colour describer
+        hairColourDescriber = HairColourDescriber(hairPixels)
+
+        #Describe hair colour
+        colour = hairColourDescriber.describe()
+
+        #Mapping from english to estonian
+        colourMapping = {
+            "red": "punane",
+            "blonde": "blond",
+            "brown": "pruun",
+            "black": "must",
+            "grey": "hall",
+        }
+
+
+        self.output_EN["hair"]["colour"] = colour
+        self.output_EE["juuksed"]["värv"] = colourMapping[colour]
+
+
 def getCoordinatesFromPoints(coordinates):
     #Gets the pair of "lowest" and "highest" coordinates within a list of coordinates/points
     xCoordinates = [pair[0] for pair in coordinates]
@@ -438,6 +535,10 @@ def getCoordinatesFromPoints(coordinates):
 fileName = sys.argv[1]
 language = sys.argv[2]
 print(FaceDescriber(fileName, language).describe())
+
+
+
+
 
 
 

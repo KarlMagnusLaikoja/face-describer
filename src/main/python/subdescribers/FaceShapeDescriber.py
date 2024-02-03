@@ -145,8 +145,8 @@ def toTemplate(img, coordinates):
     #Crop the image with the calculated beginning y-coordinate,
     #the x-coordinates and ending y-coordinate can be taken from the coordinates provided by the face-recognition module
     result = result[
-             minY: coordinates[8][1],
-             coordinates[0][0]:coordinates[16][0]
+                minY: coordinates[8][1],
+                coordinates[0][0]:coordinates[16][0]
              ]
 
 

@@ -92,7 +92,7 @@ async function compileAndPropagateResult(response, refs, language){
     const data = language == "EE" ? response.kirjeldus : response.description;
 
     if(language == "EE"){
-        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi %eyePlacement%, %eyeShape% silmad ja %noseShape% nina. Tal on %facialHairThickness% %facialHairColour% näokarva kate.";
+        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi %eyePlacement%, %eyeShape% silmad ja %noseShape% nina. Tal on %hairColour% juuksed ja %facialHairThickness% %facialHairColour% näokarva kate.";
 
         //Face shape
         const faceShapeMapping = {
@@ -129,10 +129,10 @@ async function compileAndPropagateResult(response, refs, language){
 
         //Facial hair
         if(data["näokarvad"]["tihedus"] == "puudub"){
-            description = description.replace("Tal on %facialHairThickness% %facialHairColour% näokarva kate.", "Tal puudub või on väga õrn näokarva kate.");
+            description = description.replace("%facialHairThickness% %facialHairColour% näokarva kate.", "tal puudub või on väga õrn näokarva kate.");
         }
         else{
-            description = description.replace("%facialHairThickness%", data["näokarvad"]["tihedus"]).replace("%facialHairColour%", data["näokarvad"]["värv"]);
+            description = description.replace("%facialHairThickness%", "tal on "+data["näokarvad"]["tihedus"]).replace("%facialHairColour%", data["näokarvad"]["värv"]);
         }
 
         //Nose shape
@@ -159,12 +159,27 @@ async function compileAndPropagateResult(response, refs, language){
 
         //Eye placement
         description = description.replace("%eyePlacement%", data["silmad"]["asetus"]);
+
+        //Hair
+        if(data["juuksed"]["on_olemas"] == "väär"){
+            description = description.replace("Tal on %hairColour% juuksed", "Ta on kiilakas");
+        }
+        else{
+            const hairColourMapping = {
+                "punane": "punased",
+                "blond": "blondid",
+                "pruun": "pruunid",
+                "must": "mustad",
+                "hall": "hallid"
+            };
+            description = description.replace("%hairColour%", hairColourMapping[data["juuksed"]["värv"]]);
+        }
     }
 
 
 
     if(language == "EN"){
-        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% %eyePlacement%, %eyeShape% eyes and a %noseShape% nose. They have %facialHairThickness% %facialHairColour% facial hair.";
+        description = "The person in the picture has a %faceShape% shaped face with %skinColour% skin. They have %eyeColour% %eyePlacement%, %eyeShape% eyes and a %noseShape% nose. They have %hairColour% hair and %facialHairThickness% %facialHairColour% facial hair.";
 
         //Face shape
         const faceShapeMapping = {
@@ -190,10 +205,10 @@ async function compileAndPropagateResult(response, refs, language){
 
        //Facial hair
        if(data["facial_hair"]["thickness"] == "none"){
-            description = description.replace("They have %facialHairThickness% %facialHairColour% facial hair.", "They don't have or have very light facial hair.");
+            description = description.replace("%facialHairThickness% %facialHairColour% facial hair.", "they don't have or have very light facial hair.");
        }
        else{
-            description = description.replace("%facialHairThickness%", data["facial_hair"]["thickness"]).replace("%facialHairColour%", data["facial_hair"]["colour"]);
+            description = description.replace("%facialHairThickness%", "they have "+data["facial_hair"]["thickness"]).replace("%facialHairColour%", data["facial_hair"]["colour"]);
        }
 
        //Nose shape
@@ -209,6 +224,14 @@ async function compileAndPropagateResult(response, refs, language){
 
        //Eye placement
        description = description.replace("%eyePlacement%", data["eyes"]["placement"]);
+
+        //Hair
+        if(data["hair"]["has_hair"] == "false"){
+            description = description.replace("They have %hairColour% hair", "They are bald");
+        }
+        else{
+            description = description.replace("%hairColour%", data["hair"]["colour"]);
+        }
     }
 
 
