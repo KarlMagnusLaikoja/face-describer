@@ -3,12 +3,12 @@
     <div class="intro">
         <div class="EN">
             <h1>Create a comprehensive facial description</h1>
-            <p>Facedescriber is an application created to find and describe faces within an input image via image processing.</p>
+            <p>Facedescriber is an application created to find and describe faces within an input image via image processing and classification.</p>
             <p>It was produced as the result of the author's bachelor's thesis.</p>
         </div>
         <div class="EE">
             <h1>Loo sisukas näokirjeldus</h1>
-            <p>Facedescriber on rakendus loodud sisendpildilt nägude leidmiseks ja kirjeldamiseks kasutades pilditöötlust.</p>
+            <p>Facedescriber on rakendus loodud sisendpildilt nägude leidmiseks ja kirjeldamiseks kasutades pilditöötlust ja klassifitseerimist.</p>
             <p>See valmis autori bakalaureusetöö tulemusena.</p>
         </div>
 
@@ -41,7 +41,7 @@
                     <p class="EN">
                         The <a href = "https://pypi.org/project/face-recognition/" target="_blank">face-recognition</a> module is used to verify that there is a face within
                         the image. Then it is used to find the coordinates of different facial landmarks (such as the eyes, nose, chin), which are used to crop the image into subimages
-                        to be used in analysis.
+                        to be used in further analysis.
                     </p>
                     <p class="EE">
                     Kontrollimaks, et pildil on nägu, kasutatakse <a href = "https://pypi.org/project/face-recognition/" target="_blank">face-recognition</a> moodulit.
@@ -50,16 +50,16 @@
                 </AccordionTab>
                 <AccordionTab>
                     <template #header>
-                                    <span class="font-bold white-space-nowrap EN">2. Applies image processing to each landmark</span>
-                                    <span class="font-bold white-space-nowrap EE">2. Rakendab pilditöötlusvõtteid igale alampildile</span>
+                                    <span class="font-bold white-space-nowrap EN">2. Applies image processing techniques and classification functions to each landmark</span>
+                                    <span class="font-bold white-space-nowrap EE">2. Rakendab pilditöötlusvõtteid ja klassifitseerimisfunktsioone igale alampildile</span>
                     </template>
                     <p class="EN">
-                    Each subimage goes through specialized image processing, comparing those landmarks to "standard" landmarks. For example, in the case
-                    of eye colour, the RGB values of each eye are compared to specially picked examples of different eye colours.
+                    Each subimage goes through specialized image processing and classification, comparing those landmarks to "standard" landmarks. For example, in the case
+                    of eye colour, the RGB values of each eye are compared to specially picked examples of different eye colours and the colour of the eye is classified based on the closest match.
                     </p>
                     <p class="EE">
-                    Iga alampilt läbib kohandatud pilditöötluse, mis võrdleb pildil olevat markerit nii-öelda "standardmarkeritega". Näiteks silmavärvi puhul
-                    võrreldakse kummagi silma RGB väärtusi spetsiaalselt valitud näidete vastu erinevatest silmavärvidest.
+                    Iga alampilt läbib kohandatud pilditöötluse ja klassifitseerimise, mis võrdleb pildil olevat markerit nii-öelda "standardmarkeritega". Näiteks silmavärvi puhul
+                    võrreldakse kummagi silma RGB väärtusi spetsiaalselt valitud näidete vastu erinevatest silmavärvidest ning silmavärv klassifitseeritakse lähima väärtuse põhjal.
                     </p>
                 </AccordionTab>
                 <AccordionTab>
