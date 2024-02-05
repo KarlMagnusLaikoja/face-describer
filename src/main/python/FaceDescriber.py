@@ -119,6 +119,10 @@ class FaceDescriber:
                 coordinates.append((x, y))
 
 
+        #Normalise the colours in the image with the assumption that the lightest pixel should be
+        #completely white (255, 255, 255). So if for example the lightest pixel is (200, 201, 202),
+        #then each pixel in the image will be modified by (200/255, 201/255, 202/255).
+        image = normaliseImage(image, (255, 255, 255))
 
 
         #Describe face shape
@@ -529,6 +533,39 @@ def getCoordinatesFromPoints(coordinates):
 
 
 
+def normaliseImage(img, colour):
+    lightestPixel = getLightestPixel(img)
+    rRatio = lightestPixel[0] / colour[0]
+    gRatio = lightestPixel[1] / colour[1]
+    bRatio = lightestPixel[2] / colour[2]
+    return normaliseColours(img, rRatio, gRatio, bRatio)
+
+
+
+
+
+def getLightestPixel(img):
+    lightest = (0, 0, 0)
+    for i in range(len(img)):
+        for j in range(len(img[i])):
+            pixel = img[i][j]
+            pixel = [int(x) for x in pixel] #uint8 has max value of 255 and can't used for multiplication
+            if(pixel[0]*pixel[1]*pixel[2] > lightest[0]*lightest[1]*lightest[2]): #Found pixel is lighter in colour
+                lightest = (pixel[0], pixel[1], pixel[2])
+
+    return lightest
+
+
+
+
+
+def normaliseColours(img, rRatio, gRatio, bRatio):
+    for i in range(len(img)):
+        for j in range(len(img[i])):
+            img[i][j][0] = img[i][j][0]*rRatio
+            img[i][j][1] = img[i][j][1]*gRatio
+            img[i][j][2] = img[i][j][2]*bRatio
+    return img
 
 
 
