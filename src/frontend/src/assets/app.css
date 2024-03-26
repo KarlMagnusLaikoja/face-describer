@@ -170,6 +170,9 @@ height: max-content;
 .infobardiv{
     text-align: center;
 }
+.infobardiv a{
+    color: inherit;
+}
 }
 
 
@@ -364,6 +367,9 @@ height: max-content;
 }
 .infobardiv{
     text-align: center;
+}
+.infobardiv a{
+    color: inherit;
 }
 }
 
@@ -574,10 +580,16 @@ span{
     align-self: flex-end;
 }
 #infobar{
-height: max-content;
+    height: max-content;
 }
 .infobardiv{
     text-align: center;
+}
+.infobardiv > * {
+    font-size: 50%;
+}
+.infobardiv a{
+    color: inherit;
 }
 }
 

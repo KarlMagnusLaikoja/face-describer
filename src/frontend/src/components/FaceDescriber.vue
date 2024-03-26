@@ -24,8 +24,8 @@
                         <div v-if="this.$store.state.languageCode=='EN'" v-html="englishInfoBarText" class="infobardiv"/>
                         <div v-if="this.$store.state.languageCode=='EE'" v-html="estonianInfoBarText" class="infobardiv"/>
         </Sidebar>
-        <Button icon="pi pi-info-circle" @click="infoBarVisible = true" label="How can I get the most accurate results?" class="EN" id = "infobarbutton"/>
-        <Button icon="pi pi-info-circle" @click="infoBarVisible = true" label="Kuidas saan ma täpseima tulemuse?" class="EE" id = "infobarbutton"/>
+        <Button icon="pi pi-info-circle" @click="infoBarVisible = true" label="How is my data processed and how can I get the most accurate results?" class="EN" id = "infobarbutton"/>
+        <Button icon="pi pi-info-circle" @click="infoBarVisible = true" label="Kuidas töödeldakse minu andmeid ning kuidas saan ma täpseima tulemuse?" class="EE" id = "infobarbutton"/>
     </div>
 </div>
 </template>
@@ -72,8 +72,8 @@ export default {
           return {
                           image: null,
                           infoBarVisible: false,
-                          englishInfoBarText: "<h1>How can I get the most accurate results?</h1><h3>1. Face directly toward the camera with a neutral expression.</h3><p>Keep your eyes open, mouth closed and your face parallel to the camera.</p><h3>2. Achieve standard, uniform lighting.</h3><p>No bright lights or shadows being cast on the face.</p><h3>3. Do not wear any accessories.</h3><p>No hats, glasses or facial coverings.</p>",
-                          estonianInfoBarText: "<h1>Kuidas saan ma täpseima tulemuse?</h1><h3>1. Vaata otse kaamera poole neutraalse ilmega.</h3><p>Hoia silmad lahti, suu kinni ja nägu paralleelselt kaamera suhtes.</p><h3>2. Saavuta tavaline, ühtlane valgustus.</h3><p>Näo peale ei tohiks langeda varje või väga eredat valgust.</p><h3>3. Ära kanna aksessuaare.</h3><p>Eemalda mütsid, prillid ja näokatted.</p>"
+                          englishInfoBarText: "<h1>How is my data processed?</h1><h3><a href = 'https://gdpr-info.eu' target='_blank'>General Data Protection Regulation</a> categorises images of human faces as biometric data.</h3><p>Facedescriber's workflow requires input images to be temporarily saved on disk. All inputted images are deleted at the end of the program's work and are not retained in any way.</p><u>By using Facedescriber I confirm that I am aware of my data's usage and necessity.</u><h1>How can I get the most accurate results?</h1><h3>1. Face directly toward the camera with a neutral expression.</h3><p>Keep your eyes open, mouth closed and your face parallel to the camera.</p><h3>2. Achieve standard, uniform lighting.</h3><p>No bright lights or shadows being cast on the face.</p><h3>3. Do not wear any accessories.</h3><p>No hats, glasses or facial coverings.</p>",
+                          estonianInfoBarText: "<h1>Kuidas töödeldakse minu andmeid?</h1><h3><a href = 'https://gdpr-info.eu' target='_blank'>Isikuandmete kaitse üldmäärus</a> kategoriseerib pildi inimese näost biomeetriliste andmete hulka.</h3><p>Facedescriberi töövoog nõuab sisendpildi ajutist salvestamist kettale. Kõik sisestatud pildid kustutakse rakenduse töö lõpus ära ning ei jäädvustata mingil moel.</p><u>Kasutades Facedescriberit kinnitan, et olen teadlik minu isikuandmete kasutusest ja tarvilikkusest.</u><h1>Kuidas saan ma täpseima tulemuse?</h1><h3>1. Vaata otse kaamera poole neutraalse ilmega.</h3><p>Hoia silmad lahti, suu kinni ja nägu paralleelselt kaamera suhtes.</p><h3>2. Saavuta tavaline, ühtlane valgustus.</h3><p>Näo peale ei tohiks langeda varje või väga eredat valgust.</p><h3>3. Ära kanna aksessuaare.</h3><p>Eemalda mütsid, prillid ja näokatted.</p>"
                       }
       },
   methods: {
