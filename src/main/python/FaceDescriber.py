@@ -408,12 +408,12 @@ class FaceDescriber:
             "bulbous": "sibulakujuline",
             "button": "nööpnina",
             "crooked": "kõver",
-            "East Asian": "Ida-Aasia",
+            "East Asian": "ida-aasia",
             "fleshy": "lihav",
-            "Greek": "Kreeka",
+            "Greek": "kreeka",
             "hawk": "kull/kongus",
-            "Nubian": "Nuubia",
-            "Roman": "Rooma",
+            "Nubian": "nuubia",
+            "Roman": "rooma",
             "upturned": "ülespööratud"
         }
 
