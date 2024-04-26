@@ -92,7 +92,7 @@ async function compileAndPropagateResult(response, refs, language){
     const data = language == "EE" ? response.kirjeldus : response.description;
 
     if(language == "EE"){
-        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi %eyePlacement%, %eyeShape% silmad ja %noseShape% nina. Tal on %hairColour% juuksed ja %facialHairThickness% %facialHairColour% näokarva kate.";
+        description = "Pildil oleval inimesel on %faceShape% nägu ja %skinColour% nahk. Tal on %eyeColour% värvi %eyePlacement%, %eyeShape% silmad ja %noseShape% nina. Tal on %hairColour% juuksed ja %facialHairThickness% %facialHairColour% näokarvad.";
 
         //Face shape
         const faceShapeMapping = {
@@ -129,10 +129,21 @@ async function compileAndPropagateResult(response, refs, language){
 
         //Facial hair
         if(data["näokarvad"]["tihedus"] == "puudub"){
-            description = description.replace("%facialHairThickness% %facialHairColour% näokarva kate.", "tal puudub või on väga õrn näokarva kate.");
+            description = description.replace("%facialHairThickness% %facialHairColour% näokarvad.", "tal puuduvad või on väga õrnad näokarvad.");
         }
         else{
-            description = description.replace("%facialHairThickness%", "tal on "+data["näokarvad"]["tihedus"]).replace("%facialHairColour%", data["näokarvad"]["värv"]);
+            const facialHairThicknessMapping = {
+                "õhuke": "õhukesed",
+                "tihe": "tihedad"
+            };
+            const facialHairColourMapping = {
+                "punane": "punased",
+                "blond": "blondid",
+                "pruun": "pruunid",
+                "must": "mustad",
+                "hall": "hallid"
+            };
+            description = description.replace("%facialHairThickness%", "tal on "+facialHairThicknessMapping[data["näokarvad"]["tihedus"]]).replace("%facialHairColour%", facialHairColourMapping[data["näokarvad"]["värv"]]);
         }
 
         //Nose shape
